@@ -323,8 +323,14 @@ function cardPose(key, t, cam) {
   if (movil && t >= movil.t + (movil.dur || 0.6) + 0.05) return null;
   const end = cardEnd(key); if (end != null && t >= end) return null;
   const c0 = camSpec(sala.t + 0.5), q0 = new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().lookAt(c0.pos, home, V([0, 1, 0])));
-  q0.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(0.04, -0.42, 0.05)));
+  q0.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(0.04, (sala.giro ?? -24) * D2R, 0.05)));
   g.position.copy(home); g.quaternion.copy(q0); g.scale.setScalar(1);
+  const endS = cardEnd(key);
+  if (sala.sale) {   // sale 'R'|'L': the card comes OUT of what that hand holds (a phone), growing into its place, and goes back into it at the end
+    const who = S.P[sala.quien || S.cfg.foco], hand = who.g.localToWorld(who.g.userData.rig.anchor('hand' + sala.sale).clone()).add(V([0, 0.08, 0]));
+    const k = ease3(seg(t, sala.t + 0.05, 0.9)) * (endS != null ? 1 - ease3(seg(t, endS - 0.55, 0.55)) : 1);
+    g.position.copy(hand).lerp(home, k); g.scale.setScalar(lerp(0.08, 1, k));
+  }
   if (pant && t >= pant.t && !(movil && t >= movil.t)) {
     const tl = t - pant.t; g.quaternion.slerp(cam.quaternion, io(seg(tl, 0, 1.0)));
     if (tl >= 1.0) { const bob = Math.sin((tl - 1.0) * 2.4); g.quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(0.03 * bob, -0.11 * Math.sin((tl - 1.0) * 1.7), 0.015 * bob))); g.position.y += 0.012 * bob; }
@@ -337,8 +343,8 @@ function cardPose(key, t, cam) {
     const k = ease3(seg(t, movil.t, (movil.dur || 0.6) - 0.05));
     g.position.copy(p0).lerp(hand, k); g.quaternion.copy(q1).slerp(who.g.getWorldQuaternion(new THREE.Quaternion()), k); g.scale.setScalar(lerp(1, 0.1, k));
   }
-  if (end != null) g.scale.multiplyScalar(1 - 0.92 * ease3(seg(t, end - 0.35, 0.35)));   // leaves by shrinking away
-  card.show(seg(t, sala.t + 0.8, 0.5), 1);   // the fill rises once the thread has closed the outline
+  if (end != null && !sala.sale) g.scale.multiplyScalar(1 - 0.92 * ease3(seg(t, end - 0.35, 0.35)));   // leaves by shrinking away
+  card.show(sala.sale ? seg(t, sala.t, 0.3) : seg(t, sala.t + 0.8, 0.5), 1);   // the fill rises once the thread has closed the outline
   if (card.tick) card.tick(t - (sala.t + 0.8), pant && t >= pant.t ? 1 : 0.4);   // the card lives (sway, bob, shadow); calmer in the room
   card.write(seg(t, sala.t + 1.0, 0.8), t);   // then the face comes in like v4.1 (letters rise from a soft blur, the icon builds)
   return g;

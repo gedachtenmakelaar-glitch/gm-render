@@ -7,6 +7,14 @@
  "duration": 54.0,
  "ending": true,
  "bpm": 112,
+ "musica": {
+  "archivo": "sonido/musica/barriers.mp3",
+  "desde": 10.755,
+  "gain_db": 0,
+  "bpm": null,
+  "primer_pulso": null,
+  "alinear": false
+ },
  "sitio": {
   "tipo": "edificio",
   "mood": "tarde",

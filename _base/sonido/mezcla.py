@@ -507,12 +507,12 @@ def mezclar(carpeta, grafico=None):
         # musica real: el nivel se ajusta hasta que la musica SOLA, dentro de la mezcla ya normalizada a -14 LUFS, quede en MUSICA_LUFS + gain_db
         mus0, gd, minfo = preparar_musica(musica, carpeta, j, N)
         objetivo = MUSICA_LUFS + minfo['gain_db']; mg = 0.0; real = None; tp_techo = -1.5
-        for it in range(6):
+        for it in range(10):
             musd = mus0 * gd * 10 ** (mg / 20); mix, esc = construir(musd)
             sf.write(pre, mix.T, SR, subtype='PCM_24')
             G = normalizar(pre, tmp, total, out, pad=PADS, TP=tp_techo)
             pico = medir(out)[1]
-            if pico > -1.0 and it < 5: tp_techo -= (pico + 1.2); continue   # el limitador deja pasar picos entre muestras: bajar su techo y repetir
+            if pico > -1.1 and it < 9: tp_techo -= (pico + 1.3); continue   # el limitador deja pasar picos entre muestras: bajar su techo y repetir
             real = medir_musica(musd[:, :i0 if final else N] * esc, tmp) + G
             if abs(real - objetivo) < 0.4: break
             mg += objetivo - real

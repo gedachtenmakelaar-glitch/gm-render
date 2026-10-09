@@ -24,5 +24,57 @@
    1.479,
    0.586
   ]
+ },
+ "C:/ruta-local\\claude code\\Web-App_PreProject_DEi\\videos\\_base\\sonido\\musica\\barriers.mp3|7064829|1791556374|None": {
+  "bpm": 103.335,
+  "primer_pulso": 2.1489,
+  "pulsos_por_compas": 4,
+  "duracion": 176.562,
+  "fase_pulso": 0.407,
+  "grave_por_posicion": [
+   0.669,
+   0.583,
+   0.889,
+   1.255
+  ]
+ },
+ "C:/ruta-local\\claude code\\Web-App_PreProject_DEi\\videos\\_base\\sonido\\musica\\brass-brigade.mp3|5282831|1791556375|None": {
+  "bpm": 94.0,
+  "primer_pulso": 2.5419,
+  "pulsos_por_compas": 4,
+  "duracion": 159.009,
+  "fase_pulso": 0.627,
+  "grave_por_posicion": [
+   0.229,
+   0.106,
+   0.197,
+   1.632
+  ]
+ },
+ "C:/ruta-local\\claude code\\Web-App_PreProject_DEi\\videos\\_base\\sonido\\musica\\detour.mp3|10048009|1791556372|None": {
+  "bpm": 100.0,
+  "primer_pulso": 0.018,
+  "pulsos_por_compas": 4,
+  "duracion": 251.141,
+  "fase_pulso": 0.018,
+  "grave_por_posicion": [
+   2.341,
+   0.135,
+   0.295,
+   0.172
+  ]
+ },
+ "C:/ruta-local\\claude code\\Web-App_PreProject_DEi\\videos\\_base\\sonido\\musica\\freeway-fumes.mp3|8012561|1791556373|None": {
+  "bpm": 95.01,
+  "primer_pulso": 0.6655,
+  "pulsos_por_compas": 4,
+  "duracion": 200.255,
+  "fase_pulso": 0.034,
+  "grave_por_posicion": [
+   0.369,
+   1.691,
+   0.339,
+   0.98
+  ]
  }
 }

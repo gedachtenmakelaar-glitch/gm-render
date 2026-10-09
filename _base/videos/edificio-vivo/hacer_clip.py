@@ -112,21 +112,22 @@ add(64.2, 'burbuja', quien='recepcionista', cara='happy', texto='Next!', dur=1.2
 add(64.5, 'pose', quien='chico', pose='stand', dur=0.4)
 add(64.9, 'caminar', quien='chico', a=[-4.1, 0, -1.4], dur=1.6, fin='stand')
 add(66.6, 'colocar', quien='chico', pos=[-31, 0, -30])
-add(66.5, 'camara', de='vecina', lado=25, alza=-4, dist=1.9, dur=1.6)            # she is still waiting... and takes her phone
+add(66.5, 'camara', de='vecina', lado=25, alza=-4, dist=1.9, dur=1.3)            # she is still waiting... and takes her phone
 add(66.8, 'coger-movil', quien='vecina', dur=0.75)
-add(68.1, 'tarjeta-en-sala', quien='vecina', tarjeta='gm', donde=[0.0, 0.85, 0.35], dur=1.4)
-add(69.5, 'tarjeta-pantalla', tarjeta='gm', dur=2.6)                              # the big logo card, floating in the middle
-add(72.6, 'camara', de='vecina', lado=20, alza=-4, dist=1.7, dur=2.4)
-add(72.8, 'resolver', quien='vecina', dur=1.0)
-add(74.0, 'burbuja', quien='vecina', cara='happy', dur=1.3)
-add(75.1, 'camara', nombre='v41-v', dur=1.4, deriva=3)
+add(67.05, 'camara', de='vecina', lado=225, alza=40, dist=0.68, mira=[-0.12, -0.1, 0.3], fov=40, dur=1.0, deriva=4, cerca=0.55)   # over her shoulder: the phone's screen
+add(68.05, 'camara', de='vecina', lado=18, alza=-3, dist=2.7, mira=[-0.3, 0.35, 0], dur=4.6, deriva=-3)   # wider and up: the phone AND the card above it
+add(68.1, 'tarjeta-en-sala', quien='vecina', tarjeta='gm', donde=[-0.42, 0.62, 0.3], sale='R', giro=-8, dur=4.4, camara=False)   # the card rises OUT of her phone
+add(70.4, 'resolver', quien='vecina', dur=1.0)
+add(71.5, 'burbuja', quien='vecina', cara='happy', dur=1.1)
+add(72.6, 'camara', de='vecina', lado=20, alza=-4, dist=1.8, dur=1.8)
+add(74.4, 'camara', nombre='v41-v', dur=2.0, deriva=3)
 add(76.4, 'borrar-sitio', dur=1.4)
 CH2 = {'desde': 52.0, 'sitio': {'tipo': 'sala-espera', 'opts': {'disposicion': 'v41', 'recepcionista': False}},
        'reparto': {'abuela': {'asiento': 4, 'pose': 'knit-sit', 'emocion': 1}, 'vecina': {'asiento': 6, 'emocion': 4, 'hold': {'R': 'phone'}},
                    'estudiante': {'asiento': 1, 'emocion': 2}, 'chico': {'asiento': 2, 'emocion': 2}, 'nina': {'asiento': 9, 'emocion': 1},
                    'madre': {'asiento': 10, 'hold': {'R': 'phone'}, 'emocion': 2},
                    'recepcionista': {'pos': [3.6, 0, -5.3], 'rotY': 0, 'pose': 'stand', 'emocion': 0}},
-       'tarjetas': {'gm': {'logo': True, 'w': 0.62}},
+       'tarjetas': {'gm': {'logo': True, 'w': 0.66}},
        'foco': 'vecina', 'pulsos': P2}
 
 # =============================================================== 4. afternoon: home again, and everyone on the roof
@@ -177,6 +178,7 @@ CH5 = {'desde': 101.0, 'sitio': building('noche', cutaway=False, culling=False),
        'foco': 'profesional', 'pulsos': P5}
 
 clip = {'name': 'edificio-vivo', 'size': [1080, 1920], 'duration': 118.0, 'ending': True, 'bpm': 112,
+        'musica': {'archivo': 'sonido/musica/detour.mp3', 'desde': 0.374, 'gain_db': 0, 'bpm': None, 'primer_pulso': None, 'alinear': False},   # CC0, Zane Little
         'capitulos': [CH1, CH2, CH4, CH5]}
 json.dump(clip, open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'clip.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 print('ok', sum(len(c['pulsos']) for c in clip['capitulos']), 'pulsos in', len(clip['capitulos']), 'chapters; tour ends', round(T_END, 2))

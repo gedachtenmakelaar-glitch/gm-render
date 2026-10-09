@@ -170,6 +170,7 @@ homes = ['pb-portero', 'p1-abuela', 'p1-abuelo', 'p2-pareja', 'p2-estudiante', '
 ids = ['abuela', 'abuelo', 'estudiante', 'chico', 'vecina', 'nina', 'madre', 'teletrabajo', 'familia-bebe', 'viajera', 'plantera', 'artista', 'portero']
 clip = {
     'name': 'terraza', 'size': [1080, 1920], 'duration': 54.0, 'ending': True, 'bpm': 112,
+    'musica': {'archivo': 'sonido/musica/barriers.mp3', 'desde': 10.755, 'gain_db': 0, 'bpm': None, 'primer_pulso': None, 'alinear': False},   # CC0, Zane Little
     'sitio': {'tipo': 'edificio', 'mood': 'tarde', 'culling': True,
               'ocultar': ['balcon:' + h for h in homes if h.startswith('p')],
               'opts': {'cutaway': True, 'street': True, 'neighbours': True, 'skyline': True, 'residents': True, 'bikeLaneAccent': True}},

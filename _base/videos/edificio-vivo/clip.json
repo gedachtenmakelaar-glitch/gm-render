@@ -7,6 +7,14 @@
  "duration": 118.0,
  "ending": true,
  "bpm": 112,
+ "musica": {
+  "archivo": "sonido/musica/detour.mp3",
+  "desde": 0.374,
+  "gain_db": 0,
+  "bpm": null,
+  "primer_pulso": null,
+  "alinear": false
+ },
  "capitulos": [
   {
    "desde": 0,
@@ -847,7 +855,7 @@
    "tarjetas": {
     "gm": {
      "logo": true,
-     "w": 0.62
+     "w": 0.66
     }
    },
    "foco": "vecina",
@@ -1012,7 +1020,7 @@
      "lado": 25,
      "alza": -4,
      "dist": 1.9,
-     "dur": 1.6
+     "dur": 1.3
     },
     {
      "t": 66.8,
@@ -1021,22 +1029,64 @@
      "dur": 0.75
     },
     {
+     "t": 67.05,
+     "jugada": "camara",
+     "de": "vecina",
+     "lado": 225,
+     "alza": 40,
+     "dist": 0.68,
+     "mira": [
+      -0.12,
+      -0.1,
+      0.3
+     ],
+     "fov": 40,
+     "dur": 1.0,
+     "deriva": 4,
+     "cerca": 0.55
+    },
+    {
+     "t": 68.05,
+     "jugada": "camara",
+     "de": "vecina",
+     "lado": 18,
+     "alza": -3,
+     "dist": 2.7,
+     "mira": [
+      -0.3,
+      0.35,
+      0
+     ],
+     "dur": 4.6,
+     "deriva": -3
+    },
+    {
      "t": 68.1,
      "jugada": "tarjeta-en-sala",
      "quien": "vecina",
      "tarjeta": "gm",
      "donde": [
-      0.0,
-      0.85,
-      0.35
+      -0.42,
+      0.62,
+      0.3
      ],
-     "dur": 1.4
+     "sale": "R",
+     "giro": -8,
+     "dur": 4.4,
+     "camara": false
     },
     {
-     "t": 69.5,
-     "jugada": "tarjeta-pantalla",
-     "tarjeta": "gm",
-     "dur": 2.6
+     "t": 70.4,
+     "jugada": "resolver",
+     "quien": "vecina",
+     "dur": 1.0
+    },
+    {
+     "t": 71.5,
+     "jugada": "burbuja",
+     "quien": "vecina",
+     "cara": "happy",
+     "dur": 1.1
     },
     {
      "t": 72.6,
@@ -1044,27 +1094,14 @@
      "de": "vecina",
      "lado": 20,
      "alza": -4,
-     "dist": 1.7,
-     "dur": 2.4
+     "dist": 1.8,
+     "dur": 1.8
     },
     {
-     "t": 72.8,
-     "jugada": "resolver",
-     "quien": "vecina",
-     "dur": 1.0
-    },
-    {
-     "t": 74.0,
-     "jugada": "burbuja",
-     "quien": "vecina",
-     "cara": "happy",
-     "dur": 1.3
-    },
-    {
-     "t": 75.1,
+     "t": 74.4,
      "jugada": "camara",
      "nombre": "v41-v",
-     "dur": 1.4,
+     "dur": 2.0,
      "deriva": 3
     },
     {

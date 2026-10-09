@@ -12,12 +12,14 @@ const put = (g, o, x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0) => { o.position.
 const BAR = [.026, -.058, 0]; // donde cae el eje de un puno cerrado
 
 export function phone(o = {}) {
-  const g = grp('phone');
-  put(g, box(.068, .14, .009, o.tone ?? .14, { edge: 20 }));
-  put(g, box(.06, .128, .002, TONE.paper, { edge: 20 }), 0, 0, .0052);
-  put(g, box(.05, .05, .0015, TONE.mid, { edge: 20 }), 0, .02, .0066);                       // tarjeta en pantalla
-  put(g, box(.05, .012, .0015, TONE.light, { accent: true, edge: 20 }), 0, -.03, .0066);     // boton naranja
-  g.userData.holds = { 'grip-phone': { p: [.0245, -.041, .012], r: [0, P / 2, P / 2] } };
+  // 10/10/2026: a bit bigger (k) and with a LIGHT back + orange lens, so a phone in a dark sleeve still reads as a phone from any side
+  const g = grp('phone'), k = 1.3;
+  put(g, box(.068 * k, .14 * k, .009 * k, o.tone ?? TONE.light, { edge: 20 }));
+  put(g, box(.06 * k, .128 * k, .002, TONE.paper, { edge: 20 }), 0, 0, .0052 * k);
+  put(g, box(.05 * k, .05 * k, .0015, TONE.mid, { edge: 20 }), 0, .02 * k, .0066 * k);                       // tarjeta en pantalla
+  put(g, box(.05 * k, .012 * k, .0015, TONE.light, { accent: true, edge: 20 }), 0, -.03 * k, .0066 * k);     // boton naranja
+  put(g, box(.016 * k, .016 * k, .0015, TONE.light, { accent: true, edge: 20 }), -.018 * k, .052 * k, -.0052 * k);   // the lens on the back
+  g.userData.holds = { 'grip-phone': { p: [.0245 * k, -.041 * k, .012 * k], r: [0, P / 2, P / 2] } };
   return g;
 }
 export function mug(o = {}) {
