@@ -83,18 +83,31 @@ def climb_cams(route, t0, dur, until, sides):
         t += 0.5
     return pts
 
+HOME = {'abuela': 'p1-abuela', 'abuelo': 'p1-abuelo', 'estudiante': 'p2-estudiante', 'nina': 'p3-nina', 'chico': 'p3-chico',
+        'teletrabajo': 'p4-teletrabajo', 'familia-bebe': 'p4-bebe', 'viajera': 'p5-viajera', 'plantera': 'p5-plantera', 'artista': 'atico-artista'}
+def climb(route, t0, dur, until, cuts):
+    """the stair camera follows the couple; for each doodle it CUTS to the neighbour in their home while the pen draws them,
+    then back to the stairs (where the doodle flies to the couple's collection). cuts = [(t, who)]"""
+    start = t0
+    for tt, who in sorted(cuts):
+        if tt - 0.15 - start > 0.3:
+            add(start, 'recorrido', puntos=[{**q, 't': round(q['t'] - (start - t0), 3)} for q in climb_cams(route, t0, dur, tt - 0.15, []) if q['t'] >= start - t0 - 1e-6], cerca=3.05)
+        add(tt - 0.15, 'camara', nombre=HOME[who] + '-tresCuartos', dur=1.4, deriva=3)
+        start = tt + 1.25
+    if until - start > 0.3: add(start, 'recorrido', puntos=[{**q, 't': round(q['t'] - (start - t0), 3)} for q in climb_cams(route, t0, dur, until, []) if q['t'] >= start - t0 - 1e-6], cerca=3.05)
+
 f1 = reach(R1, T1, D1, Y(1))
 DOO1 = [(f1 - 0.9, 'abuela', 'ovillo', -4.6), (f1 + 0.3, 'abuelo', 'hueso', 3.3)]
 add(T1 - 0.2, 'dibujar-vivienda', viviendas=['p1-abuela', 'p1-abuelo'], dur=1.1)
 add(T1 + 1.2, 'dibujar-vivienda', viviendas=['p2-pareja', 'p2-estudiante'], dur=1.1, sin=['pareja-a', 'pareja-b'])
 for tt, who, ic, cx in DOO1: add(tt, 'garabato', quien=who, icono=ic, dur=0.95)
-add(T1, 'recorrido', puntos=climb_cams(R1, T1, D1, T1 + D1 + 3.0, [(tt, tt + 1.2, cx) for tt, _, _, cx in DOO1]), cerca=3.05)
+climb(R1, T1, D1, T1 + D1 + 3.0, [(tt, who) for tt, who, _, _ in DOO1] + [(T1 + D1 + 0.7, 'estudiante')])
 
 # ---------------- 21 to 24: their door. Bags down; the student next door; they look up: the roof?
 T2 = T1 + D1 + 0.3
 add(T2, 'pose', quien='pareja-b', pose='stand', hold={}, dur=0.4)
 add(T2 + 0.2, 'pose', quien='pareja-a', pose='stand', hold={}, dur=0.4)
-add(T2 + 0.4, 'garabato', quien='estudiante', icono='auriculares', dur=0.95)
+add(T1 + D1 + 0.7, 'garabato', quien='estudiante', icono='auriculares', dur=0.95)
 add(T2 + 1.6, 'pose', quien='pareja-b', pose='point', mira=[0.5, 20.0, -1.5], dur=0.4)
 add(T2 + 1.6, 'burbuja', quien='pareja-b', cara='curious', texto='Roof?', dur=1.6)
 
@@ -105,17 +118,17 @@ add(T3 + LAG, 'caminar', quien='pareja-a', ruta=R2 + [[2.2, 18.85, -0.6]], de=Fa
 FLOORS = [(3, 'p3-nina', 'p3-chico', ('nina', 'osito'), ('chico', 'baquetas')),
           (4, 'p4-teletrabajo', 'p4-bebe', ('teletrabajo', 'zapatilla'), ('familia-bebe', 'bebe')),
           (5, 'p5-viajera', 'p5-plantera', ('viajera', 'mapa'), ('plantera', 'regadera'))]
-sides, doos = [(T2 + 0.4, T2 + 1.4, 4.7)], []
+sides, doos, CUTS = [], [], []
 add(T2 + 1.5 - 1.4, 'dibujar-vivienda', viviendas=['p3-nina', 'p3-chico', 'p3-vecina'], dur=1.1)   # floor 3 drawn while they stand on 2
 for i, (f, hl, hr, (wl, il), (wr, ir)) in enumerate(FLOORS):
     tf = reach(R2, T3, D3, Y(f))
     if f < 5: add(tf - 1.25, 'dibujar-vivienda', viviendas=[FLOORS[i + 1][1], FLOORS[i + 1][2]], dur=1.0)
     else: add(tf - 1.25, 'dibujar-vivienda', viviendas=['atico-artista', 'atico-secadero'], dur=1.0)
     for tt, who, ic, cx in ((tf - 0.2, wl, il, -0.85 * NXS[wl]), (tf + 0.85, wr, ir, 0.85 * NXS[wr])):
-        add(tt, 'garabato', quien=who, icono=ic, dur=0.9); sides.append((tt, tt + 1.1, cx))
+        add(tt, 'garabato', quien=who, icono=ic, dur=0.9); CUTS.append((tt, who))
 ta = reach(R2, T3, D3, Y(6))
-add(ta - 0.6, 'garabato', quien='artista', icono='pincel', dur=0.9); sides.append((ta - 0.6, ta + 0.5, -4.7))
-add(T3, 'recorrido', puntos=climb_cams(R2, T3, D3, T3 + D3 - 0.2, sides), cerca=3.05)
+add(ta - 0.6, 'garabato', quien='artista', icono='pincel', dur=0.9); CUTS.append((ta - 0.6, 'artista'))
+climb(R2, T3, D3, T3 + D3 - 0.2, CUTS)
 
 # ---------------- 41 to 46: the roof door. "Neighbours only." They open their collection: he sees they know everyone
 T4 = T3 + D3
@@ -127,6 +140,7 @@ add(T4 + 2.6, 'resolver', quien='portero', dur=0.8)
 add(T4 + 3.0, 'burbuja', quien='portero', cara='happy', texto='You know everyone!', dur=1.7)
 add(T4 + 4.4, 'pose', quien='portero', pose='stand', hold={}, dur=0.3)
 add(T4 + 4.4, 'pose', quien='pareja-b', pose='stand', hold={'R': 'keys'}, dur=0.3)
+add(T4 + 4.3, 'camara', de='pareja-b', lado=-30, alza=-6, dist=1.9, dur=1.9)
 add(T4 + 4.8, 'burbuja', quien='pareja-b', cara='happy', texto='Come up, everyone!', dur=1.5)
 
 # ---------------- 46.5 to 49.5: the whole building: every doodle flies back to its neighbour (the invitations)

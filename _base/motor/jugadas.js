@@ -547,7 +547,7 @@ function dooStrokesAt(it, k, c, sc) {
 }
 function colCentre(cam) {
   const ids = [].concat((S.cfg.coleccion && S.cfg.coleccion.de) || []), hs = ids.map((id) => onScreen(id, cam)).filter(Boolean);
-  if (!hs.length) return [S.W * 0.5, 520];
+  if (!hs.length) return null;   // the couple is not on screen (a cut to a neighbour): the collection waits out of sight
   return clampScr([hs.reduce((a, h) => a + h[0], 0) / hs.length, Math.min(...hs.map((h) => h[1])) - 40], 260, 560, 600);
 }
 function slotOf(j, n, c, t) {   // the collection: one or two arcs over the heads
@@ -558,13 +558,14 @@ function slotOf(j, n, c, t) {   // the collection: one or two arcs over the head
 function dooFrame(t, cam) {
   if (!S.doo.length) { S.dooG.style.display = 'none'; return; }
   S.dooG.style.display = '';
-  const col = colCentre(cam), n = S.doo.filter((q) => t >= q.p.t + q.dd + 0.2).length, A = S.abanico, R = S.repartir;
+  const col0 = colCentre(cam), col = col0 || [S.W * 0.5, 430], n = S.doo.filter((q) => t >= q.p.t + q.dd + 0.2).length, A = S.abanico, R = S.repartir;
   for (const it of S.doo) {
     const t0 = it.p.t, fly = t0 + it.dd + 0.2; let c, sc, k = 1, op = 1;
     if (t < t0 + 0.14) { it.g.style.display = 'none'; continue; }
     if (t < fly) { c = dooDrawAt(it, t, cam); sc = DOO_DRAW; k = dooK(it, t); }
     else {
       const from = dooDrawAt(it, fly, cam), slot = slotOf(it.i, Math.max(n, it.i + 1), col, t), u = ease3(seg(t, fly, 0.55));
+      if (!col0 && u >= 1 && !(A && t >= A.t) && !(R && t >= R.t)) { it.g.style.display = 'none'; continue; }   // collected, couple off screen: hidden
       c = [lerp(from[0], slot[0], u), lerp(from[1], slot[1], u) - 120 * Math.sin(u * Math.PI)]; sc = lerp(DOO_DRAW, DOO_COL, u);
       if (A && t >= A.t) {   // the fan: a big ring around someone
         const cc = clampScr(onScreen(A.centro, cam) || [S.W / 2, S.H * 0.45], 380, 560, 560), N = S.doo.length, a = -Math.PI / 2 + 2 * Math.PI * it.i / N + 0.25 * (t - A.t), v = ease3(seg(t, A.t + it.i * 0.04, 0.8));
