@@ -1,0 +1,74 @@
+{
+ "duracion": 12.7,
+ "final": true,
+ "bpm": 110,
+ "musica_desde": 0.0,
+ "golpes": [
+  {
+   "t": 0.0,
+   "tipo": "entra-hilo"
+  },
+  {
+   "t0": 0.135,
+   "t1": 2.646,
+   "tipo": "lapiz"
+  },
+  {
+   "t": 2.7,
+   "tipo": "corte"
+  },
+  {
+   "t0": 3.4,
+   "t1": 4.4,
+   "tipo": "lapiz"
+  },
+  {
+   "t": 3.85,
+   "tipo": "burbuja"
+  },
+  {
+   "t0": 5.35,
+   "t1": 5.949999999999999,
+   "tipo": "lapiz"
+  },
+  {
+   "t": 5.949999999999999,
+   "tipo": "tarjeta"
+  },
+  {
+   "t0": 6.1499999999999995,
+   "t1": 6.8999999999999995,
+   "tipo": "lapiz"
+  },
+  {
+   "t": 7.3,
+   "tipo": "naranja"
+  },
+  {
+   "t": 9.1,
+   "tipo": "corte"
+  },
+  {
+   "t": 9.75,
+   "tipo": "resolver"
+  },
+  {
+   "t0": 9.75,
+   "t1": 10.65,
+   "tipo": "lapiz"
+  },
+  {
+   "t0": 10.5,
+   "t1": 11.5,
+   "tipo": "lapiz"
+  },
+  {
+   "t": 10.95,
+   "tipo": "burbuja"
+  },
+  {
+   "t": 11.85,
+   "tipo": "subida"
+  }
+ ]
+}

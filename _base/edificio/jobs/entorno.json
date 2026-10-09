@@ -1,0 +1,24 @@
+{
+"module": "edificio/escena.js",
+"size": [
+3600,
+2400
+],
+"cell": 4,
+"out": "edificio/hojas",
+"opts": {
+"cutaway": false
+},
+"shots": [
+{
+"name": "warm",
+"cam": "calle",
+"t": 0
+},
+{
+"name": "edificio-entorno",
+"cam": "entornoAlto",
+"t": 6
+}
+]
+}

@@ -1,0 +1,2111 @@
+{
+ "name": "edificio-vivo",
+ "size": [
+  1080,
+  1920
+ ],
+ "duration": 118.0,
+ "ending": true,
+ "bpm": 112,
+ "capitulos": [
+  {
+   "desde": 0,
+   "sitio": {
+    "tipo": "edificio",
+    "mood": "dia",
+    "culling": true,
+    "ocultar": [
+     "balcon:p1-abuela",
+     "balcon:p1-abuelo",
+     "balcon:p2-pareja",
+     "balcon:p2-estudiante",
+     "balcon:p3-nina",
+     "balcon:p3-chico",
+     "balcon:p3-vecina",
+     "balcon:p4-teletrabajo",
+     "balcon:p4-bebe",
+     "balcon:p5-viajera",
+     "balcon:p5-plantera"
+    ],
+    "opts": {
+     "cutaway": true,
+     "street": true,
+     "neighbours": true,
+     "skyline": true,
+     "residents": true,
+     "bikeLaneAccent": true
+    }
+   },
+   "reparto": {
+    "pareja-a": {
+     "existente": "pareja"
+    },
+    "pareja-b": {
+     "existente": "pareja#2"
+    },
+    "abuela": {
+     "existente": true,
+     "emocion": 1
+    },
+    "abuelo": {
+     "existente": true,
+     "emocion": 1
+    },
+    "estudiante": {
+     "existente": true,
+     "emocion": 1
+    },
+    "chico": {
+     "existente": true,
+     "emocion": 1
+    },
+    "vecina": {
+     "existente": true,
+     "emocion": 1
+    },
+    "nina": {
+     "existente": true,
+     "emocion": 1
+    },
+    "madre": {
+     "existente": true,
+     "emocion": 1
+    },
+    "teletrabajo": {
+     "existente": true,
+     "emocion": 1
+    },
+    "familia-bebe": {
+     "existente": true,
+     "emocion": 1
+    },
+    "viajera": {
+     "existente": true,
+     "emocion": 1
+    },
+    "plantera": {
+     "existente": true,
+     "emocion": 1
+    },
+    "artista": {
+     "existente": true,
+     "emocion": 1
+    },
+    "portero": {
+     "existente": true,
+     "emocion": 1
+    },
+    "panadera": {
+     "existente": true,
+     "emocion": 1
+    },
+    "profesional": {
+     "pos": [
+      -13,
+      0,
+      1.5
+     ],
+     "rotY": 1.5708,
+     "emocion": 0
+    }
+   },
+   "foco": "profesional",
+   "pulsos": [
+    {
+     "t": 0,
+     "jugada": "vida",
+     "quien": "abuela",
+     "pose": "knit-sit",
+     "periodo": 1.2
+    },
+    {
+     "t": 0,
+     "jugada": "vida",
+     "quien": "estudiante",
+     "pose": "type",
+     "periodo": 0.5
+    },
+    {
+     "t": 0,
+     "jugada": "vida",
+     "quien": "chico",
+     "pose": "drum",
+     "periodo": 0.6,
+     "hold": {
+      "R": "sticks",
+      "L": "sticks"
+     }
+    },
+    {
+     "t": 0,
+     "jugada": "vida",
+     "quien": "teletrabajo",
+     "pose": "type",
+     "periodo": 0.55
+    },
+    {
+     "t": 0,
+     "jugada": "vida",
+     "quien": "familia-bebe",
+     "pose": "rock",
+     "periodo": 1.6
+    },
+    {
+     "t": 0,
+     "jugada": "vida",
+     "quien": "plantera",
+     "pose": "water",
+     "periodo": 1.5,
+     "hold": {
+      "R": "wateringCan"
+     }
+    },
+    {
+     "t": 0,
+     "jugada": "vida",
+     "quien": "artista",
+     "pose": "paint",
+     "periodo": 1.2,
+     "hold": {
+      "R": "brush"
+     }
+    },
+    {
+     "t": 0,
+     "jugada": "vida",
+     "quien": "panadera",
+     "pose": "knead",
+     "periodo": 1.0
+    },
+    {
+     "t": 0,
+     "jugada": "pose",
+     "quien": "pareja-b",
+     "pose": "carry-box",
+     "dur": 0.1
+    },
+    {
+     "t": 0,
+     "jugada": "pose",
+     "quien": "madre",
+     "pose": "phone-look",
+     "hold": {
+      "R": "phone"
+     },
+     "dur": 0.1
+    },
+    {
+     "t": 0,
+     "jugada": "pose",
+     "quien": "viajera",
+     "pose": "phone-call",
+     "hold": {
+      "R": "phone"
+     },
+     "dur": 0.1
+    },
+    {
+     "t": 0,
+     "jugada": "emocion",
+     "quien": "vecina",
+     "nivel": 4
+    },
+    {
+     "t": 0,
+     "jugada": "colocar",
+     "quien": "portero",
+     "pos": [
+      3.8,
+      0,
+      0.9
+     ],
+     "giro": -40,
+     "pose": "stand",
+     "hold": {
+      "R": "keys"
+     }
+    },
+    {
+     "t": 0,
+     "jugada": "colocar",
+     "quien": "profesional",
+     "pos": [
+      -13,
+      0,
+      2.2
+     ],
+     "giro": 90,
+     "pose": "walk"
+    },
+    {
+     "t": 0,
+     "jugada": "camara",
+     "pos": [
+      -22,
+      15,
+      45
+     ],
+     "look": [
+      0,
+      8,
+      0
+     ],
+     "fov": 44,
+     "dur": 3.3,
+     "empuje": 0.05
+    },
+    {
+     "t": 0,
+     "jugada": "dibujar-sitio",
+     "dur": 2.6,
+     "quien": [
+      "profesional"
+     ]
+    },
+    {
+     "t": 2.75,
+     "jugada": "chip",
+     "texto": "CITY"
+    },
+    {
+     "t": 3.3,
+     "jugada": "recorrido",
+     "puntos": [
+      {
+       "t": 0,
+       "pos": [
+        -26,
+        4.5,
+        22
+       ],
+       "look": [
+        -8,
+        2.0,
+        2
+       ],
+       "fov": 40
+      },
+      {
+       "t": 3.5,
+       "pos": [
+        -16,
+        2.4,
+        15
+       ],
+       "look": [
+        -6,
+        1.6,
+        1.5
+       ],
+       "fov": 42
+      },
+      {
+       "t": 7.0,
+       "pos": [
+        -2,
+        1.9,
+        10
+       ],
+       "look": [
+        5.5,
+        1.6,
+        0
+       ],
+       "fov": 46
+      },
+      {
+       "t": 11.7,
+       "pos": [
+        4.2,
+        1.8,
+        7.5
+       ],
+       "look": [
+        3.5,
+        1.4,
+        0.5
+       ],
+       "fov": 44
+      }
+     ]
+    },
+    {
+     "t": 3.4,
+     "jugada": "caminar",
+     "quien": "profesional",
+     "de": [
+      -13,
+      0,
+      2.2
+     ],
+     "a": [
+      10.5,
+      0,
+      2.2
+     ],
+     "dur": 12.5
+    },
+    {
+     "t": 4.2,
+     "jugada": "chip",
+     "texto": "STREET"
+    },
+    {
+     "t": 8.4,
+     "jugada": "dibujar-vivienda",
+     "viviendas": [
+      "pb-panaderia"
+     ],
+     "dur": 1.0
+    },
+    {
+     "t": 9.7,
+     "jugada": "chip",
+     "texto": "BAKERY"
+    },
+    {
+     "t": 11.4,
+     "jugada": "burbuja",
+     "quien": "profesional",
+     "cara": "happy",
+     "texto": "Morning!",
+     "dur": 1.4
+    },
+    {
+     "t": 11.9,
+     "jugada": "pose",
+     "quien": "panadera",
+     "pose": "wave",
+     "dur": 0.4
+    },
+    {
+     "t": 12.4,
+     "jugada": "dibujar-vivienda",
+     "viviendas": [
+      "pb-portero",
+      "sotano-bicis",
+      "sotano-lavanderia"
+     ],
+     "sin": [
+      "portero"
+     ],
+     "dur": 1.2
+    },
+    {
+     "t": 13.2,
+     "jugada": "pose",
+     "quien": "portero",
+     "pose": "wave",
+     "hold": {
+      "R": "keys"
+     },
+     "dur": 0.4
+    },
+    {
+     "t": 14.6,
+     "jugada": "vida",
+     "quien": "panadera",
+     "pose": "knead",
+     "periodo": 1.0
+    },
+    {
+     "t": 13.9,
+     "jugada": "pose",
+     "quien": "portero",
+     "pose": "stand",
+     "hold": {
+      "R": "keys"
+     },
+     "dur": 0.3
+    },
+    {
+     "t": 16.35,
+     "jugada": "chip",
+     "texto": "BASEMENT"
+    },
+    {
+     "t": 18.65,
+     "jugada": "dibujar-vivienda",
+     "viviendas": [
+      "p1-abuela",
+      "p1-abuelo"
+     ],
+     "dur": 1.0
+    },
+    {
+     "t": 19.85,
+     "jugada": "chip",
+     "texto": "GROUND FLOOR"
+    },
+    {
+     "t": 22.15,
+     "jugada": "dibujar-vivienda",
+     "viviendas": [
+      "p2-pareja",
+      "p2-estudiante"
+     ],
+     "dur": 1.0
+    },
+    {
+     "t": 23.35,
+     "jugada": "chip",
+     "texto": "FLOOR 1"
+    },
+    {
+     "t": 25.65,
+     "jugada": "dibujar-vivienda",
+     "viviendas": [
+      "p3-nina",
+      "p3-chico",
+      "p3-vecina"
+     ],
+     "dur": 1.0
+    },
+    {
+     "t": 26.85,
+     "jugada": "chip",
+     "texto": "FLOOR 2"
+    },
+    {
+     "t": 29.15,
+     "jugada": "dibujar-vivienda",
+     "viviendas": [
+      "p4-teletrabajo",
+      "p4-bebe"
+     ],
+     "dur": 1.0
+    },
+    {
+     "t": 30.35,
+     "jugada": "chip",
+     "texto": "FLOOR 3"
+    },
+    {
+     "t": 32.65,
+     "jugada": "dibujar-vivienda",
+     "viviendas": [
+      "p5-viajera",
+      "p5-plantera"
+     ],
+     "dur": 1.0
+    },
+    {
+     "t": 33.85,
+     "jugada": "chip",
+     "texto": "FLOOR 4"
+    },
+    {
+     "t": 36.15,
+     "jugada": "dibujar-vivienda",
+     "viviendas": [
+      "atico-artista",
+      "atico-secadero"
+     ],
+     "dur": 1.0
+    },
+    {
+     "t": 37.35,
+     "jugada": "chip",
+     "texto": "FLOOR 5"
+    },
+    {
+     "t": 40.85,
+     "jugada": "chip",
+     "texto": "ATTIC"
+    },
+    {
+     "t": 44.35,
+     "jugada": "chip",
+     "texto": "ROOF"
+    },
+    {
+     "t": 15.4,
+     "jugada": "recorrido",
+     "puntos": [
+      {
+       "t": 0.0,
+       "pos": [
+        -5.6,
+        0.35,
+        30.0
+       ],
+       "look": [
+        -5.6,
+        0.35,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 1.25,
+       "pos": [
+        -5.3,
+        0.35,
+        30.0
+       ],
+       "look": [
+        -5.3,
+        0.35,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 2.05,
+       "pos": [
+        5.3,
+        0.35,
+        30.0
+       ],
+       "look": [
+        5.3,
+        0.35,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 3.1,
+       "pos": [
+        5.6,
+        0.35,
+        30.0
+       ],
+       "look": [
+        5.6,
+        0.35,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 3.5,
+       "pos": [
+        5.6,
+        1.55,
+        30.0
+       ],
+       "look": [
+        5.6,
+        1.55,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 4.75,
+       "pos": [
+        5.3,
+        1.55,
+        30.0
+       ],
+       "look": [
+        5.3,
+        1.55,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 5.55,
+       "pos": [
+        -5.3,
+        1.55,
+        30.0
+       ],
+       "look": [
+        -5.3,
+        1.55,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 6.6,
+       "pos": [
+        -5.6,
+        1.55,
+        30.0
+       ],
+       "look": [
+        -5.6,
+        1.55,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 7.0,
+       "pos": [
+        -5.6,
+        4.65,
+        30.0
+       ],
+       "look": [
+        -5.6,
+        4.65,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 8.25,
+       "pos": [
+        -5.3,
+        4.65,
+        30.0
+       ],
+       "look": [
+        -5.3,
+        4.65,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 9.05,
+       "pos": [
+        5.3,
+        4.65,
+        30.0
+       ],
+       "look": [
+        5.3,
+        4.65,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 10.1,
+       "pos": [
+        5.6,
+        4.65,
+        30.0
+       ],
+       "look": [
+        5.6,
+        4.65,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 10.5,
+       "pos": [
+        5.6,
+        7.75,
+        30.0
+       ],
+       "look": [
+        5.6,
+        7.75,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 11.75,
+       "pos": [
+        5.3,
+        7.75,
+        30.0
+       ],
+       "look": [
+        5.3,
+        7.75,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 12.55,
+       "pos": [
+        -5.3,
+        7.75,
+        30.0
+       ],
+       "look": [
+        -5.3,
+        7.75,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 13.6,
+       "pos": [
+        -5.6,
+        7.75,
+        30.0
+       ],
+       "look": [
+        -5.6,
+        7.75,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 14.0,
+       "pos": [
+        -5.6,
+        10.85,
+        30.0
+       ],
+       "look": [
+        -5.6,
+        10.85,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 15.25,
+       "pos": [
+        -5.3,
+        10.85,
+        30.0
+       ],
+       "look": [
+        -5.3,
+        10.85,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 16.05,
+       "pos": [
+        5.3,
+        10.85,
+        30.0
+       ],
+       "look": [
+        5.3,
+        10.85,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 17.1,
+       "pos": [
+        5.6,
+        10.85,
+        30.0
+       ],
+       "look": [
+        5.6,
+        10.85,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 17.5,
+       "pos": [
+        5.6,
+        13.95,
+        30.0
+       ],
+       "look": [
+        5.6,
+        13.95,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 18.75,
+       "pos": [
+        5.3,
+        13.95,
+        30.0
+       ],
+       "look": [
+        5.3,
+        13.95,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 19.55,
+       "pos": [
+        -5.3,
+        13.95,
+        30.0
+       ],
+       "look": [
+        -5.3,
+        13.95,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 20.6,
+       "pos": [
+        -5.6,
+        13.95,
+        30.0
+       ],
+       "look": [
+        -5.6,
+        13.95,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 21.0,
+       "pos": [
+        -5.6,
+        17.05,
+        30.0
+       ],
+       "look": [
+        -5.6,
+        17.05,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 22.25,
+       "pos": [
+        -5.3,
+        17.05,
+        30.0
+       ],
+       "look": [
+        -5.3,
+        17.05,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 23.05,
+       "pos": [
+        5.3,
+        17.05,
+        30.0
+       ],
+       "look": [
+        5.3,
+        17.05,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 24.1,
+       "pos": [
+        5.6,
+        17.05,
+        30.0
+       ],
+       "look": [
+        5.6,
+        17.05,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 24.5,
+       "pos": [
+        5.6,
+        20.15,
+        30.0
+       ],
+       "look": [
+        5.6,
+        20.15,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 25.75,
+       "pos": [
+        5.3,
+        20.15,
+        30.0
+       ],
+       "look": [
+        5.3,
+        20.15,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 26.55,
+       "pos": [
+        -5.3,
+        20.15,
+        30.0
+       ],
+       "look": [
+        -5.3,
+        20.15,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 27.6,
+       "pos": [
+        -5.6,
+        20.15,
+        30.0
+       ],
+       "look": [
+        -5.6,
+        20.15,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 28.0,
+       "pos": [
+        -5.6,
+        20.45,
+        30.0
+       ],
+       "look": [
+        -5.6,
+        20.45,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 29.25,
+       "pos": [
+        -5.3,
+        20.45,
+        30.0
+       ],
+       "look": [
+        -5.3,
+        20.45,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 30.05,
+       "pos": [
+        5.3,
+        20.45,
+        30.0
+       ],
+       "look": [
+        5.3,
+        20.45,
+        -3.0
+       ],
+       "fov": 22.286
+      },
+      {
+       "t": 31.1,
+       "pos": [
+        5.6,
+        20.45,
+        30.0
+       ],
+       "look": [
+        5.6,
+        20.45,
+        -3.0
+       ],
+       "fov": 22.286
+      }
+     ],
+     "cerca": 3.05
+    },
+    {
+     "t": 30.9,
+     "jugada": "pose",
+     "quien": "nina",
+     "pose": "wave",
+     "dur": 0.4
+    },
+    {
+     "t": 31.0,
+     "jugada": "burbuja",
+     "quien": "nina",
+     "cara": "happy",
+     "texto": "Hi!",
+     "dur": 1.2
+    },
+    {
+     "t": 27.5,
+     "jugada": "burbuja",
+     "quien": "pareja-b",
+     "cara": "surprised",
+     "texto": "So many boxes!",
+     "dur": 1.5
+    },
+    {
+     "t": 46.9,
+     "jugada": "colocar",
+     "quien": "vecina",
+     "pos": [
+      3.4,
+      0,
+      2.1
+     ],
+     "giro": 90,
+     "pose": "stand",
+     "hold": {}
+    },
+    {
+     "t": 46.9,
+     "jugada": "camara",
+     "pos": [
+      2.0,
+      1.9,
+      9.5
+     ],
+     "look": [
+      7.0,
+      1.2,
+      2.2
+     ],
+     "fov": 48,
+     "dur": 3.8,
+     "deriva": 4
+    },
+    {
+     "t": 47.2,
+     "jugada": "caminar",
+     "quien": "vecina",
+     "de": [
+      3.4,
+      0,
+      2.1
+     ],
+     "a": [
+      12.5,
+      0,
+      2.2
+     ],
+     "dur": 3.6
+    },
+    {
+     "t": 47.1,
+     "jugada": "chip",
+     "texto": "NOON"
+    },
+    {
+     "t": 47.9,
+     "jugada": "burbuja",
+     "quien": "vecina",
+     "cara": "worried",
+     "dur": 1.4
+    },
+    {
+     "t": 50.6,
+     "jugada": "borrar-sitio",
+     "dur": 1.4
+    }
+   ]
+  },
+  {
+   "desde": 52.0,
+   "sitio": {
+    "tipo": "sala-espera",
+    "opts": {
+     "disposicion": "v41"
+    }
+   },
+   "reparto": {
+    "abuela": {
+     "asiento": 4,
+     "pose": "knit-sit",
+     "emocion": 1
+    },
+    "vecina": {
+     "asiento": 6,
+     "emocion": 4
+    },
+    "estudiante": {
+     "asiento": 1,
+     "emocion": 2
+    },
+    "nina": {
+     "asiento": 9,
+     "emocion": 1
+    },
+    "madre": {
+     "asiento": 10,
+     "hold": {
+      "R": "phone"
+     },
+     "emocion": 2
+    },
+    "profesional": {
+     "pos": [
+      -30,
+      0,
+      -30
+     ],
+     "emocion": 0
+    }
+   },
+   "foco": "vecina",
+   "pulsos": [
+    {
+     "t": 52.0,
+     "jugada": "camara",
+     "nombre": "v41-v",
+     "dur": 3.5,
+     "deriva": 3
+    },
+    {
+     "t": 52.0,
+     "jugada": "dibujar-sitio",
+     "dur": 2.6,
+     "quien": [
+      "abuela",
+      "estudiante",
+      "nina",
+      "madre",
+      "vecina"
+     ]
+    },
+    {
+     "t": 52.0,
+     "jugada": "vida",
+     "quien": "abuela",
+     "pose": "knit-sit",
+     "periodo": 1.2
+    },
+    {
+     "t": 54.8,
+     "jugada": "chip",
+     "texto": "WAITING ROOM"
+    },
+    {
+     "t": 55.5,
+     "jugada": "camara",
+     "nombre": "reloj-v",
+     "dur": 1.6
+    },
+    {
+     "t": 57.1,
+     "jugada": "camara",
+     "nombre": "asiento-1-v",
+     "dur": 2.0,
+     "deriva": -3
+    },
+    {
+     "t": 57.3,
+     "jugada": "burbuja",
+     "quien": "vecina",
+     "cara": "worried",
+     "dur": 1.4
+    },
+    {
+     "t": 59.1,
+     "jugada": "colocar",
+     "quien": "profesional",
+     "pos": [
+      -4.0,
+      0,
+      -1.4
+     ],
+     "giro": 90,
+     "pose": "wave"
+    },
+    {
+     "t": 59.1,
+     "jugada": "camara",
+     "nombre": "ancho-puerta-v",
+     "dur": 3.0,
+     "deriva": 3
+    },
+    {
+     "t": 59.4,
+     "jugada": "burbuja",
+     "quien": "profesional",
+     "cara": "happy",
+     "texto": "Come in!",
+     "dur": 1.4
+    },
+    {
+     "t": 61.0,
+     "jugada": "pose",
+     "quien": "vecina",
+     "pose": "stand",
+     "dur": 0.5
+    },
+    {
+     "t": 61.6,
+     "jugada": "caminar",
+     "quien": "vecina",
+     "a": [
+      -3.4,
+      0,
+      -1.4
+     ],
+     "dur": 1.6,
+     "fin": "stand",
+     "giro": -90
+    },
+    {
+     "t": 62.1,
+     "jugada": "camara",
+     "nombre": "v41-v",
+     "dur": 2.3,
+     "deriva": -3
+    },
+    {
+     "t": 64.4,
+     "jugada": "borrar-sitio",
+     "dur": 1.4
+    }
+   ]
+  },
+  {
+   "desde": 66.0,
+   "sitio": {
+    "tipo": "sala-espera",
+    "opts": {
+     "variante": "consultorio"
+    }
+   },
+   "reparto": {
+    "vecina": {
+     "asiento": 0,
+     "emocion": 4
+    },
+    "profesional": {
+     "asiento": 3,
+     "emocion": 0
+    }
+   },
+   "foco": "vecina",
+   "pulsos": [
+    {
+     "t": 66.0,
+     "jugada": "camara",
+     "nombre": "v41-v",
+     "dur": 3.0,
+     "deriva": 3
+    },
+    {
+     "t": 66.0,
+     "jugada": "dibujar-sitio",
+     "dur": 2.4,
+     "quien": [
+      "profesional",
+      "vecina"
+     ]
+    },
+    {
+     "t": 68.6,
+     "jugada": "camara",
+     "nombre": "asiento-2-v",
+     "dur": 2.6,
+     "deriva": -3
+    },
+    {
+     "t": 68.9,
+     "jugada": "burbuja",
+     "quien": "vecina",
+     "cara": "worried",
+     "dur": 1.3
+    },
+    {
+     "t": 70.5,
+     "jugada": "camara",
+     "de": "profesional",
+     "lado": 30,
+     "alza": -4,
+     "dist": 2.2,
+     "dur": 1.6
+    },
+    {
+     "t": 70.7,
+     "jugada": "burbuja",
+     "quien": "profesional",
+     "cara": "curious",
+     "dur": 1.2
+    },
+    {
+     "t": 72.1,
+     "jugada": "camara",
+     "nombre": "asiento-2-v",
+     "dur": 4.2,
+     "deriva": 3
+    },
+    {
+     "t": 72.4,
+     "jugada": "resolver",
+     "quien": "vecina",
+     "dur": 1.0
+    },
+    {
+     "t": 73.8,
+     "jugada": "burbuja",
+     "quien": "vecina",
+     "cara": "happy",
+     "texto": "Thanks!",
+     "dur": 1.5
+    },
+    {
+     "t": 76.4,
+     "jugada": "borrar-sitio",
+     "dur": 1.4
+    }
+   ]
+  },
+  {
+   "desde": 78.0,
+   "sitio": {
+    "tipo": "edificio",
+    "mood": "tarde",
+    "culling": true,
+    "ocultar": [
+     "balcon:p1-abuela",
+     "balcon:p1-abuelo",
+     "balcon:p2-pareja",
+     "balcon:p2-estudiante",
+     "balcon:p3-nina",
+     "balcon:p3-chico",
+     "balcon:p3-vecina",
+     "balcon:p4-teletrabajo",
+     "balcon:p4-bebe",
+     "balcon:p5-viajera",
+     "balcon:p5-plantera"
+    ],
+    "opts": {
+     "cutaway": true,
+     "street": true,
+     "neighbours": true,
+     "skyline": true,
+     "residents": true,
+     "bikeLaneAccent": true
+    }
+   },
+   "reparto": {
+    "pareja-a": {
+     "existente": "pareja"
+    },
+    "pareja-b": {
+     "existente": "pareja#2"
+    },
+    "abuela": {
+     "existente": true,
+     "emocion": 1
+    },
+    "abuelo": {
+     "existente": true,
+     "emocion": 1
+    },
+    "estudiante": {
+     "existente": true,
+     "emocion": 1
+    },
+    "chico": {
+     "existente": true,
+     "emocion": 1
+    },
+    "vecina": {
+     "existente": true,
+     "emocion": 1
+    },
+    "nina": {
+     "existente": true,
+     "emocion": 1
+    },
+    "madre": {
+     "existente": true,
+     "emocion": 1
+    },
+    "teletrabajo": {
+     "existente": true,
+     "emocion": 1
+    },
+    "familia-bebe": {
+     "existente": true,
+     "emocion": 1
+    },
+    "viajera": {
+     "existente": true,
+     "emocion": 1
+    },
+    "plantera": {
+     "existente": true,
+     "emocion": 1
+    },
+    "artista": {
+     "existente": true,
+     "emocion": 1
+    },
+    "portero": {
+     "existente": true,
+     "emocion": 1
+    },
+    "panadera": {
+     "existente": true,
+     "emocion": 1
+    }
+   },
+   "foco": "vecina",
+   "pulsos": [
+    {
+     "t": 78.0,
+     "jugada": "vida",
+     "quien": "abuela",
+     "pose": "knit-sit",
+     "periodo": 1.2
+    },
+    {
+     "t": 78.0,
+     "jugada": "vida",
+     "quien": "estudiante",
+     "pose": "type",
+     "periodo": 0.5
+    },
+    {
+     "t": 78.0,
+     "jugada": "vida",
+     "quien": "chico",
+     "pose": "drum",
+     "periodo": 0.6,
+     "hold": {
+      "R": "sticks",
+      "L": "sticks"
+     }
+    },
+    {
+     "t": 78.0,
+     "jugada": "vida",
+     "quien": "teletrabajo",
+     "pose": "type",
+     "periodo": 0.55
+    },
+    {
+     "t": 78.0,
+     "jugada": "vida",
+     "quien": "familia-bebe",
+     "pose": "rock",
+     "periodo": 1.6
+    },
+    {
+     "t": 78.0,
+     "jugada": "vida",
+     "quien": "plantera",
+     "pose": "water",
+     "periodo": 1.5,
+     "hold": {
+      "R": "wateringCan"
+     }
+    },
+    {
+     "t": 78.0,
+     "jugada": "vida",
+     "quien": "artista",
+     "pose": "paint",
+     "periodo": 1.2,
+     "hold": {
+      "R": "brush"
+     }
+    },
+    {
+     "t": 78.0,
+     "jugada": "vida",
+     "quien": "panadera",
+     "pose": "knead",
+     "periodo": 1.0
+    },
+    {
+     "t": 78.0,
+     "jugada": "colocar",
+     "quien": "vecina",
+     "pos": [
+      14,
+      0,
+      2.2
+     ],
+     "giro": -90,
+     "pose": "walk",
+     "hold": {}
+    },
+    {
+     "t": 78.0,
+     "jugada": "emocion",
+     "quien": "vecina",
+     "nivel": 0
+    },
+    {
+     "t": 78.0,
+     "jugada": "camara",
+     "pos": [
+      -6,
+      2.8,
+      22
+     ],
+     "look": [
+      4,
+      2.4,
+      0.5
+     ],
+     "fov": 42,
+     "dur": 3.6,
+     "empuje": 0.08
+    },
+    {
+     "t": 78.0,
+     "jugada": "dibujar-sitio",
+     "dur": 2.6,
+     "quien": [
+      "vecina"
+     ]
+    },
+    {
+     "t": 78.3,
+     "jugada": "caminar",
+     "quien": "vecina",
+     "de": [
+      14,
+      0,
+      2.2
+     ],
+     "a": [
+      6.0,
+      0,
+      2.2
+     ],
+     "dur": 5.6,
+     "fin": "stand",
+     "giro": -60
+    },
+    {
+     "t": 80.75,
+     "jugada": "chip",
+     "texto": "AFTERNOON"
+    },
+    {
+     "t": 81.8,
+     "jugada": "camara",
+     "pos": [
+      3.6,
+      1.8,
+      8.6
+     ],
+     "look": [
+      6.2,
+      1.4,
+      0.5
+     ],
+     "fov": 46,
+     "dur": 3.0,
+     "deriva": -3
+    },
+    {
+     "t": 82.0,
+     "jugada": "pose",
+     "quien": "panadera",
+     "pose": "wave",
+     "dur": 0.4
+    },
+    {
+     "t": 82.2,
+     "jugada": "burbuja",
+     "quien": "panadera",
+     "cara": "happy",
+     "texto": "Bread?",
+     "dur": 1.3
+    },
+    {
+     "t": 83.6,
+     "jugada": "burbuja",
+     "quien": "vecina",
+     "cara": "happy",
+     "texto": "Yes!",
+     "dur": 1.2
+    },
+    {
+     "t": 84.8,
+     "jugada": "camara",
+     "pos": [
+      0,
+      10.6,
+      62
+     ],
+     "look": [
+      0,
+      10.6,
+      -3.5
+     ],
+     "fov": 23.5,
+     "dur": 3.8,
+     "cerca": 3.6,
+     "empuje": 0.04,
+     "deriva": 0
+    },
+    {
+     "t": 88.6,
+     "jugada": "colocar",
+     "quien": "vecina",
+     "pos": [
+      -0.4,
+      18.85,
+      -0.7
+     ],
+     "giro": 10,
+     "pose": "stand",
+     "hold": {}
+    },
+    {
+     "t": 88.6,
+     "jugada": "colocar",
+     "quien": "pareja-b",
+     "pos": [
+      -1.2,
+      18.85,
+      -1.2
+     ],
+     "giro": 25,
+     "pose": "stand",
+     "hold": {}
+    },
+    {
+     "t": 88.6,
+     "jugada": "colocar",
+     "quien": "pareja-a",
+     "pos": [
+      -1.9,
+      18.85,
+      -0.6
+     ],
+     "giro": 25,
+     "pose": "stand",
+     "hold": {}
+    },
+    {
+     "t": 88.6,
+     "jugada": "colocar",
+     "quien": "portero",
+     "pos": [
+      0.4,
+      18.85,
+      -1.3
+     ],
+     "giro": -15,
+     "pose": "stand",
+     "hold": {}
+    },
+    {
+     "t": 88.6,
+     "jugada": "colocar",
+     "quien": "abuela",
+     "pos": [
+      -2.6,
+      18.85,
+      -1.3
+     ],
+     "giro": 20,
+     "pose": "stand",
+     "hold": {}
+    },
+    {
+     "t": 88.6,
+     "jugada": "colocar",
+     "quien": "abuelo",
+     "pos": [
+      -3.3,
+      18.85,
+      -0.7
+     ],
+     "giro": 30,
+     "pose": "stand",
+     "hold": {}
+    },
+    {
+     "t": 88.6,
+     "jugada": "colocar",
+     "quien": "estudiante",
+     "pos": [
+      1.2,
+      18.85,
+      -0.7
+     ],
+     "giro": -10,
+     "pose": "stand",
+     "hold": {}
+    },
+    {
+     "t": 88.6,
+     "jugada": "colocar",
+     "quien": "chico",
+     "pos": [
+      2.0,
+      18.85,
+      -1.3
+     ],
+     "giro": -20,
+     "pose": "drum",
+     "hold": {
+      "R": "sticks",
+      "L": "sticks"
+     }
+    },
+    {
+     "t": 88.6,
+     "jugada": "colocar",
+     "quien": "nina",
+     "pos": [
+      -1.0,
+      18.85,
+      -0.2
+     ],
+     "giro": 5,
+     "pose": "wave",
+     "hold": {}
+    },
+    {
+     "t": 88.6,
+     "jugada": "colocar",
+     "quien": "madre",
+     "pos": [
+      -4.0,
+      18.85,
+      -1.4
+     ],
+     "giro": 20,
+     "pose": "stand",
+     "hold": {}
+    },
+    {
+     "t": 88.6,
+     "jugada": "colocar",
+     "quien": "teletrabajo",
+     "pos": [
+      2.8,
+      18.85,
+      -0.8
+     ],
+     "giro": -25,
+     "pose": "stand",
+     "hold": {}
+    },
+    {
+     "t": 88.6,
+     "jugada": "colocar",
+     "quien": "familia-bebe",
+     "pos": [
+      3.6,
+      18.85,
+      -1.4
+     ],
+     "giro": -30,
+     "pose": "stand",
+     "hold": {}
+    },
+    {
+     "t": 88.6,
+     "jugada": "colocar",
+     "quien": "viajera",
+     "pos": [
+      -4.6,
+      18.85,
+      -0.7
+     ],
+     "giro": 35,
+     "pose": "stand",
+     "hold": {}
+    },
+    {
+     "t": 88.6,
+     "jugada": "colocar",
+     "quien": "plantera",
+     "pos": [
+      4.3,
+      18.85,
+      -0.7
+     ],
+     "giro": -30,
+     "pose": "stand",
+     "hold": {}
+    },
+    {
+     "t": 88.6,
+     "jugada": "colocar",
+     "quien": "artista",
+     "pos": [
+      1.0,
+      18.85,
+      -1.7
+     ],
+     "giro": -5,
+     "pose": "stand",
+     "hold": {}
+    },
+    {
+     "t": 88.6,
+     "jugada": "colocar",
+     "quien": "panadera",
+     "pos": [
+      -2.9,
+      18.85,
+      -0.2
+     ],
+     "giro": 15,
+     "pose": "stand",
+     "hold": {}
+    },
+    {
+     "t": 88.6,
+     "jugada": "vida",
+     "quien": "chico",
+     "pose": "drum",
+     "periodo": 0.6,
+     "hold": {
+      "R": "sticks",
+      "L": "sticks"
+     }
+    },
+    {
+     "t": 88.6,
+     "jugada": "camara",
+     "pos": [
+      0.0,
+      22.6,
+      8.5
+     ],
+     "look": [
+      0.0,
+      19.9,
+      -1.0
+     ],
+     "fov": 50,
+     "dur": 3.0,
+     "deriva": 3
+    },
+    {
+     "t": 88.8,
+     "jugada": "chip",
+     "texto": "ROOF"
+    },
+    {
+     "t": 89.5,
+     "jugada": "burbuja",
+     "quien": "pareja-b",
+     "cara": "happy",
+     "texto": "Welcome!",
+     "dur": 1.4
+    },
+    {
+     "t": 91.6,
+     "jugada": "camara",
+     "pos": [
+      -1.4,
+      20.9,
+      4.6
+     ],
+     "look": [
+      -1.2,
+      19.7,
+      -0.9
+     ],
+     "fov": 46,
+     "dur": 3.4,
+     "deriva": -4
+    },
+    {
+     "t": 91.9,
+     "jugada": "burbuja",
+     "quien": "abuela",
+     "cara": "happy",
+     "dur": 1.2
+    },
+    {
+     "t": 93.2,
+     "jugada": "burbuja",
+     "quien": "estudiante",
+     "cara": "happy",
+     "dur": 1.2
+    },
+    {
+     "t": 95.0,
+     "jugada": "camara",
+     "pos": [
+      0,
+      27,
+      24
+     ],
+     "look": [
+      0,
+      19.2,
+      -2.0
+     ],
+     "fov": 48,
+     "dur": 4.6,
+     "empuje": 0.08
+    },
+    {
+     "t": 99.6,
+     "jugada": "borrar-sitio",
+     "dur": 1.4
+    }
+   ]
+  },
+  {
+   "desde": 101.0,
+   "sitio": {
+    "tipo": "edificio",
+    "mood": "noche",
+    "culling": false,
+    "ocultar": [],
+    "opts": {
+     "cutaway": false,
+     "street": true,
+     "neighbours": true,
+     "skyline": true,
+     "residents": true,
+     "bikeLaneAccent": true
+    }
+   },
+   "reparto": {
+    "profesional": {
+     "pos": [
+      12,
+      0,
+      1.5
+     ],
+     "rotY": -1.5708,
+     "emocion": 0
+    }
+   },
+   "foco": "profesional",
+   "pulsos": [
+    {
+     "t": 101.0,
+     "jugada": "camara",
+     "pos": [
+      -22,
+      15,
+      45
+     ],
+     "look": [
+      0,
+      8,
+      0
+     ],
+     "fov": 44,
+     "dur": 3.6,
+     "empuje": 0.05
+    },
+    {
+     "t": 101.0,
+     "jugada": "dibujar-sitio",
+     "dur": 2.6,
+     "quien": [
+      "profesional"
+     ]
+    },
+    {
+     "t": 101.0,
+     "jugada": "caminar",
+     "quien": "profesional",
+     "de": [
+      12,
+      0,
+      2.2
+     ],
+     "a": [
+      -12,
+      0,
+      2.2
+     ],
+     "dur": 16.0
+    },
+    {
+     "t": 103.75,
+     "jugada": "chip",
+     "texto": "NIGHT"
+    },
+    {
+     "t": 104.6,
+     "jugada": "recorrido",
+     "puntos": [
+      {
+       "t": 0,
+       "pos": [
+        -10,
+        6,
+        30
+       ],
+       "look": [
+        0,
+        7,
+        0
+       ],
+       "fov": 44
+      },
+      {
+       "t": 4.5,
+       "pos": [
+        -6,
+        2.4,
+        14
+       ],
+       "look": [
+        -1,
+        1.8,
+        1.5
+       ],
+       "fov": 46
+      },
+      {
+       "t": 8.0,
+       "pos": [
+        -9,
+        1.9,
+        9
+       ],
+       "look": [
+        -5,
+        1.5,
+        1.5
+       ],
+       "fov": 46
+      }
+     ]
+    },
+    {
+     "t": 113.2,
+     "jugada": "camara",
+     "pos": [
+      -12,
+      4.5,
+      34
+     ],
+     "look": [
+      0,
+      9,
+      0
+     ],
+     "fov": 44,
+     "dur": 4.8,
+     "empuje": 0.06
+    },
+    {
+     "t": 117.15,
+     "jugada": "subir-al-logo",
+     "quien": "profesional"
+    }
+   ]
+  }
+ ]
+}

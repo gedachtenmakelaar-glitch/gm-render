@@ -1,0 +1,39 @@
+{
+"module": "edificio/escena.js",
+"size": [
+1500,
+1100
+],
+"cell": 4,
+"out": "edificio/hojas/_mov",
+"opts": {
+"cutaway": false
+},
+"shots": [
+{
+"name": "warm",
+"cam": "calleMov",
+"t": 0
+},
+{
+"name": "m00",
+"cam": "calleMov",
+"t": 0
+},
+{
+"name": "m05",
+"cam": "calleMov",
+"t": 5
+},
+{
+"name": "m10",
+"cam": "calleMov",
+"t": 10
+},
+{
+"name": "m15",
+"cam": "calleMov",
+"t": 15
+}
+]
+}

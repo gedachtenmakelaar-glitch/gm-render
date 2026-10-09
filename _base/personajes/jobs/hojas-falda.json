@@ -1,0 +1,59 @@
+{
+ "module": "personajes/escena-hoja.js",
+ "size": [
+  5376,
+  3584
+ ],
+ "cell": 4,
+ "out": "personajes/hojas",
+ "shots": [
+  {
+   "name": "vecina",
+   "cam": "hoja",
+   "opts": {
+    "layout": "personaje",
+    "id": "vecina"
+   }
+  },
+  {
+   "name": "abuela",
+   "cam": "hoja",
+   "opts": {
+    "layout": "personaje",
+    "id": "abuela"
+   }
+  },
+  {
+   "name": "nina",
+   "cam": "hoja",
+   "opts": {
+    "layout": "personaje",
+    "id": "nina"
+   }
+  },
+  {
+   "name": "recepcionista",
+   "cam": "hoja",
+   "opts": {
+    "layout": "personaje",
+    "id": "recepcionista"
+   }
+  },
+  {
+   "name": "pareja-a",
+   "cam": "hoja",
+   "opts": {
+    "layout": "personaje",
+    "id": "pareja-a"
+   }
+  },
+  {
+   "name": "profesional",
+   "cam": "hoja",
+   "opts": {
+    "layout": "personaje",
+    "id": "profesional"
+   }
+  }
+ ]
+}

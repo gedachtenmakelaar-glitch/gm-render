@@ -1,0 +1,19 @@
+{
+ "module": "personajes/escena-hoja.js",
+ "size": [
+  5376,
+  950
+ ],
+ "cell": 4,
+ "out": "personajes/hojas",
+ "shots": [
+  {
+   "name": "elenco-oscuro",
+   "cam": "elenco",
+   "opts": {
+    "layout": "elenco",
+    "bg": "oscuro"
+   }
+  }
+ ]
+}

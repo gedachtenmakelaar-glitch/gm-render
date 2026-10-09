@@ -1,0 +1,9 @@
+{
+ "module": "personajes/escena-hoja.js",
+ "size": [2280, 2100],
+ "cell": 3,
+ "out": "personajes/hojas/_falda",
+ "shots": [
+  { "name": "falda-check", "cam": "falda", "opts": { "layout": "falda" } }
+ ]
+}

@@ -1,0 +1,18 @@
+{
+ "module": "personajes/escena-hoja.js",
+ "size": [
+  5376,
+  2419
+ ],
+ "cell": 4,
+ "out": "personajes/hojas/_nuevos",
+ "shots": [
+  {
+   "name": "nuevos",
+   "cam": "nuevos",
+   "opts": {
+    "layout": "nuevos"
+   }
+  }
+ ]
+}

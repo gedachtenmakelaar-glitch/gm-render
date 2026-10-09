@@ -1,0 +1,983 @@
+{
+ "name": "terraza",
+ "size": [
+  1080,
+  1920
+ ],
+ "duration": 54.0,
+ "ending": true,
+ "sitio": {
+  "tipo": "edificio",
+  "mood": "tarde",
+  "ocultar": [
+   "balcon:p2-pareja",
+   "balcon:p3-nina"
+  ],
+  "opts": {
+   "cutaway": [
+    "p2-pareja",
+    "p3-chico",
+    "p3-vecina",
+    "pb-portero"
+   ],
+   "street": true,
+   "neighbours": true,
+   "skyline": true,
+   "residents": true,
+   "bikeLaneAccent": true
+  },
+  "frente": -0.3
+ },
+ "reparto": {
+  "pareja-b": {
+   "existente": "pareja#2",
+   "emocion": 2
+  },
+  "pareja-a": {
+   "existente": "pareja",
+   "emocion": 2
+  },
+  "chico": {
+   "existente": true,
+   "emocion": 1
+  },
+  "vecina": {
+   "existente": true,
+   "emocion": 1
+  },
+  "portero": {
+   "existente": true,
+   "emocion": 2
+  },
+  "nina": {
+   "existente": true,
+   "emocion": 0
+  }
+ },
+ "foco": "pareja-b",
+ "tarjetas": {
+  "terraza": {
+   "label": "saturday",
+   "num": "01",
+   "title": "Rooftop",
+   "sub": "one key",
+   "icon": "hourglass"
+  },
+  "q1": {
+   "label": "question",
+   "num": "01",
+   "title": "Night sound",
+   "sub": "who plays?",
+   "icon": "chat"
+  },
+  "q2": {
+   "label": "question",
+   "num": "02",
+   "title": "Breakfast",
+   "sub": "what do they eat?",
+   "icon": "hourglass"
+  },
+  "q3": {
+   "label": "final",
+   "num": "03",
+   "title": "Her song",
+   "sub": "what does she hum?",
+   "icon": "heart"
+  },
+  "llave": {
+   "label": "prize",
+   "num": "01",
+   "title": "Rooftop key",
+   "sub": "for saturday",
+   "icon": "heart"
+  }
+ },
+ "pulsos": [
+  {
+   "t": 0,
+   "jugada": "vida",
+   "quien": "chico",
+   "pose": "drum",
+   "periodo": 0.6,
+   "hold": {
+    "R": "sticks",
+    "L": "sticks"
+   }
+  },
+  {
+   "t": 0,
+   "jugada": "vida",
+   "quien": "vecina",
+   "pose": "knit-sit",
+   "periodo": 1.2
+  },
+  {
+   "t": 0,
+   "dur": 2.7,
+   "jugada": "dibujar-sitio",
+   "quien": [
+    "pareja-b"
+   ]
+  },
+  {
+   "t": 0,
+   "jugada": "camara-plano",
+   "de": "pareja-b",
+   "alto": 9
+  },
+  {
+   "t": 2.7,
+   "dur": 1.4,
+   "jugada": "abrir-3d",
+   "de": "pareja-b",
+   "giro": 12
+  },
+  {
+   "t": 4.1,
+   "dur": 2.0,
+   "jugada": "camara",
+   "pos": [
+    -3.6,
+    7.0,
+    -0.3
+   ],
+   "look": [
+    -3.9,
+    8.4,
+    -4.6
+   ],
+   "fov": 55
+  },
+  {
+   "t": 4.1,
+   "dur": 0.5,
+   "jugada": "pose",
+   "quien": "pareja-b",
+   "pose": "stand",
+   "mira": [
+    -3.9,
+    9.8,
+    -4.0
+   ]
+  },
+  {
+   "t": 4.3,
+   "dur": 1.6,
+   "jugada": "burbuja",
+   "quien": "pareja-b",
+   "cara": "curious",
+   "texto": "Upstairs?"
+  },
+  {
+   "t": 6.1,
+   "dur": 2.0,
+   "jugada": "camara",
+   "pos": [
+    6.8,
+    10.9,
+    2.5
+   ],
+   "look": [
+    6.8,
+    10.5,
+    -3.2
+   ],
+   "fov": 60
+  },
+  {
+   "t": 8.1,
+   "jugada": "colocar",
+   "quien": "portero",
+   "pose": "stand",
+   "hold": {
+    "R": "keys"
+   },
+   "giro": 0
+  },
+  {
+   "t": 8.1,
+   "dur": 1.9,
+   "jugada": "camara",
+   "pos": [
+    -6.1,
+    1.9,
+    -0.3
+   ],
+   "look": [
+    -6.3,
+    1.4,
+    -3.6
+   ],
+   "fov": 58
+  },
+  {
+   "t": 8.1,
+   "dur": 1.9,
+   "jugada": "tarjeta-en-sala",
+   "quien": "portero",
+   "tarjeta": "terraza",
+   "donde": [
+    0.8,
+    0.5,
+    0.3
+   ],
+   "camara": false
+  },
+  {
+   "t": 10.0,
+   "jugada": "colocar",
+   "quien": "portero",
+   "pos": [
+    -4.75,
+    6.45,
+    -5.2
+   ],
+   "giro": 0,
+   "pose": "stand",
+   "hold": {
+    "R": "keys"
+   }
+  },
+  {
+   "t": 10.0,
+   "jugada": "colocar",
+   "quien": "pareja-a",
+   "pos": [
+    -5.75,
+    6.45,
+    -3.6
+   ],
+   "giro": 40,
+   "pose": "stand"
+  },
+  {
+   "t": 10.0,
+   "jugada": "colocar",
+   "quien": "pareja-b",
+   "pos": [
+    -5.2,
+    6.45,
+    -2.9
+   ],
+   "giro": 35,
+   "pose": "stand"
+  },
+  {
+   "t": 10.0,
+   "jugada": "colocar",
+   "quien": "chico",
+   "pos": [
+    -3.75,
+    6.45,
+    -3.6
+   ],
+   "giro": -40,
+   "pose": "stand"
+  },
+  {
+   "t": 10.0,
+   "jugada": "colocar",
+   "quien": "vecina",
+   "pos": [
+    -4.3,
+    6.45,
+    -2.9
+   ],
+   "giro": -35,
+   "pose": "stand"
+  },
+  {
+   "t": 10.0,
+   "dur": 1.0,
+   "jugada": "camara",
+   "pos": [
+    -4.75,
+    8.6,
+    -0.3
+   ],
+   "look": [
+    -4.75,
+    7.2,
+    -3.6
+   ],
+   "fov": 72
+  },
+  {
+   "t": 10.0,
+   "jugada": "chip",
+   "texto": "NEW 0 | OLD 0"
+  },
+  {
+   "t": 11.0,
+   "dur": 1.9,
+   "jugada": "tarjeta-en-sala",
+   "quien": "portero",
+   "tarjeta": "q1",
+   "donde": [
+    0.8,
+    0.45,
+    0.3
+   ],
+   "camara": false
+  },
+  {
+   "t": 11.0,
+   "dur": 1.9,
+   "jugada": "camara",
+   "pos": [
+    -4.35,
+    8.25,
+    -0.3
+   ],
+   "look": [
+    -4.35,
+    7.85,
+    -5.0
+   ],
+   "fov": 30
+  },
+  {
+   "t": 12.9,
+   "dur": 1.5,
+   "jugada": "burbuja",
+   "quien": "pareja-a",
+   "cara": "happy",
+   "texto": "Drums!"
+  },
+  {
+   "jugada": "camara",
+   "pos": [
+    -4.75,
+    8.6,
+    -0.3
+   ],
+   "look": [
+    -4.75,
+    7.2,
+    -3.6
+   ],
+   "fov": 72,
+   "t": 12.9,
+   "dur": 1.5
+  },
+  {
+   "t": 14.4,
+   "dur": 2.0,
+   "jugada": "camara",
+   "de": "pareja-a",
+   "lado": 25,
+   "alza": 0,
+   "dist": 2.8
+  },
+  {
+   "t": 14.4,
+   "dur": 0.4,
+   "jugada": "pose",
+   "quien": "pareja-a",
+   "pose": "drum",
+   "hold": {
+    "R": "sticks",
+    "L": "sticks"
+   }
+  },
+  {
+   "t": 14.6,
+   "dur": 0.4,
+   "jugada": "pose",
+   "quien": "pareja-b",
+   "pose": "point",
+   "mira": [
+    -5.2,
+    9.6,
+    -2.9
+   ]
+  },
+  {
+   "t": 16.4,
+   "dur": 1.5,
+   "jugada": "camara",
+   "de": "chico",
+   "lado": -25,
+   "alza": 0,
+   "dist": 2.6
+  },
+  {
+   "t": 16.4,
+   "dur": 1.5,
+   "jugada": "burbuja",
+   "quien": "chico",
+   "cara": "surprised",
+   "texto": "How?!"
+  },
+  {
+   "t": 17.9,
+   "jugada": "chip",
+   "texto": "NEW 1 | OLD 0"
+  },
+  {
+   "t": 17.9,
+   "jugada": "emocion",
+   "quien": "chico",
+   "nivel": 3
+  },
+  {
+   "t": 18.5,
+   "dur": 1.5,
+   "jugada": "camara",
+   "pos": [
+    -4.75,
+    8.6,
+    -0.3
+   ],
+   "look": [
+    -4.75,
+    7.2,
+    -3.6
+   ],
+   "fov": 72
+  },
+  {
+   "t": 18.5,
+   "dur": 0.4,
+   "jugada": "pose",
+   "quien": "pareja-a",
+   "pose": "stand",
+   "hold": {}
+  },
+  {
+   "t": 18.5,
+   "dur": 0.4,
+   "jugada": "pose",
+   "quien": "pareja-b",
+   "pose": "stand"
+  },
+  {
+   "t": 20.0,
+   "dur": 1.9,
+   "jugada": "tarjeta-en-sala",
+   "quien": "portero",
+   "tarjeta": "q2",
+   "donde": [
+    0.8,
+    0.45,
+    0.3
+   ],
+   "camara": false
+  },
+  {
+   "t": 20.0,
+   "dur": 1.9,
+   "jugada": "camara",
+   "pos": [
+    -4.35,
+    8.25,
+    -0.3
+   ],
+   "look": [
+    -4.35,
+    7.85,
+    -5.0
+   ],
+   "fov": 30
+  },
+  {
+   "t": 21.9,
+   "dur": 1.5,
+   "jugada": "burbuja",
+   "quien": "vecina",
+   "cara": "curious",
+   "texto": "Who?"
+  },
+  {
+   "jugada": "camara",
+   "pos": [
+    -4.75,
+    8.6,
+    -0.3
+   ],
+   "look": [
+    -4.75,
+    7.2,
+    -3.6
+   ],
+   "fov": 72,
+   "t": 21.9,
+   "dur": 3.0
+  },
+  {
+   "t": 23.4,
+   "dur": 1.5,
+   "jugada": "burbuja",
+   "quien": "chico",
+   "cara": "worried",
+   "texto": "No idea"
+  },
+  {
+   "t": 24.9,
+   "dur": 2.0,
+   "jugada": "camara",
+   "pos": [
+    -4.0,
+    8.0,
+    -0.3
+   ],
+   "look": [
+    -4.0,
+    7.4,
+    -3.2
+   ],
+   "fov": 55
+  },
+  {
+   "t": 24.9,
+   "dur": 0.4,
+   "jugada": "pose",
+   "quien": "vecina",
+   "pose": "shrug"
+  },
+  {
+   "t": 25.1,
+   "dur": 0.4,
+   "jugada": "pose",
+   "quien": "chico",
+   "pose": "shrug"
+  },
+  {
+   "t": 26.9,
+   "dur": 2.1,
+   "jugada": "camara",
+   "de": "pareja-b",
+   "lado": 15,
+   "alza": -5,
+   "dist": 2.0
+  },
+  {
+   "t": 26.9,
+   "dur": 1.3,
+   "jugada": "burbuja",
+   "quien": "pareja-b",
+   "cara": "sad"
+  },
+  {
+   "t": 27.2,
+   "dur": 0.6,
+   "jugada": "pose",
+   "quien": "pareja-b",
+   "pose": "sad"
+  },
+  {
+   "t": 27.2,
+   "jugada": "emocion",
+   "quien": "pareja-b",
+   "nivel": 3
+  },
+  {
+   "t": 29.4,
+   "dur": 0.4,
+   "jugada": "pose",
+   "quien": "vecina",
+   "pose": "stand"
+  },
+  {
+   "t": 29.4,
+   "dur": 0.4,
+   "jugada": "pose",
+   "quien": "chico",
+   "pose": "stand"
+  },
+  {
+   "t": 29.4,
+   "dur": 1.9,
+   "jugada": "tarjeta-en-sala",
+   "quien": "portero",
+   "tarjeta": "q3",
+   "donde": [
+    0.8,
+    0.45,
+    0.3
+   ],
+   "camara": false
+  },
+  {
+   "t": 29.4,
+   "dur": 1.9,
+   "jugada": "camara",
+   "pos": [
+    -4.35,
+    8.25,
+    -0.3
+   ],
+   "look": [
+    -4.35,
+    7.85,
+    -5.0
+   ],
+   "fov": 30
+  },
+  {
+   "t": 31.3,
+   "dur": 2.1,
+   "jugada": "tarjeta-pantalla",
+   "tarjeta": "q3"
+  },
+  {
+   "t": 33.4,
+   "dur": 1.5,
+   "jugada": "camara",
+   "de": "pareja-b",
+   "lado": -20,
+   "alza": 0,
+   "dist": 2.0
+  },
+  {
+   "t": 33.4,
+   "dur": 0.4,
+   "jugada": "pose",
+   "quien": "pareja-b",
+   "pose": "stand"
+  },
+  {
+   "t": 33.4,
+   "dur": 1.5,
+   "jugada": "burbuja",
+   "quien": "pareja-b",
+   "cara": "happy",
+   "texto": "Knit!"
+  },
+  {
+   "t": 34.9,
+   "dur": 2.4,
+   "jugada": "camara",
+   "de": "pareja-b",
+   "lado": 10,
+   "alza": -6,
+   "dist": 1.6
+  },
+  {
+   "t": 34.9,
+   "jugada": "vida",
+   "quien": "pareja-b",
+   "pose": "knit",
+   "periodo": 1.0
+  },
+  {
+   "t": 37.3,
+   "dur": 2.5,
+   "jugada": "camara",
+   "de": "vecina",
+   "lado": -20,
+   "alza": 0,
+   "dist": 1.8
+  },
+  {
+   "t": 37.3,
+   "dur": 0.9,
+   "jugada": "resolver",
+   "quien": "vecina"
+  },
+  {
+   "t": 38.3,
+   "dur": 1.5,
+   "jugada": "burbuja",
+   "quien": "vecina",
+   "cara": "happy",
+   "texto": "Oh!"
+  },
+  {
+   "t": 39.8,
+   "jugada": "chip",
+   "texto": "NEW 2 | OLD 0"
+  },
+  {
+   "t": 39.8,
+   "dur": 0.8,
+   "jugada": "camara",
+   "pos": [
+    -4.75,
+    8.6,
+    -0.3
+   ],
+   "look": [
+    -4.75,
+    7.2,
+    -3.6
+   ],
+   "fov": 72
+  },
+  {
+   "t": 39.8,
+   "dur": 0.4,
+   "jugada": "pose",
+   "quien": "pareja-b",
+   "pose": "stand"
+  },
+  {
+   "t": 39.8,
+   "jugada": "emocion",
+   "quien": "pareja-b",
+   "nivel": 1
+  },
+  {
+   "t": 40.6,
+   "dur": 2.4,
+   "jugada": "camara",
+   "pos": [
+    -4.9,
+    8.0,
+    -0.3
+   ],
+   "look": [
+    -4.95,
+    7.5,
+    -4.0
+   ],
+   "fov": 48
+  },
+  {
+   "t": 40.6,
+   "dur": 0.5,
+   "jugada": "pose",
+   "quien": "portero",
+   "pose": "point",
+   "hold": {
+    "R": "keys"
+   },
+   "mira": [
+    -5.2,
+    7.7,
+    -2.9
+   ]
+  },
+  {
+   "t": 40.9,
+   "dur": 1.9,
+   "jugada": "tarjeta-en-sala",
+   "quien": "portero",
+   "tarjeta": "llave",
+   "donde": [
+    0.8,
+    0.45,
+    0.3
+   ],
+   "camara": false
+  },
+  {
+   "t": 42.0,
+   "dur": 0.3,
+   "jugada": "pose",
+   "quien": "portero",
+   "pose": "stand",
+   "hold": {}
+  },
+  {
+   "t": 42.0,
+   "dur": 0.3,
+   "jugada": "pose",
+   "quien": "pareja-b",
+   "pose": "stand",
+   "hold": {
+    "R": "keys"
+   }
+  },
+  {
+   "t": 43.0,
+   "dur": 2.6,
+   "jugada": "camara",
+   "de": "pareja-b",
+   "lado": -25,
+   "alza": 0,
+   "dist": 2.6
+  },
+  {
+   "t": 43.0,
+   "dur": 0.5,
+   "jugada": "pose",
+   "quien": "pareja-b",
+   "pose": "point",
+   "hold": {
+    "R": "keys"
+   },
+   "mira": [
+    -4.3,
+    7.7,
+    -2.9
+   ]
+  },
+  {
+   "t": 43.2,
+   "dur": 1.5,
+   "jugada": "burbuja",
+   "quien": "pareja-b",
+   "cara": "happy",
+   "texto": "Take it."
+  },
+  {
+   "t": 44.4,
+   "dur": 0.3,
+   "jugada": "pose",
+   "quien": "pareja-b",
+   "pose": "stand",
+   "hold": {}
+  },
+  {
+   "t": 44.4,
+   "dur": 0.3,
+   "jugada": "pose",
+   "quien": "vecina",
+   "pose": "stand",
+   "hold": {
+    "R": "keys"
+   }
+  },
+  {
+   "t": 45.1,
+   "dur": 1.4,
+   "jugada": "burbuja",
+   "quien": "vecina",
+   "cara": "happy"
+  },
+  {
+   "t": 46.9,
+   "jugada": "colocar",
+   "quien": "pareja-b",
+   "pos": [
+    -4.25,
+    18.85,
+    -0.8
+   ],
+   "giro": 20,
+   "pose": "stand",
+   "hold": {}
+  },
+  {
+   "t": 46.9,
+   "jugada": "colocar",
+   "quien": "pareja-a",
+   "pos": [
+    -5.0,
+    18.85,
+    -1.2
+   ],
+   "giro": 25,
+   "pose": "stand",
+   "hold": {}
+  },
+  {
+   "t": 46.9,
+   "jugada": "colocar",
+   "quien": "vecina",
+   "pos": [
+    -3.1,
+    18.85,
+    -1.0
+   ],
+   "giro": -20,
+   "pose": "stand",
+   "hold": {
+    "R": "keys"
+   }
+  },
+  {
+   "t": 46.9,
+   "jugada": "colocar",
+   "quien": "chico",
+   "pos": [
+    -2.4,
+    18.85,
+    -1.2
+   ],
+   "giro": -30,
+   "pose": "stand",
+   "hold": {}
+  },
+  {
+   "t": 46.9,
+   "jugada": "colocar",
+   "quien": "portero",
+   "pos": [
+    -5.8,
+    18.85,
+    -0.9
+   ],
+   "giro": 30,
+   "pose": "stand",
+   "hold": {}
+  },
+  {
+   "t": 46.9,
+   "jugada": "colocar",
+   "quien": "nina",
+   "pos": [
+    -3.65,
+    18.85,
+    -0.6
+   ],
+   "giro": 0,
+   "pose": "wave"
+  },
+  {
+   "t": 46.9,
+   "dur": 3.3,
+   "jugada": "camara",
+   "pos": [
+    -4.0,
+    24.0,
+    6.5
+   ],
+   "look": [
+    -4.0,
+    20.2,
+    -1.0
+   ],
+   "fov": 46
+  },
+  {
+   "t": 47.2,
+   "dur": 0.9,
+   "jugada": "resolver",
+   "quien": "pareja-b"
+  },
+  {
+   "t": 47.4,
+   "dur": 0.9,
+   "jugada": "resolver",
+   "quien": "chico"
+  },
+  {
+   "t": 47.6,
+   "dur": 0.9,
+   "jugada": "resolver",
+   "quien": "pareja-a"
+  },
+  {
+   "t": 47.6,
+   "dur": 1.6,
+   "jugada": "burbuja",
+   "quien": "vecina",
+   "cara": "happy",
+   "texto": "Come up!"
+  },
+  {
+   "t": 47.8,
+   "dur": 0.9,
+   "jugada": "resolver",
+   "quien": "portero"
+  },
+  {
+   "t": 50.2,
+   "dur": 2.95,
+   "jugada": "camara-plano",
+   "centro": [
+    0,
+    11.5,
+    -3.5
+   ],
+   "alto": 40
+  },
+  {
+   "t": 53.15,
+   "jugada": "subir-al-logo",
+   "quien": "pareja-b"
+  }
+ ]
+}

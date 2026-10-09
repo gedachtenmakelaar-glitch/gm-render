@@ -1,0 +1,125 @@
+{
+ "module": "sala-espera/escena.js",
+ "size": [
+  1080,
+  1920
+ ],
+ "cell": 4,
+ "out": "sala-espera/hojas/_tmp-ang",
+ "opts": {},
+ "shots": [
+  {
+   "name": "01-ancho-puerta",
+   "cam": "ancho-puerta-v",
+   "opts": {
+    "gente": "media",
+    "de_pie": true
+   },
+   "light": 0.7
+  },
+  {
+   "name": "02-v41",
+   "cam": "v41-v",
+   "opts": {
+    "gente": "media"
+   },
+   "light": 0.7
+  },
+  {
+   "name": "03-inverso-ventana",
+   "cam": "inverso-ventana-v",
+   "opts": {
+    "gente": "media"
+   },
+   "light": 0.7
+  },
+  {
+   "name": "04-recepcion-hombro",
+   "cam": "recepcion-hombro-v",
+   "opts": {
+    "gente": "media",
+    "de_pie": true
+   },
+   "light": 0.7
+  },
+  {
+   "name": "05-reloj",
+   "cam": "reloj-v",
+   "opts": {
+    "gente": "media"
+   },
+   "light": 0.7
+  },
+  {
+   "name": "06-contrapicado-suelo",
+   "cam": "contrapicado-suelo-v",
+   "opts": {
+    "gente": "media"
+   },
+   "light": 0.7
+  },
+  {
+   "name": "07-cenital",
+   "cam": "cenital-v",
+   "opts": {
+    "gente": "media",
+    "de_pie": true,
+    "techo": false
+   },
+   "light": 0.7
+  },
+  {
+   "name": "08-asiento-1",
+   "cam": "asiento-1-v",
+   "opts": {
+    "gente": "media"
+   },
+   "light": 0.7
+  },
+  {
+   "name": "09-asiento-2",
+   "cam": "asiento-2-v",
+   "opts": {
+    "gente": "media"
+   },
+   "light": 0.7
+  },
+  {
+   "name": "10-noche",
+   "cam": "v41-v",
+   "mood": "noche",
+   "opts": {
+    "gente": "media"
+   },
+   "light": 0.7
+  },
+  {
+   "name": "11-consultorio",
+   "cam": "v41-v",
+   "opts": {
+    "variante": "consultorio",
+    "gente": "media",
+    "ids": [
+     "vecina",
+     "abuelo",
+     "nina"
+    ]
+   },
+   "light": 0.7
+  },
+  {
+   "name": "12-consultorio-noche",
+   "cam": "ancho-puerta-v",
+   "mood": "noche",
+   "opts": {
+    "variante": "consultorio",
+    "gente": "media",
+    "ids": [
+     "estudiante",
+     "abuela"
+    ]
+   },
+   "light": 0.7
+  }
+ ]
+}

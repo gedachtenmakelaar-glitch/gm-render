@@ -1,0 +1,2086 @@
+{
+ "name": "terraza",
+ "size": [
+  1080,
+  1920
+ ],
+ "duration": 54.0,
+ "ending": true,
+ "bpm": 112,
+ "sitio": {
+  "tipo": "edificio",
+  "mood": "tarde",
+  "culling": true,
+  "ocultar": [
+   "balcon:pb-portero",
+   "balcon:p1-abuela",
+   "balcon:p1-abuelo",
+   "balcon:p2-pareja",
+   "balcon:p2-estudiante",
+   "balcon:p3-nina",
+   "balcon:p3-chico",
+   "balcon:p3-vecina",
+   "balcon:p4-teletrabajo",
+   "balcon:p4-bebe",
+   "balcon:p5-viajera",
+   "balcon:p5-plantera"
+  ],
+  "opts": {
+   "cutaway": true,
+   "street": true,
+   "neighbours": true,
+   "skyline": true,
+   "residents": true,
+   "bikeLaneAccent": true
+  }
+ },
+ "reparto": {
+  "pareja-a": {
+   "existente": "pareja",
+   "emocion": 2
+  },
+  "pareja-b": {
+   "existente": "pareja#2",
+   "emocion": 2
+  },
+  "abuela": {
+   "existente": true,
+   "emocion": 1
+  },
+  "abuelo": {
+   "existente": true,
+   "emocion": 1
+  },
+  "estudiante": {
+   "existente": true,
+   "emocion": 1
+  },
+  "chico": {
+   "existente": true,
+   "emocion": 1
+  },
+  "vecina": {
+   "existente": true,
+   "emocion": 1
+  },
+  "nina": {
+   "existente": true,
+   "emocion": 1
+  },
+  "madre": {
+   "existente": true,
+   "emocion": 1
+  },
+  "teletrabajo": {
+   "existente": true,
+   "emocion": 1
+  },
+  "familia-bebe": {
+   "existente": true,
+   "emocion": 1
+  },
+  "viajera": {
+   "existente": true,
+   "emocion": 1
+  },
+  "plantera": {
+   "existente": true,
+   "emocion": 1
+  },
+  "artista": {
+   "existente": true,
+   "emocion": 1
+  },
+  "portero": {
+   "existente": true,
+   "emocion": 1
+  }
+ },
+ "foco": "pareja-b",
+ "coleccion": {
+  "de": [
+   "pareja-a",
+   "pareja-b"
+  ]
+ },
+ "tarjetas": {
+  "terraza": {
+   "label": "key",
+   "num": "01",
+   "title": "Rooftop",
+   "sub": "neighbours only",
+   "icon": "heart"
+  }
+ },
+ "pulsos": [
+  {
+   "t": 0,
+   "jugada": "vida",
+   "quien": "abuela",
+   "pose": "knit-sit",
+   "periodo": 1.2
+  },
+  {
+   "t": 0,
+   "jugada": "vida",
+   "quien": "estudiante",
+   "pose": "type",
+   "periodo": 0.5
+  },
+  {
+   "t": 0,
+   "jugada": "vida",
+   "quien": "chico",
+   "pose": "drum",
+   "periodo": 0.6,
+   "hold": {
+    "R": "sticks",
+    "L": "sticks"
+   }
+  },
+  {
+   "t": 0,
+   "jugada": "vida",
+   "quien": "teletrabajo",
+   "pose": "type",
+   "periodo": 0.55
+  },
+  {
+   "t": 0,
+   "jugada": "vida",
+   "quien": "familia-bebe",
+   "pose": "rock",
+   "periodo": 1.6
+  },
+  {
+   "t": 0,
+   "jugada": "vida",
+   "quien": "viajera",
+   "pose": "read",
+   "periodo": 3.0
+  },
+  {
+   "t": 0,
+   "jugada": "vida",
+   "quien": "plantera",
+   "pose": "water",
+   "periodo": 1.5,
+   "hold": {
+    "R": "wateringCan"
+   }
+  },
+  {
+   "t": 0,
+   "jugada": "vida",
+   "quien": "artista",
+   "pose": "paint",
+   "periodo": 1.2,
+   "hold": {
+    "R": "brush"
+   }
+  },
+  {
+   "t": 0,
+   "jugada": "colocar",
+   "quien": "pareja-b",
+   "pos": [
+    -9.5,
+    0,
+    1.3
+   ],
+   "giro": 90,
+   "pose": "walk",
+   "hold": {
+    "L": "bag"
+   }
+  },
+  {
+   "t": 0,
+   "jugada": "colocar",
+   "quien": "pareja-a",
+   "pos": [
+    -10.2,
+    0,
+    1.9
+   ],
+   "giro": 90,
+   "pose": "walk",
+   "hold": {
+    "R": "bag"
+   }
+  },
+  {
+   "t": 0,
+   "jugada": "colocar",
+   "quien": "portero",
+   "pos": [
+    3.7,
+    0,
+    0.9
+   ],
+   "giro": -60,
+   "pose": "stand",
+   "hold": {
+    "R": "keys"
+   }
+  },
+  {
+   "t": 0,
+   "jugada": "camara",
+   "pos": [
+    -6.5,
+    3.2,
+    5.6
+   ],
+   "look": [
+    -2.0,
+    0.9,
+    1.0
+   ],
+   "fov": 58,
+   "dur": 6.5,
+   "empuje": 0.08,
+   "deriva": 6
+  },
+  {
+   "t": 0,
+   "jugada": "dibujar-sitio",
+   "dur": 2.4,
+   "quien": [
+    "portero",
+    "pareja-a",
+    "pareja-b"
+   ]
+  },
+  {
+   "t": 0.6,
+   "jugada": "caminar",
+   "quien": "pareja-b",
+   "de": [
+    -9.5,
+    0,
+    1.3
+   ],
+   "a": [
+    2.1,
+    0,
+    1.3
+   ],
+   "dur": 5.6,
+   "hold": {
+    "L": "bag"
+   },
+   "fin": "stand",
+   "giro": 60
+  },
+  {
+   "t": 0.6,
+   "jugada": "caminar",
+   "quien": "pareja-a",
+   "de": [
+    -10.2,
+    0,
+    1.9
+   ],
+   "a": [
+    1.5,
+    0,
+    1.9
+   ],
+   "dur": 5.6,
+   "hold": {
+    "R": "bag"
+   },
+   "fin": "stand",
+   "giro": 60
+  },
+  {
+   "t": 6.5,
+   "jugada": "camara",
+   "pos": [
+    2.3,
+    1.75,
+    7.2
+   ],
+   "look": [
+    2.7,
+    1.45,
+    1.0
+   ],
+   "fov": 44,
+   "dur": 4.1,
+   "deriva": -3
+  },
+  {
+   "t": 6.6,
+   "jugada": "burbuja",
+   "quien": "portero",
+   "cara": "happy",
+   "texto": "Welcome!",
+   "dur": 1.4
+  },
+  {
+   "t": 8.0,
+   "jugada": "pose",
+   "quien": "portero",
+   "pose": "point",
+   "mira": [
+    3.0,
+    14.0,
+    -2.0
+   ],
+   "hold": {
+    "R": "keys"
+   },
+   "dur": 0.4
+  },
+  {
+   "t": 8.1,
+   "jugada": "tarjeta-en-sala",
+   "quien": "portero",
+   "tarjeta": "terraza",
+   "donde": [
+    -0.7,
+    0.55,
+    0.4
+   ],
+   "dur": 2.4,
+   "camara": false
+  },
+  {
+   "t": 8.3,
+   "jugada": "pose",
+   "quien": "pareja-b",
+   "pose": "stand",
+   "mira": [
+    3.0,
+    14.0,
+    -2.0
+   ],
+   "hold": {
+    "L": "bag"
+   },
+   "dur": 0.5
+  },
+  {
+   "t": 10.4,
+   "jugada": "dibujar-vivienda",
+   "viviendas": [
+    "p1-abuela",
+    "p1-abuelo"
+   ],
+   "dur": 1.1
+  },
+  {
+   "t": 10.6,
+   "jugada": "caminar",
+   "quien": "pareja-b",
+   "ruta": [
+    [
+     3,
+     0.25,
+     -0.7
+    ],
+    [
+     1.4,
+     0.25,
+     -1.1
+    ],
+    [
+     0.8,
+     0.49,
+     -1.1
+    ],
+    [
+     -1.6,
+     3.35,
+     -1.1
+    ],
+    [
+     -1.9500000000000002,
+     3.35,
+     -1.55
+    ],
+    [
+     -1.6,
+     3.59,
+     -1.1
+    ],
+    [
+     0.8,
+     6.45,
+     -1.1
+    ],
+    [
+     0.8,
+     6.45,
+     -2.1
+    ],
+    [
+     0.5,
+     6.45,
+     -2.7
+    ],
+    [
+     0,
+     6.45,
+     -4.4
+    ],
+    [
+     -2.05,
+     6.45,
+     -5.85
+    ]
+   ],
+   "de": false,
+   "dur": 10.4,
+   "hold": {
+    "L": "bag"
+   },
+   "fin": "stand",
+   "giro": -90
+  },
+  {
+   "t": 10.6,
+   "jugada": "colocar",
+   "quien": "portero",
+   "pos": [
+    3.4,
+    18.85,
+    -1.3
+   ],
+   "giro": -90,
+   "pose": "stand",
+   "hold": {
+    "R": "keys"
+   }
+  },
+  {
+   "t": 10.6,
+   "jugada": "recorrido",
+   "puntos": [
+    {
+     "t": 0.0,
+     "pos": [
+      0.0,
+      0.85,
+      30.0
+     ],
+     "look": [
+      0.0,
+      0.85,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 0.5,
+     "pos": [
+      0.0,
+      0.85,
+      30.0
+     ],
+     "look": [
+      0.0,
+      0.85,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 1.0,
+     "pos": [
+      0.0,
+      0.85,
+      30.0
+     ],
+     "look": [
+      0.0,
+      0.85,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 1.5,
+     "pos": [
+      0.0,
+      1.199,
+      30.0
+     ],
+     "look": [
+      0.0,
+      1.199,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 2.0,
+     "pos": [
+      0.0,
+      1.822,
+      30.0
+     ],
+     "look": [
+      0.0,
+      1.822,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 2.5,
+     "pos": [
+      -1.818,
+      2.326,
+      30.0
+     ],
+     "look": [
+      -1.818,
+      2.326,
+      -3.0
+     ],
+     "fov": 18.965
+    },
+    {
+     "t": 3.0,
+     "pos": [
+      -4.6,
+      2.767,
+      30.0
+     ],
+     "look": [
+      -4.6,
+      2.767,
+      -3.0
+     ],
+     "fov": 13.822
+    },
+    {
+     "t": 3.5,
+     "pos": [
+      -4.6,
+      3.39,
+      30.0
+     ],
+     "look": [
+      -4.6,
+      3.39,
+      -3.0
+     ],
+     "fov": 13.822
+    },
+    {
+     "t": 4.0,
+     "pos": [
+      -0.418,
+      3.651,
+      30.0
+     ],
+     "look": [
+      -0.418,
+      3.651,
+      -3.0
+     ],
+     "fov": 13.864
+    },
+    {
+     "t": 4.5,
+     "pos": [
+      3.3,
+      3.964,
+      30.0
+     ],
+     "look": [
+      3.3,
+      3.964,
+      -3.0
+     ],
+     "fov": 13.822
+    },
+    {
+     "t": 5.0,
+     "pos": [
+      3.3,
+      4.587,
+      30.0
+     ],
+     "look": [
+      3.3,
+      4.587,
+      -3.0
+     ],
+     "fov": 13.822
+    },
+    {
+     "t": 5.5,
+     "pos": [
+      0.676,
+      5.448,
+      30.0
+     ],
+     "look": [
+      0.676,
+      5.448,
+      -3.0
+     ],
+     "fov": 20.569
+    },
+    {
+     "t": 6.0,
+     "pos": [
+      0.0,
+      6.132,
+      30.0
+     ],
+     "look": [
+      0.0,
+      6.132,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 6.5,
+     "pos": [
+      0.0,
+      6.755,
+      30.0
+     ],
+     "look": [
+      0.0,
+      6.755,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 7.0,
+     "pos": [
+      0.0,
+      7.05,
+      30.0
+     ],
+     "look": [
+      0.0,
+      7.05,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 7.5,
+     "pos": [
+      0.0,
+      7.05,
+      30.0
+     ],
+     "look": [
+      0.0,
+      7.05,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 8.0,
+     "pos": [
+      0.0,
+      7.05,
+      30.0
+     ],
+     "look": [
+      0.0,
+      7.05,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 8.5,
+     "pos": [
+      0.0,
+      7.05,
+      30.0
+     ],
+     "look": [
+      0.0,
+      7.05,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 9.0,
+     "pos": [
+      0.0,
+      7.05,
+      30.0
+     ],
+     "look": [
+      0.0,
+      7.05,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 9.5,
+     "pos": [
+      0.0,
+      7.05,
+      30.0
+     ],
+     "look": [
+      0.0,
+      7.05,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 10.0,
+     "pos": [
+      0.0,
+      7.05,
+      30.0
+     ],
+     "look": [
+      0.0,
+      7.05,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 10.5,
+     "pos": [
+      0.0,
+      7.05,
+      30.0
+     ],
+     "look": [
+      0.0,
+      7.05,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 11.0,
+     "pos": [
+      0.0,
+      7.05,
+      30.0
+     ],
+     "look": [
+      0.0,
+      7.05,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 11.5,
+     "pos": [
+      0.0,
+      7.05,
+      30.0
+     ],
+     "look": [
+      0.0,
+      7.05,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 12.0,
+     "pos": [
+      0.0,
+      7.05,
+      30.0
+     ],
+     "look": [
+      0.0,
+      7.05,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 12.5,
+     "pos": [
+      0.0,
+      7.05,
+      30.0
+     ],
+     "look": [
+      0.0,
+      7.05,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 13.0,
+     "pos": [
+      0.0,
+      7.05,
+      30.0
+     ],
+     "look": [
+      0.0,
+      7.05,
+      -3.0
+     ],
+     "fov": 22.286
+    }
+   ],
+   "cerca": 3.05
+  },
+  {
+   "t": 11.4,
+   "jugada": "caminar",
+   "quien": "pareja-a",
+   "ruta": [
+    [
+     3,
+     0.25,
+     -0.7
+    ],
+    [
+     1.4,
+     0.25,
+     -1.1
+    ],
+    [
+     0.8,
+     0.49,
+     -1.1
+    ],
+    [
+     -1.6,
+     3.35,
+     -1.1
+    ],
+    [
+     -1.9500000000000002,
+     3.35,
+     -1.55
+    ],
+    [
+     -1.6,
+     3.59,
+     -1.1
+    ],
+    [
+     0.8,
+     6.45,
+     -1.1
+    ],
+    [
+     0.8,
+     6.45,
+     -2.1
+    ],
+    [
+     0.5,
+     6.45,
+     -2.7
+    ],
+    [
+     0,
+     6.45,
+     -4.4
+    ],
+    [
+     -1.4,
+     6.45,
+     -5.3
+    ]
+   ],
+   "de": false,
+   "dur": 10.4,
+   "hold": {
+    "R": "bag"
+   },
+   "fin": "stand",
+   "giro": -120
+  },
+  {
+   "t": 11.8,
+   "jugada": "dibujar-vivienda",
+   "viviendas": [
+    "p2-pareja",
+    "p2-estudiante"
+   ],
+   "dur": 1.1,
+   "sin": [
+    "pareja-a",
+    "pareja-b"
+   ]
+  },
+  {
+   "t": 13.402,
+   "jugada": "garabato",
+   "quien": "abuela",
+   "icono": "ovillo",
+   "dur": 0.95
+  },
+  {
+   "t": 14.602,
+   "jugada": "garabato",
+   "quien": "abuelo",
+   "icono": "hueso",
+   "dur": 0.95
+  },
+  {
+   "t": 21.3,
+   "jugada": "pose",
+   "quien": "pareja-b",
+   "pose": "stand",
+   "hold": {},
+   "dur": 0.4
+  },
+  {
+   "t": 21.4,
+   "jugada": "dibujar-vivienda",
+   "viviendas": [
+    "p3-nina",
+    "p3-chico",
+    "p3-vecina"
+   ],
+   "dur": 1.1
+  },
+  {
+   "t": 21.5,
+   "jugada": "pose",
+   "quien": "pareja-a",
+   "pose": "stand",
+   "hold": {},
+   "dur": 0.4
+  },
+  {
+   "t": 21.7,
+   "jugada": "garabato",
+   "quien": "estudiante",
+   "icono": "auriculares",
+   "dur": 0.95
+  },
+  {
+   "t": 22.9,
+   "jugada": "pose",
+   "quien": "pareja-b",
+   "pose": "point",
+   "mira": [
+    0.5,
+    20.0,
+    -1.5
+   ],
+   "dur": 0.4
+  },
+  {
+   "t": 22.9,
+   "jugada": "burbuja",
+   "quien": "pareja-b",
+   "cara": "curious",
+   "texto": "Roof?",
+   "dur": 1.6
+  },
+  {
+   "t": 24.5,
+   "jugada": "caminar",
+   "quien": "pareja-b",
+   "ruta": [
+    [
+     -2.05,
+     6.45,
+     -5.85
+    ],
+    [
+     0,
+     6.45,
+     -4.4
+    ],
+    [
+     0.5,
+     6.45,
+     -2.7
+    ],
+    [
+     0.8,
+     6.45,
+     -2.1
+    ],
+    [
+     0.8,
+     6.69,
+     -1.1
+    ],
+    [
+     -1.6,
+     9.55,
+     -1.1
+    ],
+    [
+     -1.9500000000000002,
+     9.55,
+     -1.55
+    ],
+    [
+     -1.6,
+     9.79,
+     -1.1
+    ],
+    [
+     0.8,
+     12.65,
+     -1.1
+    ],
+    [
+     1.15,
+     12.65,
+     -1.55
+    ],
+    [
+     0.8,
+     12.89,
+     -1.1
+    ],
+    [
+     -1.6,
+     15.75,
+     -1.1
+    ],
+    [
+     -1.9500000000000002,
+     15.75,
+     -1.55
+    ],
+    [
+     -1.6,
+     15.99,
+     -1.1
+    ],
+    [
+     0.8,
+     18.85,
+     -1.1
+    ],
+    [
+     1.5,
+     18.85,
+     -1.1
+    ]
+   ],
+   "de": false,
+   "dur": 16.6,
+   "fin": "stand",
+   "giro": 90
+  },
+  {
+   "t": 24.5,
+   "jugada": "recorrido",
+   "puntos": [
+    {
+     "t": 0.0,
+     "pos": [
+      0.0,
+      7.05,
+      30.0
+     ],
+     "look": [
+      0.0,
+      7.05,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 0.5,
+     "pos": [
+      0.0,
+      7.05,
+      30.0
+     ],
+     "look": [
+      0.0,
+      7.05,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 1.0,
+     "pos": [
+      0.0,
+      7.05,
+      30.0
+     ],
+     "look": [
+      0.0,
+      7.05,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 1.5,
+     "pos": [
+      0.0,
+      7.05,
+      30.0
+     ],
+     "look": [
+      0.0,
+      7.05,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 2.0,
+     "pos": [
+      0.0,
+      7.05,
+      30.0
+     ],
+     "look": [
+      0.0,
+      7.05,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 2.5,
+     "pos": [
+      0.0,
+      7.05,
+      30.0
+     ],
+     "look": [
+      0.0,
+      7.05,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 3.0,
+     "pos": [
+      0.0,
+      7.05,
+      30.0
+     ],
+     "look": [
+      0.0,
+      7.05,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 3.5,
+     "pos": [
+      0.0,
+      7.133,
+      30.0
+     ],
+     "look": [
+      0.0,
+      7.133,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 4.0,
+     "pos": [
+      0.0,
+      7.356,
+      30.0
+     ],
+     "look": [
+      0.0,
+      7.356,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 4.5,
+     "pos": [
+      0.0,
+      7.937,
+      30.0
+     ],
+     "look": [
+      0.0,
+      7.937,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 5.0,
+     "pos": [
+      0.0,
+      8.518,
+      30.0
+     ],
+     "look": [
+      0.0,
+      8.518,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 5.5,
+     "pos": [
+      0.0,
+      9.099,
+      30.0
+     ],
+     "look": [
+      0.0,
+      9.099,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 6.0,
+     "pos": [
+      -2.994,
+      9.494,
+      30.0
+     ],
+     "look": [
+      -2.994,
+      9.494,
+      -3.0
+     ],
+     "fov": 17.079
+    },
+    {
+     "t": 6.5,
+     "pos": [
+      -4.845,
+      9.85,
+      30.0
+     ],
+     "look": [
+      -4.845,
+      9.85,
+      -3.0
+     ],
+     "fov": 13.822
+    },
+    {
+     "t": 7.0,
+     "pos": [
+      -2.555,
+      9.979,
+      30.0
+     ],
+     "look": [
+      -2.555,
+      9.979,
+      -3.0
+     ],
+     "fov": 13.822
+    },
+    {
+     "t": 7.5,
+     "pos": [
+      2.569,
+      10.452,
+      30.0
+     ],
+     "look": [
+      2.569,
+      10.452,
+      -3.0
+     ],
+     "fov": 13.822
+    },
+    {
+     "t": 8.0,
+     "pos": [
+      4.42,
+      11.034,
+      30.0
+     ],
+     "look": [
+      4.42,
+      11.034,
+      -3.0
+     ],
+     "fov": 13.822
+    },
+    {
+     "t": 8.5,
+     "pos": [
+      2.13,
+      11.77,
+      30.0
+     ],
+     "look": [
+      2.13,
+      11.77,
+      -3.0
+     ],
+     "fov": 18.231
+    },
+    {
+     "t": 9.0,
+     "pos": [
+      -0.452,
+      12.462,
+      30.0
+     ],
+     "look": [
+      -0.452,
+      12.462,
+      -3.0
+     ],
+     "fov": 21.358
+    },
+    {
+     "t": 9.5,
+     "pos": [
+      -4.08,
+      12.777,
+      30.0
+     ],
+     "look": [
+      -4.08,
+      12.777,
+      -3.0
+     ],
+     "fov": 13.822
+    },
+    {
+     "t": 10.0,
+     "pos": [
+      -4.035,
+      12.95,
+      30.0
+     ],
+     "look": [
+      -4.035,
+      12.95,
+      -3.0
+     ],
+     "fov": 13.822
+    },
+    {
+     "t": 10.5,
+     "pos": [
+      0.537,
+      13.268,
+      30.0
+     ],
+     "look": [
+      0.537,
+      13.268,
+      -3.0
+     ],
+     "fov": 13.822
+    },
+    {
+     "t": 11.0,
+     "pos": [
+      4.165,
+      13.849,
+      30.0
+     ],
+     "look": [
+      4.165,
+      13.849,
+      -3.0
+     ],
+     "fov": 13.822
+    },
+    {
+     "t": 11.5,
+     "pos": [
+      4.12,
+      14.433,
+      30.0
+     ],
+     "look": [
+      4.12,
+      14.433,
+      -3.0
+     ],
+     "fov": 13.915
+    },
+    {
+     "t": 12.0,
+     "pos": [
+      0.0,
+      15.311,
+      30.0
+     ],
+     "look": [
+      0.0,
+      15.311,
+      -3.0
+     ],
+     "fov": 22.286
+    },
+    {
+     "t": 12.5,
+     "pos": [
+      -2.219,
+      15.701,
+      30.0
+     ],
+     "look": [
+      -2.219,
+      15.701,
+      -3.0
+     ],
+     "fov": 16.919
+    },
+    {
+     "t": 13.0,
+     "pos": [
+      -3.485,
+      16.05,
+      30.0
+     ],
+     "look": [
+      -3.485,
+      16.05,
+      -3.0
+     ],
+     "fov": 13.822
+    },
+    {
+     "t": 13.5,
+     "pos": [
+      -0.975,
+      16.186,
+      30.0
+     ],
+     "look": [
+      -0.975,
+      16.186,
+      -3.0
+     ],
+     "fov": 13.822
+    },
+    {
+     "t": 14.0,
+     "pos": [
+      3.409,
+      16.665,
+      30.0
+     ],
+     "look": [
+      3.409,
+      16.665,
+      -3.0
+     ],
+     "fov": 13.822
+    },
+    {
+     "t": 14.5,
+     "pos": [
+      4.675,
+      17.246,
+      30.0
+     ],
+     "look": [
+      4.675,
+      17.246,
+      -3.0
+     ],
+     "fov": 13.822
+    },
+    {
+     "t": 15.0,
+     "pos": [
+      2.165,
+      17.988,
+      30.0
+     ],
+     "look": [
+      2.165,
+      17.988,
+      -3.0
+     ],
+     "fov": 18.39
+    },
+    {
+     "t": 15.5,
+     "pos": [
+      -4.369,
+      18.429,
+      30.0
+     ],
+     "look": [
+      -4.369,
+      18.429,
+      -3.0
+     ],
+     "fov": 14.424
+    },
+    {
+     "t": 16.0,
+     "pos": [
+      -4.7,
+      18.989,
+      30.0
+     ],
+     "look": [
+      -4.7,
+      18.989,
+      -3.0
+     ],
+     "fov": 13.822
+    }
+   ],
+   "cerca": 3.05
+  },
+  {
+   "t": 25.3,
+   "jugada": "caminar",
+   "quien": "pareja-a",
+   "ruta": [
+    [
+     -2.05,
+     6.45,
+     -5.85
+    ],
+    [
+     0,
+     6.45,
+     -4.4
+    ],
+    [
+     0.5,
+     6.45,
+     -2.7
+    ],
+    [
+     0.8,
+     6.45,
+     -2.1
+    ],
+    [
+     0.8,
+     6.69,
+     -1.1
+    ],
+    [
+     -1.6,
+     9.55,
+     -1.1
+    ],
+    [
+     -1.9500000000000002,
+     9.55,
+     -1.55
+    ],
+    [
+     -1.6,
+     9.79,
+     -1.1
+    ],
+    [
+     0.8,
+     12.65,
+     -1.1
+    ],
+    [
+     1.15,
+     12.65,
+     -1.55
+    ],
+    [
+     0.8,
+     12.89,
+     -1.1
+    ],
+    [
+     -1.6,
+     15.75,
+     -1.1
+    ],
+    [
+     -1.9500000000000002,
+     15.75,
+     -1.55
+    ],
+    [
+     -1.6,
+     15.99,
+     -1.1
+    ],
+    [
+     0.8,
+     18.85,
+     -1.1
+    ],
+    [
+     1.5,
+     18.85,
+     -1.1
+    ],
+    [
+     2.2,
+     18.85,
+     -0.6
+    ]
+   ],
+   "de": false,
+   "dur": 17.200000000000003,
+   "fin": "stand",
+   "giro": 90
+  },
+  {
+   "t": 29.641,
+   "jugada": "dibujar-vivienda",
+   "viviendas": [
+    "p4-teletrabajo",
+    "p4-bebe"
+   ],
+   "dur": 1.0
+  },
+  {
+   "t": 30.691,
+   "jugada": "garabato",
+   "quien": "nina",
+   "icono": "osito",
+   "dur": 0.9
+  },
+  {
+   "t": 31.741,
+   "jugada": "garabato",
+   "quien": "chico",
+   "icono": "baquetas",
+   "dur": 0.9
+  },
+  {
+   "t": 32.895,
+   "jugada": "dibujar-vivienda",
+   "viviendas": [
+    "p5-viajera",
+    "p5-plantera"
+   ],
+   "dur": 1.0
+  },
+  {
+   "t": 33.945,
+   "jugada": "garabato",
+   "quien": "teletrabajo",
+   "icono": "zapatilla",
+   "dur": 0.9
+  },
+  {
+   "t": 34.995,
+   "jugada": "garabato",
+   "quien": "familia-bebe",
+   "icono": "bebe",
+   "dur": 0.9
+  },
+  {
+   "t": 36.132,
+   "jugada": "dibujar-vivienda",
+   "viviendas": [
+    "atico-artista",
+    "atico-secadero"
+   ],
+   "dur": 1.0
+  },
+  {
+   "t": 37.182,
+   "jugada": "garabato",
+   "quien": "viajera",
+   "icono": "mapa",
+   "dur": 0.9
+  },
+  {
+   "t": 38.232,
+   "jugada": "garabato",
+   "quien": "plantera",
+   "icono": "regadera",
+   "dur": 0.9
+  },
+  {
+   "t": 40.035,
+   "jugada": "garabato",
+   "quien": "artista",
+   "icono": "pincel",
+   "dur": 0.9
+  },
+  {
+   "t": 41.1,
+   "jugada": "camara",
+   "pos": [
+    2.4,
+    22.4,
+    7.0
+   ],
+   "look": [
+    2.4,
+    19.6,
+    -1.0
+   ],
+   "fov": 34,
+   "dur": 5.0,
+   "deriva": 3
+  },
+  {
+   "t": 41.2,
+   "jugada": "burbuja",
+   "quien": "portero",
+   "cara": "neutral",
+   "texto": "Neighbours only.",
+   "dur": 1.8
+  },
+  {
+   "t": 43.0,
+   "jugada": "abanico",
+   "centro": "portero",
+   "dur": 2.0
+  },
+  {
+   "t": 43.0,
+   "jugada": "pose",
+   "quien": "pareja-b",
+   "pose": "point",
+   "mira": [
+    3.4,
+    20.3,
+    -1.3
+   ],
+   "dur": 0.4
+  },
+  {
+   "t": 43.7,
+   "jugada": "resolver",
+   "quien": "portero",
+   "dur": 0.8
+  },
+  {
+   "t": 44.1,
+   "jugada": "burbuja",
+   "quien": "portero",
+   "cara": "happy",
+   "texto": "You know everyone!",
+   "dur": 1.7
+  },
+  {
+   "t": 45.5,
+   "jugada": "pose",
+   "quien": "portero",
+   "pose": "stand",
+   "hold": {},
+   "dur": 0.3
+  },
+  {
+   "t": 45.5,
+   "jugada": "pose",
+   "quien": "pareja-b",
+   "pose": "stand",
+   "hold": {
+    "R": "keys"
+   },
+   "dur": 0.3
+  },
+  {
+   "t": 45.9,
+   "jugada": "burbuja",
+   "quien": "pareja-b",
+   "cara": "happy",
+   "texto": "Come up, everyone!",
+   "dur": 1.5
+  },
+  {
+   "t": 47.4,
+   "jugada": "camara",
+   "pos": [
+    0,
+    10.6,
+    62
+   ],
+   "look": [
+    0,
+    10.6,
+    -3.5
+   ],
+   "fov": 23.5,
+   "dur": 3.0,
+   "cerca": 3.6,
+   "empuje": 0.03,
+   "deriva": 0
+  },
+  {
+   "t": 47.5,
+   "jugada": "repartir",
+   "dur": 2.6
+  },
+  {
+   "t": 50.4,
+   "jugada": "colocar",
+   "quien": "pareja-b",
+   "pos": [
+    -0.6,
+    18.85,
+    -0.7
+   ],
+   "giro": 10,
+   "pose": "stand",
+   "hold": {}
+  },
+  {
+   "t": 50.4,
+   "jugada": "colocar",
+   "quien": "pareja-a",
+   "pos": [
+    -1.3,
+    18.85,
+    -1.2
+   ],
+   "giro": 25,
+   "pose": "stand",
+   "hold": {}
+  },
+  {
+   "t": 50.4,
+   "jugada": "colocar",
+   "quien": "portero",
+   "pos": [
+    0.3,
+    18.85,
+    -1.3
+   ],
+   "giro": -15,
+   "pose": "stand",
+   "hold": {}
+  },
+  {
+   "t": 50.4,
+   "jugada": "colocar",
+   "quien": "abuela",
+   "pos": [
+    -2.3,
+    18.85,
+    -0.8
+   ],
+   "giro": 20,
+   "pose": "stand",
+   "hold": {}
+  },
+  {
+   "t": 50.4,
+   "jugada": "colocar",
+   "quien": "abuelo",
+   "pos": [
+    -3.1,
+    18.85,
+    -1.3
+   ],
+   "giro": 30,
+   "pose": "stand",
+   "hold": {}
+  },
+  {
+   "t": 50.4,
+   "jugada": "colocar",
+   "quien": "estudiante",
+   "pos": [
+    1.2,
+    18.85,
+    -0.7
+   ],
+   "giro": -10,
+   "pose": "stand",
+   "hold": {}
+  },
+  {
+   "t": 50.4,
+   "jugada": "colocar",
+   "quien": "chico",
+   "pos": [
+    2.0,
+    18.85,
+    -1.3
+   ],
+   "giro": -20,
+   "pose": "wave",
+   "hold": {}
+  },
+  {
+   "t": 50.4,
+   "jugada": "colocar",
+   "quien": "vecina",
+   "pos": [
+    2.8,
+    18.85,
+    -0.8
+   ],
+   "giro": -25,
+   "pose": "stand",
+   "hold": {}
+  },
+  {
+   "t": 50.4,
+   "jugada": "colocar",
+   "quien": "nina",
+   "pos": [
+    -1.9,
+    18.85,
+    -0.3
+   ],
+   "giro": 5,
+   "pose": "wave",
+   "hold": {}
+  },
+  {
+   "t": 50.4,
+   "jugada": "colocar",
+   "quien": "madre",
+   "pos": [
+    -2.7,
+    18.85,
+    -1.6
+   ],
+   "giro": 20,
+   "pose": "stand",
+   "hold": {}
+  },
+  {
+   "t": 50.4,
+   "jugada": "colocar",
+   "quien": "teletrabajo",
+   "pos": [
+    3.6,
+    18.85,
+    -1.4
+   ],
+   "giro": -30,
+   "pose": "stand",
+   "hold": {}
+  },
+  {
+   "t": 50.4,
+   "jugada": "colocar",
+   "quien": "familia-bebe",
+   "pos": [
+    -3.8,
+    18.85,
+    -0.6
+   ],
+   "giro": 30,
+   "pose": "stand",
+   "hold": {}
+  },
+  {
+   "t": 50.4,
+   "jugada": "colocar",
+   "quien": "viajera",
+   "pos": [
+    4.3,
+    18.85,
+    -0.7
+   ],
+   "giro": -30,
+   "pose": "stand",
+   "hold": {}
+  },
+  {
+   "t": 50.4,
+   "jugada": "colocar",
+   "quien": "plantera",
+   "pos": [
+    -4.5,
+    18.85,
+    -1.4
+   ],
+   "giro": 35,
+   "pose": "stand",
+   "hold": {}
+  },
+  {
+   "t": 50.4,
+   "jugada": "colocar",
+   "quien": "artista",
+   "pos": [
+    1.0,
+    18.85,
+    -1.7
+   ],
+   "giro": -5,
+   "pose": "stand",
+   "hold": {}
+  },
+  {
+   "t": 50.4,
+   "jugada": "camara",
+   "pos": [
+    -0.6,
+    21.5,
+    5.6
+   ],
+   "look": [
+    -0.6,
+    19.85,
+    -1.0
+   ],
+   "fov": 48,
+   "dur": 2.8,
+   "deriva": 3
+  },
+  {
+   "t": 50.7,
+   "jugada": "resolver",
+   "quien": "pareja-a",
+   "dur": 0.9
+  },
+  {
+   "t": 50.9,
+   "jugada": "resolver",
+   "quien": "chico",
+   "dur": 0.9
+  },
+  {
+   "t": 51.1,
+   "jugada": "resolver",
+   "quien": "abuela",
+   "dur": 0.9
+  },
+  {
+   "t": 51.3,
+   "jugada": "resolver",
+   "quien": "estudiante",
+   "dur": 0.9
+  },
+  {
+   "t": 51.5,
+   "jugada": "resolver",
+   "quien": "teletrabajo",
+   "dur": 0.9
+  },
+  {
+   "t": 51.6,
+   "jugada": "burbuja",
+   "quien": "vecina",
+   "cara": "happy",
+   "dur": 1.3
+  },
+  {
+   "t": 53.15,
+   "jugada": "subir-al-logo",
+   "quien": "pareja-b"
+  }
+ ]
+}

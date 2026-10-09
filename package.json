@@ -1,0 +1,6 @@
+{
+  "name": "gm-videos",
+  "private": true,
+  "description": "Herramientas de vídeo GM. HyperFrames FIJADO: no se actualiza solo (se cambia a mano, entre grupos, y se prueba con la prueba 3D/2D).",
+  "devDependencies": { "hyperframes": "0.8.142" }
+}

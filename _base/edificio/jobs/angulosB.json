@@ -1,0 +1,117 @@
+{
+"module": "edificio/escena.js",
+"size": [
+1080,
+1920
+],
+"cell": 4,
+"out": "edificio/hojas/_angulos",
+"shots": [
+{
+"name": "warm",
+"cam": "p3-chico-frente",
+"t": 0,
+"opts": {}
+},
+{
+"name": "p3-chico-frente",
+"cam": "p3-chico-frente",
+"t": 0
+},
+{
+"name": "p3-chico-tresCuartos",
+"cam": "p3-chico-tresCuartos",
+"t": 0
+},
+{
+"name": "p3-chico-puerta",
+"cam": "p3-chico-puerta",
+"t": 0
+},
+{
+"name": "p1-abuela-frente",
+"cam": "p1-abuela-frente",
+"t": 0
+},
+{
+"name": "p1-abuela-tresCuartos",
+"cam": "p1-abuela-tresCuartos",
+"t": 0
+},
+{
+"name": "p1-abuela-puerta",
+"cam": "p1-abuela-puerta",
+"t": 0
+},
+{
+"name": "p5-plantera-frente",
+"cam": "p5-plantera-frente",
+"t": 0
+},
+{
+"name": "p5-plantera-tresCuartos",
+"cam": "p5-plantera-tresCuartos",
+"t": 0
+},
+{
+"name": "p5-plantera-puerta",
+"cam": "p5-plantera-puerta",
+"t": 0
+},
+{
+"name": "p4-bebe-frente",
+"cam": "p4-bebe-frente",
+"t": 0
+},
+{
+"name": "p4-bebe-tresCuartos",
+"cam": "p4-bebe-tresCuartos",
+"t": 0
+},
+{
+"name": "p4-bebe-puerta",
+"cam": "p4-bebe-puerta",
+"t": 0
+},
+{
+"name": "z5-sala",
+"cam": "p3-nina-frente",
+"t": 0
+},
+{
+"name": "escalera",
+"cam": "escalera",
+"t": 0
+},
+{
+"name": "escalera-tres-cuartos",
+"cam": "escaleraTresCuartos",
+"t": 0
+},
+{
+"name": "ascensor-dentro",
+"cam": "ascensorDentro",
+"t": 0
+},
+{
+"name": "ascensor-3q",
+"cam": "ascensorDentroTresCuartos",
+"t": 0
+},
+{
+"name": "ascensor-fuera",
+"cam": "ascensorFuera",
+"t": 0
+},
+{
+"name": "azotea",
+"cam": "azotea",
+"t": 0
+},
+{
+"name": "sotano",
+"cam": "sotanoBicis",
+"t": 0
+}
+]
+}

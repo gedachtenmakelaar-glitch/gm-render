@@ -1,0 +1,204 @@
+// Test clip (08/10/2026): the minimum to prove the base world works in VIDEO before the first story.
+// 0.0-2.7 flat "2D" front view (like the 2D kit): the thread enters and draws the room and the people
+// 2.7-4.8 the flat view opens into 3D (dolly zoom + orbit); the boy lifts his phone; worried bubble (tail by side)
+// 4.8-6.0 the thread travels and draws THE card floating in the room (3D, crisp, the ad design)
+// 6.0-8.1 3D -> 2D: the card turns to camera, full screen on the orange field (the ad look)
+// 8.1-9.6 hard cut (hidden under the field) to a low angle; the card flies into his phone; the head resolves; happy bubble
+// 9.6-10.4 the thread rises from the spiral and hands over to the standard logo ending (hilo2d.SEAM)
+import * as G from '../../motor/gm3d.js';
+import * as H2 from '../../motor/hilo2d.js';
+import { burbuja } from '../../motor/burbuja.js';
+import { tarjeta } from '../../motor/tarjeta.js';
+import { person, blendPose } from '../../motor/personas.js';
+import * as SALA from '../../sala-espera/escena.js';
+const { THREE } = G;
+export const MODELOS = SALA.MODELOS;
+
+const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+const seg = (t, s, d) => clamp((t - s) / d, 0, 1);
+const io = (k) => k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+const ease3 = (k) => k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+const lerp = (a, b, k) => a + (b - a) * k;
+const V = (a) => new THREE.Vector3(...a);
+const D2R = Math.PI / 180;
+const END = 10.4;
+
+let S = null;   // everything built once
+
+export async function build(ctx) {
+  const { world, clean, svg, W, H } = ctx;
+  G.lights(world.scene, 'dia', { key: 0.7 });
+  const b = SALA.build(world.scene, { gente: 'vacia', disposicion: 'v41', mood: 'dia' });
+  // seats: the central bench (z -1.5), left to right
+  const mid = b.seats.filter((s) => Math.abs(s.pos[2] + 1.5) < 0.5).sort((a, c) => a.pos[0] - c.pos[0]);
+  const back = b.seats.filter((s) => s.pos[2] < -3.5).sort((a, c) => a.pos[0] - c.pos[0]);
+  const put = (id, s, o) => { const p = person(id, 'sit', o); p.position.set(...s.pos); p.rotation.y = s.rotY; b.root.add(p); return p; };
+  const chico = put('chico', mid[2], { hold: { R: 'phone' }, emotion: 4 });
+  const estudiante = put('estudiante', mid[0], { emotion: 3 });
+  const abuelo = put('abuelo', back[1], { emotion: 2 });
+  const recep = world.scene.getObjectByName('persona:recepcionista');
+  // the front wall would hide the far "flat" camera
+  b.root.traverse((o) => { if (o.name === 'sala:muro-frente') o.visible = false; });
+
+  const seat = V(mid[2].pos);
+  const focus = seat.clone().add(V([0, 0.95, 0]));
+  // the card floats up and to the right of the boy
+  const card = tarjeta({ label: 'coach', num: '01', title: 'Coach', sub: 'from €1.05/min', icon: 'chat', w: 0.62 });
+  clean.scene.add(card.group);
+  clean.scene.add(new THREE.AmbientLight(0xffffff, 1.4));
+  const dl = new THREE.DirectionalLight(0xffffff, 1.6); dl.position.set(-3, 5, 4); clean.scene.add(dl);
+  const cam = new THREE.PerspectiveCamera(30, W / H, 0.05, 200);
+
+  // ---- thread draw order: only what the flat camera sees is drawn; the rest is already there
+  const flat = camAtSpec(0.05, focus);
+  const fc = new THREE.PerspectiveCamera(flat.fov, W / H, 1, 400); fc.position.copy(flat.pos); fc.lookAt(flat.look); fc.updateMatrixWorld(); fc.updateProjectionMatrix();
+  const inFrame = (o) => { const bx = new THREE.Box3().setFromObject(o); if (bx.isEmpty()) return false; const c = bx.getCenter(new THREE.Vector3()).project(fc); const sz = bx.getSize(new THREE.Vector3()).length(); return (Math.abs(c.x) < 1.3 && Math.abs(c.y) < 1.3) || sz > 8; };
+  const stage = (name) => { const g = G.tag(new THREE.Group(), name); b.root.add(g); return g; };
+  const st1 = stage('dibujo:sala'), st2 = stage('dibujo:objetos'), st3 = stage('dibujo:bancos');
+  const people = new Set([chico, estudiante, abuelo, recep].filter(Boolean));
+  [...b.root.children].forEach((o) => {
+    if (o === st1 || o === st2 || o === st3 || people.has(o) || o.name === 'gente' || o.isLight) return;
+    if (!inFrame(o)) return;
+    const n = o.name || '';
+    if (/suelo|muro|techo|colgantes/.test(n)) st1.attach(o); else if (/banco|silla|mesa/.test(n)) st3.attach(o); else st2.attach(o);
+  });
+  const seq = [
+    { obj: st1, t0: 0.15, dur: 0.9 }, { obj: st2, t0: 0.75, dur: 0.75 }, { obj: st3, t0: 1.2, dur: 0.6 },
+    { obj: abuelo, t0: 1.5, dur: 0.6 }, ...(recep && inFrame(recep) ? [{ obj: recep, t0: 1.6, dur: 0.55 }] : []),
+    { obj: estudiante, t0: 1.75, dur: 0.6 }, { obj: chico, t0: 2.0, dur: 0.65 },
+  ];
+  S = { b, chico, seat, focus, card, cam, seq, th: H2.thread(svg), b1: burbuja(svg), b2: burbuja(svg), emo: null };
+  // HUD chip (the v4.1 one)
+  ctx.hud.innerHTML = '<i></i>LIVE<b></b>WEEK 06';
+  const img = ctx.field.querySelector('img'); img.style.width = '2600px'; img.style.left = '-760px'; img.style.top = '420px';
+}
+
+// ---- the camera as a pure function of t (spec: pos, look, fov)
+function sph(look, d, yaw, up) { return look.clone().add(V([d * Math.sin(yaw) * Math.cos(up), d * Math.sin(up), d * Math.cos(yaw) * Math.cos(up)])); }
+function camAtSpec(t, focus) {
+  // A: flat front view, a very long lens far away = no perspective (the 2D look). Frame height 4.2 m at the boy.
+  const lookA = V([focus.x + 0.05, 1.32, focus.z]), fovA = 3.2, HA = 3.0;
+  if (t < 2.7) { const hS = HA * (1 - 0.03 * seg(t, 0, 2.7)), d = hS / (2 * Math.tan(fovA * D2R / 2)); return { pos: sph(lookA, d, 0, 4 * D2R), look: lookA, fov: fovA }; }
+  // B: dolly zoom into 3D (the frame size at the boy stays, perspective appears) and orbit to a 3/4 view
+  const u = ease3(seg(t, 2.7, 1.4)), drift = seg(t, 4.1, 2.0);
+  const fov = Math.exp(lerp(Math.log(fovA), Math.log(52), u));
+  const lookB = lookA.clone().lerp(focus.clone().add(V([0.05, 0.12, 0])), u);
+  let hS = lerp(HA * 0.97, 1.9, u), yaw = lerp(0, 32, u) * D2R + 4 * D2R * drift, up = lerp(4, 9, u) * D2R;
+  let look = lookB;
+  if (t >= 4.8) {   // C: back off and look up to the card
+    const c = io(seg(t, 4.8, 0.9)); hS = lerp(hS, 2.6, c); look = lookB.clone().lerp(focus.clone().add(V([0.35, 0.55, 0.2])), c);
+  }
+  const d = hS / (2 * Math.tan(fov * D2R / 2));
+  return { pos: sph(look, d, yaw, up), look, fov };
+}
+function cardHome(focus) { return focus.clone().add(V([0.62, 0.78, 0.38])); }
+// F: the low angle after the cut
+function camLow(t, focus) {
+  const look = focus.clone().add(V([0.0, 0.18, 0])), dr = seg(t, 8.1, 2.3);
+  return { pos: sph(look, 2.25 - 0.15 * dr, (-30 - 5 * dr) * D2R, -11 * D2R), look, fov: 50 };
+}
+
+function setCam(cam, sp) {
+  cam.fov = sp.fov; const d = sp.pos.distanceTo(sp.look); cam.near = Math.max(0.05, d - 14); cam.far = d + 60;
+  cam.position.copy(sp.pos); cam.lookAt(sp.look); cam.updateProjectionMatrix(); cam.updateMatrixWorld();
+}
+
+// pen tip at time t (the item being drawn), as world point
+function tipAt(seq, t) { let p = null; for (const it of seq) { const k = (t - it.t0) / it.dur; if (k >= 0 && k < 0.7) { const q = G.penAt(it.obj, k); if (q) p = q; } } return p; }
+
+export function frame(t, ctx) {
+  const { W, H, world, clean, field, hud, wrap } = ctx;
+  const { chico, focus, card, cam, seq, th } = S;
+  SALA.update(t, world.scene, S.b);
+  // ---- pose and head (pure in t)
+  const lift = io(seg(t, 3.0, 0.75)) * (1 - io(seg(t, 8.8, 0.6)));
+  blendPose(chico, ['sit-chair', { hold: {} }], ['sit-chair', { hold: { R: 'phone' } }], lift);
+  const emo = t < 8.75 ? 'agobio' : 'resuelto';
+  if (emo !== S.emo) { chico.userData.setEmotion(emo === 'agobio' ? 4 : 0, emo === 'resuelto'); S.emo = emo; }
+  // ---- the thread draws the room (flat view)
+  if (t < 2.75 || !S.drawn) { G.drawSequence(seq, t); if (t >= 2.75) S.drawn = true; }
+  // ---- camera
+  const tc = ctx.camT(t), cut = t >= 8.1;   // tc: camera time (stepped if clip.json camStep)
+  const sp = cut ? camLow(Math.max(tc, 8.1), focus) : camAtSpec(tc, focus);
+  if (!cut && tc >= 6.0) {   // D/E: push to the card until it fills the frame
+    const k = io(seg(tc, 6.0, 1.0)), c = cardHome(focus), base = camAtSpec(Math.min(tc, 6.0), focus);
+    const dir = base.pos.clone().sub(c).normalize(), want = c.clone().addScaledVector(dir, 0.62 * 1.67 * 1.55 / (2 * Math.tan(base.fov * D2R / 2)));
+    sp.pos = base.pos.clone().lerp(want, k); sp.look = base.look.clone().lerp(c, k); sp.fov = base.fov;
+  }
+  setCam(cam, sp);
+  const scr = (p) => G.screenOf(cam, p, W, H);
+  const headW = chico.localToWorld(chico.userData.rig.anchor('head').clone()).add(V([0, 0.2, 0]));
+  const handW = chico.localToWorld(chico.userData.rig.anchor('handR').clone());
+
+  // ---- card: 4.8-6.0 drawn in the room, 6.0-7.0 turns to camera, 8.1-8.7 flies into the phone
+  const home = cardHome(focus);
+  const g = card.group; let cardOn = t >= 5.05 && t < 8.75;
+  if (cardOn) {
+    const c0 = camAtSpec(5.3, focus), q0 = new THREE.Quaternion();
+    const m = new THREE.Matrix4().lookAt(c0.pos, home, V([0, 1, 0])); q0.setFromRotationMatrix(m);
+    q0.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(0.04, -0.42, 0.05)));
+    g.position.copy(home); g.quaternion.copy(q0); g.scale.setScalar(1);
+    if (t >= 6.0 && t < 8.1) { const k = io(seg(tc, 6.0, 1.0)); g.quaternion.slerp(cam.quaternion, k); }
+    if (t >= 7.0 && t < 8.1) { const bob = Math.sin((t - 7.0) * 2.4); g.quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(0.03 * bob, -0.11 * Math.sin((t - 7.0) * 1.7), 0.015 * bob))); g.position.y += 0.012 * bob; }
+    if (t >= 8.1) {   // same screen place right after the cut, then into the phone
+      const pre = camAtSpec(6.0, focus), c = cardHome(focus), dir = pre.pos.clone().sub(c).normalize();
+      const camE = new THREE.PerspectiveCamera(pre.fov, W / H, 0.05, 200); camE.position.copy(c.clone().addScaledVector(dir, 0.62 * 1.67 * 1.55 / (2 * Math.tan(pre.fov * D2R / 2)))); camE.lookAt(c); camE.updateMatrixWorld();
+      const rel = new THREE.Matrix4().copy(camE.matrixWorld).invert().multiply(new THREE.Matrix4().compose(c, camE.quaternion.clone(), V([1, 1, 1])));
+      const start = new THREE.Matrix4().multiplyMatrices(cam.matrixWorld, rel), sp0 = new THREE.Vector3(), sq0 = new THREE.Quaternion(), ss = new THREE.Vector3();
+      start.decompose(sp0, sq0, ss);
+      const k = ease3(seg(t, 8.1, 0.55)), target = handW.clone().add(V([0, 0.06, 0.02]));
+      g.position.copy(sp0).lerp(target, k); g.quaternion.copy(sq0).slerp(chico.getWorldQuaternion(new THREE.Quaternion()), k); g.scale.setScalar(lerp(1, 0.1, k));
+    }
+    card.show(seg(t, 5.3, 0.75), 1);
+  } else card.show(0);
+
+  // ---- orange field (3D -> 2D and back)
+  const cc = scr(home); const camC = scr(g.position);
+  let R = 0, fc = cc;
+  if (t >= 6.3 && t < 8.1) R = 2400 * ease3(seg(t, 6.3, 0.65));
+  if (t >= 8.1 && t < 8.7) { R = 2400 * (1 - ease3(seg(t, 8.1, 0.55))); fc = camC; }
+  if (R > 1) { field.style.display = 'block'; field.style.clipPath = `circle(${R.toFixed(1)}px at ${fc[0].toFixed(1)}px ${fc[1].toFixed(1)}px)`; } else field.style.display = 'none';
+
+  // ---- thread
+  let pts = null, tip = null;
+  if (t < 0.15) { const a = [-30, 1150], b2 = tipAt(seq, 0.16) ? scr(tipAt(seq, 0.16)) : [300, 1100]; pts = H2.part(H2.hop(a, b2, 120), 0, seg(t, 0, 0.15)); tip = pts[pts.length - 1]; }
+  else if (t < 2.65) {   // drawing: a short trail behind the pen (cut where the pen jumps)
+    pts = []; for (let i = 0; i < 9; i++) { const p = tipAt(seq, t - i * 0.012); if (!p) break; const s = scr(p); if (pts.length && Math.hypot(s[0] - pts[pts.length - 1][0], s[1] - pts[pts.length - 1][1]) > 220) break; pts.push(s); }
+    pts.reverse(); tip = pts.length ? pts[pts.length - 1] : null;
+  } else if (t < 4.8) {  // rests as a small curl on his head
+    const h = scr(headW), w = Math.sin(t * 3) * 6; pts = H2.cr([[h[0] - 90, h[1] - 120 + w], [h[0] - 60, h[1] - 40], [h[0] - 20, h[1] - 8]], 8); tip = pts[pts.length - 1];
+    if (t < 2.85) { const k = seg(t, 2.65, 0.2); pts = H2.part(pts, 1 - k, 1); }
+  } else if (t < 6.0) {  // travels to the card and draws its outline
+    const ol = card.outline().map((p) => scr(g.localToWorld(p.clone()))), olS = H2.cr(ol, 3);
+    const h = scr(headW);
+    if (t < 5.05) { const path = H2.hop([h[0] - 20, h[1] - 8], olS[0], 180), k = io(seg(t, 4.8, 0.25)); pts = H2.part(path, Math.max(0, k - 0.45), k); }
+    else { const k = seg(t, 5.05, 0.55); pts = H2.part(olS, 0, k); if (t > 5.6) pts = H2.part(olS, seg(t, 5.6, 0.4), 1); }
+    tip = pts && pts.length ? pts[pts.length - 1] : null;
+  } else if (t >= 6.9 && t < 8.1) {  // the ad's arc over the card, off to the top right
+    const ol = card.outline().map((p) => scr(g.localToWorld(p.clone()))), a = ol[2], k = io(seg(t, 6.9, 0.5));
+    const path = H2.cr([a, [a[0] + 260, a[1] - 90], [W - 40, a[1] + 70]], 12); pts = H2.part(path, 0, k); tip = pts[pts.length - 1];
+  } else if (t >= 9.55) {  // rises from the spiral and becomes the seam
+    const ts = END - H2.SEAM.TAIL;
+    if (t >= ts) { pts = H2.SEAM.points(t, END); tip = H2.SEAM.tip(t, END); }
+    else {
+      const h = scr(headW.clone().add(V([0, 0.12, 0]))), drop = wrapDrop(t, H), a = [h[0], h[1] + drop];
+      const k = io(seg(t, 9.55, ts - 9.55)), tipNow = [lerp(a[0], 540, k), lerp(a[1] - 40, 1322, k) - 260 * Math.sin(k * Math.PI)];
+      pts = H2.cr([a, [lerp(a[0], tipNow[0], 0.5), lerp(a[1], tipNow[1], 0.5) + 40], tipNow], 10); tip = tipNow;
+    }
+  }
+  th.set(pts, tip);
+
+  // ---- bubbles: same shape and size, tail on the boy's side
+  const hs = scr(headW), side = hs[0] > W / 2 ? 'R' : 'L';
+  S.b1.draw(t, { t0: 3.45, t1: 4.65, head: hs, side, face: 'worried' });
+  S.b2.draw(t, { t0: 8.95, t1: 9.5, head: hs, side: side === 'L' ? 'R' : 'L', face: 'happy' });
+
+  // ---- HUD, the world drop before the seam, render
+  hud.style.display = t > 0.35 && t < 9.55 ? 'block' : 'none';
+  if (t > 0.35) hud.style.transform = `translateX(${(260 * (1 - io(seg(t, 0.35, 0.3)))).toFixed(1)}px)`;
+  wrap.style.transform = `translateY(${wrapDrop(t, H).toFixed(1)}px)`;
+  world.render(cam);
+  clean.render(cam);
+}
+function wrapDrop(t, H) { return H * 1.05 * io(seg(t, 9.6, END - H2_TAIL - 9.6)); }
+const H2_TAIL = 0.436;

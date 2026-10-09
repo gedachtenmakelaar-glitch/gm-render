@@ -1,0 +1,94 @@
+{
+ "module": "edificio/jobs/rutas-escena.js",
+ "size": [
+  1100,
+  1500
+ ],
+ "cell": 4,
+ "out": "edificio/hojas/rutas",
+ "opts": {
+  "cutaway": true,
+  "street": false,
+  "neighbours": false,
+  "skyline": false,
+  "homes": [
+   "p1-abuela"
+  ]
+ },
+ "light": 0.8,
+ "shots": [
+  {
+   "name": "warm",
+   "cam": "escalera",
+   "t": 0
+  },
+  {
+   "name": "rutas-escalera",
+   "cam": {
+    "pos": [
+     -0.4,
+     9.5,
+     24
+    ],
+    "look": [
+     -0.4,
+     9.5,
+     0
+    ],
+    "fov": 34
+   },
+   "t": 0
+  },
+  {
+   "name": "rutas-tres-cuartos",
+   "cam": {
+    "pos": [
+     6,
+     8.5,
+     9
+    ],
+    "look": [
+     -0.4,
+     7.2,
+     -1.3
+    ],
+    "fov": 40
+   },
+   "t": 0
+  },
+  {
+   "name": "rutas-primer-plano",
+   "cam": {
+    "pos": [
+     -0.4,
+     5.0,
+     10
+    ],
+    "look": [
+     -0.4,
+     5.0,
+     -1.1
+    ],
+    "fov": 20
+   },
+   "t": 0
+  },
+  {
+   "name": "rutas-primer-plano-b",
+   "cam": {
+    "pos": [
+     2.5,
+     10.6,
+     10
+    ],
+    "look": [
+     -0.4,
+     10.6,
+     -1.1
+    ],
+    "fov": 20
+   },
+   "t": 0
+  }
+ ]
+}

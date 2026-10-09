@@ -1,0 +1,10 @@
+node_modules/
+_base/_work/
+**/render/
+**/qc/
+*.mp4
+
+*.log
+*.lock
+__pycache__/
+.env*

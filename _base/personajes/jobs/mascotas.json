@@ -1,0 +1,18 @@
+{
+ "module": "personajes/escena-hoja.js",
+ "size": [
+  5376,
+  3584
+ ],
+ "cell": 4,
+ "out": "personajes/hojas",
+ "shots": [
+  {
+   "name": "mascotas",
+   "cam": "hoja",
+   "opts": {
+    "layout": "mascotas"
+   }
+  }
+ ]
+}

@@ -1,0 +1,1257 @@
+{
+ "name": "edificio-vivo",
+ "size": [
+  1080,
+  1920
+ ],
+ "duration": 60.0,
+ "ending": false,
+ "bucle": true,
+ "bpm": 112,
+ "sitio": {
+  "tipo": "edificio",
+  "mood": "dia",
+  "frente": -0.3,
+  "culling": true,
+  "ocultar": [
+   "balcon:p1-abuela",
+   "balcon:p2-pareja",
+   "balcon:p3-nina",
+   "balcon:p4-bebe",
+   "balcon:p5-viajera",
+   "balcon:p5-plantera",
+   "balcon:p2-estudiante"
+  ],
+  "opts": {
+   "cutaway": true,
+   "street": true,
+   "neighbours": true,
+   "skyline": true,
+   "residents": true,
+   "bikeLaneAccent": true
+  }
+ },
+ "reparto": {
+  "panadera": {
+   "existente": true,
+   "emocion": 1
+  },
+  "portero": {
+   "existente": true,
+   "emocion": 1
+  },
+  "abuela": {
+   "existente": true,
+   "emocion": 1
+  },
+  "abuelo": {
+   "existente": true,
+   "emocion": 1
+  },
+  "pareja-a": {
+   "existente": "pareja",
+   "emocion": 1
+  },
+  "pareja-b": {
+   "existente": "pareja#2",
+   "emocion": 1
+  },
+  "estudiante": {
+   "existente": true,
+   "emocion": 1
+  },
+  "nina": {
+   "existente": true,
+   "emocion": 1
+  },
+  "madre": {
+   "existente": true,
+   "emocion": 1
+  },
+  "chico": {
+   "existente": true,
+   "emocion": 1
+  },
+  "vecina": {
+   "existente": true,
+   "emocion": 1
+  },
+  "teletrabajo": {
+   "existente": true,
+   "emocion": 1
+  },
+  "familia-bebe": {
+   "existente": true,
+   "emocion": 1
+  },
+  "viajera": {
+   "existente": true,
+   "emocion": 1
+  },
+  "plantera": {
+   "existente": true,
+   "emocion": 1
+  },
+  "artista": {
+   "existente": true,
+   "emocion": 1
+  },
+  "recepcionista": {
+   "pos": [
+    -4.4,
+    18.85,
+    -0.8
+   ],
+   "rotY": 0.4,
+   "pose": "stand",
+   "emocion": 0
+  },
+  "profesional": {
+   "pos": [
+    -13.0,
+    0.0,
+    2.2
+   ],
+   "rotY": 1.57,
+   "pose": "stand",
+   "emocion": 0
+  }
+ },
+ "foco": "profesional",
+ "tarjetas": {
+  "bread": {
+   "label": "bakery",
+   "num": "01",
+   "title": "Fresh bread",
+   "sub": "every morning",
+   "icon": "heart"
+  },
+  "wall": {
+   "label": "listen",
+   "num": "03",
+   "title": "Thin wall",
+   "sub": "say hello",
+   "icon": "chat"
+  },
+  "sun": {
+   "label": "attic",
+   "num": "06",
+   "title": "Orange sun",
+   "sub": "too big to frame",
+   "icon": "hourglass"
+  }
+ },
+ "pulsos": [
+  {
+   "t": 0,
+   "jugada": "vida",
+   "quien": "viajera",
+   "pose": "read",
+   "periodo": 2.4
+  },
+  {
+   "t": 0,
+   "jugada": "vida",
+   "quien": "teletrabajo",
+   "pose": "type",
+   "periodo": 1.0
+  },
+  {
+   "t": 0,
+   "jugada": "vida",
+   "quien": "artista",
+   "pose": "paint",
+   "periodo": 2.0
+  },
+  {
+   "t": 0,
+   "jugada": "vida",
+   "quien": "plantera",
+   "pose": "water",
+   "periodo": 2.0
+  },
+  {
+   "t": 0,
+   "jugada": "vida",
+   "quien": "familia-bebe",
+   "pose": "rock",
+   "periodo": 2.0
+  },
+  {
+   "t": 0,
+   "jugada": "vida",
+   "quien": "vecina",
+   "pose": "knit-sit",
+   "periodo": 1.2
+  },
+  {
+   "t": 0,
+   "jugada": "vida",
+   "quien": "chico",
+   "pose": "drum",
+   "periodo": 0.6,
+   "hold": {
+    "R": "sticks",
+    "L": "sticks"
+   }
+  },
+  {
+   "t": 0,
+   "jugada": "vida",
+   "quien": "abuela",
+   "pose": "knit-sit",
+   "periodo": 1.2
+  },
+  {
+   "t": 0,
+   "jugada": "vida",
+   "quien": "panadera",
+   "pose": "knead",
+   "periodo": 1.6
+  },
+  {
+   "t": 0,
+   "dur": 2.7,
+   "jugada": "dibujar-sitio",
+   "quien": []
+  },
+  {
+   "t": 0,
+   "jugada": "camara-plano",
+   "centro": [
+    0,
+    11.0,
+    -3.5
+   ],
+   "alto": 40
+  },
+  {
+   "t": 2.7,
+   "dur": 1.4,
+   "jugada": "abrir-3d",
+   "centro": [
+    -9.0,
+    1.4,
+    2.2
+   ],
+   "giro": 22,
+   "alto": 5.0,
+   "alza": 6
+  },
+  {
+   "t": 4.1,
+   "jugada": "chip",
+   "texto": "STREET"
+  },
+  {
+   "t": 4.1,
+   "jugada": "recorrido",
+   "puntos": [
+    {
+     "t": 0,
+     "pos": [
+      -15.5,
+      1.9,
+      9.0
+     ],
+     "look": [
+      -11.0,
+      1.3,
+      2.2
+     ],
+     "fov": 50
+    },
+    {
+     "t": 2.1,
+     "pos": [
+      -11.0,
+      1.9,
+      9.0
+     ],
+     "look": [
+      -7.0,
+      1.4,
+      2.0
+     ],
+     "fov": 50
+    },
+    {
+     "t": 4.2,
+     "pos": [
+      -7.0,
+      2.2,
+      9.5
+     ],
+     "look": [
+      -3.5,
+      1.6,
+      1.0
+     ],
+     "fov": 50
+    }
+   ]
+  },
+  {
+   "t": 4.1,
+   "jugada": "caminar",
+   "quien": "profesional",
+   "de": [
+    -13.0,
+    0.0,
+    2.2
+   ],
+   "a": [
+    -5.0,
+    0.0,
+    2.2
+   ],
+   "dur": 4.0
+  },
+  {
+   "t": 4.6,
+   "dur": 0.6,
+   "jugada": "dibujar-vivienda",
+   "viviendas": [],
+   "quien": [
+    "profesional"
+   ]
+  },
+  {
+   "t": 5.3,
+   "dur": 1.6,
+   "jugada": "burbuja",
+   "quien": "profesional",
+   "cara": "happy",
+   "texto": "Morning!"
+  },
+  {
+   "t": 8.3,
+   "jugada": "chip",
+   "texto": "GROUND"
+  },
+  {
+   "t": 8.3,
+   "jugada": "recorrido",
+   "puntos": [
+    {
+     "t": 0,
+     "pos": [
+      6.5,
+      2.15,
+      4.5
+     ],
+     "look": [
+      7.5,
+      1.4,
+      -3.8
+     ],
+     "fov": 46
+    },
+    {
+     "t": 3.8,
+     "pos": [
+      6.6,
+      2.15,
+      4.9
+     ],
+     "look": [
+      7.0,
+      1.4,
+      -3.8
+     ],
+     "fov": 46
+    }
+   ]
+  },
+  {
+   "t": 8.8,
+   "dur": 0.9,
+   "jugada": "dibujar-vivienda",
+   "viviendas": [
+    "pb-panaderia"
+   ],
+   "quien": [
+    "panadera"
+   ]
+  },
+  {
+   "t": 9.7,
+   "dur": 1.5,
+   "jugada": "burbuja",
+   "quien": "panadera",
+   "cara": "happy",
+   "texto": "Fresh!"
+  },
+  {
+   "t": 11.2,
+   "dur": 1.9,
+   "jugada": "tarjeta-en-sala",
+   "quien": "panadera",
+   "tarjeta": "bread",
+   "donde": [
+    -1.0,
+    0.35,
+    0.6
+   ],
+   "camara": false
+  },
+  {
+   "t": 12.9,
+   "jugada": "recorrido",
+   "puntos": [
+    {
+     "t": 0,
+     "pos": [
+      -5.300000000000001,
+      2.15,
+      3.5
+     ],
+     "look": [
+      -5.9,
+      1.4,
+      -3.8
+     ],
+     "fov": 46
+    },
+    {
+     "t": 1.6,
+     "pos": [
+      -6.1000000000000005,
+      2.15,
+      3.0999999999999996
+     ],
+     "look": [
+      -5.9,
+      1.4,
+      -3.8
+     ],
+     "fov": 46
+    }
+   ]
+  },
+  {
+   "t": 13.0,
+   "dur": 0.9,
+   "jugada": "dibujar-vivienda",
+   "viviendas": [
+    "pb-portero"
+   ],
+   "quien": [
+    "portero"
+   ]
+  },
+  {
+   "t": 14.5,
+   "jugada": "chip",
+   "texto": "BASEMENT"
+  },
+  {
+   "t": 14.5,
+   "dur": 2.1,
+   "jugada": "camara",
+   "pos": [
+    0.0,
+    -0.5500000000000003,
+    9.0
+   ],
+   "look": [
+    0.0,
+    -1.85,
+    -3.6
+   ],
+   "fov": 60
+  },
+  {
+   "t": 15.0,
+   "dur": 1.2,
+   "jugada": "dibujar-vivienda",
+   "viviendas": [
+    "sotano-bicis",
+    "sotano-lavanderia"
+   ],
+   "quien": []
+  },
+  {
+   "t": 16.6,
+   "jugada": "chip",
+   "texto": "FLOOR 1"
+  },
+  {
+   "t": 16.6,
+   "jugada": "recorrido",
+   "puntos": [
+    {
+     "t": 0,
+     "pos": [
+      4.85,
+      5.25,
+      3.7
+     ],
+     "look": [
+      4.85,
+      4.5,
+      -3.8
+     ],
+     "fov": 46
+    },
+    {
+     "t": 2.7,
+     "pos": [
+      4.85,
+      5.25,
+      3.5
+     ],
+     "look": [
+      4.85,
+      4.5,
+      -3.8
+     ],
+     "fov": 46
+    },
+    {
+     "t": 3.3,
+     "pos": [
+      -4.85,
+      5.25,
+      3.5
+     ],
+     "look": [
+      -4.85,
+      4.5,
+      -3.8
+     ],
+     "fov": 46
+    },
+    {
+     "t": 3.6,
+     "pos": [
+      -4.85,
+      5.25,
+      3.7
+     ],
+     "look": [
+      -4.85,
+      4.5,
+      -3.8
+     ],
+     "fov": 46
+    }
+   ]
+  },
+  {
+   "t": 17.1,
+   "dur": 0.8,
+   "jugada": "dibujar-vivienda",
+   "viviendas": [
+    "p1-abuelo"
+   ],
+   "quien": [
+    "abuelo"
+   ]
+  },
+  {
+   "t": 17.9,
+   "dur": 1.5,
+   "jugada": "burbuja",
+   "quien": "abuelo",
+   "cara": "happy",
+   "texto": "Check!"
+  },
+  {
+   "t": 19.6,
+   "dur": 0.6,
+   "jugada": "dibujar-vivienda",
+   "viviendas": [
+    "p1-abuela"
+   ],
+   "quien": [
+    "abuela"
+   ]
+  },
+  {
+   "t": 20.2,
+   "jugada": "chip",
+   "texto": "FLOOR 2"
+  },
+  {
+   "t": 20.2,
+   "jugada": "recorrido",
+   "puntos": [
+    {
+     "t": 0,
+     "pos": [
+      4.85,
+      8.35,
+      3.7
+     ],
+     "look": [
+      4.85,
+      7.6,
+      -3.8
+     ],
+     "fov": 46
+    },
+    {
+     "t": 2.7,
+     "pos": [
+      4.85,
+      8.35,
+      3.5
+     ],
+     "look": [
+      4.85,
+      7.6,
+      -3.8
+     ],
+     "fov": 46
+    },
+    {
+     "t": 3.3,
+     "pos": [
+      -4.85,
+      8.35,
+      3.5
+     ],
+     "look": [
+      -4.85,
+      7.6,
+      -3.8
+     ],
+     "fov": 46
+    },
+    {
+     "t": 3.6,
+     "pos": [
+      -4.85,
+      8.35,
+      3.7
+     ],
+     "look": [
+      -4.85,
+      7.6,
+      -3.8
+     ],
+     "fov": 46
+    }
+   ]
+  },
+  {
+   "t": 20.7,
+   "dur": 0.8,
+   "jugada": "dibujar-vivienda",
+   "viviendas": [
+    "p2-estudiante"
+   ],
+   "quien": [
+    "estudiante"
+   ]
+  },
+  {
+   "t": 21.5,
+   "dur": 1.5,
+   "jugada": "burbuja",
+   "quien": "estudiante",
+   "cara": "worried",
+   "texto": "Exam!"
+  },
+  {
+   "t": 23.2,
+   "dur": 0.6,
+   "jugada": "dibujar-vivienda",
+   "viviendas": [
+    "p2-pareja"
+   ],
+   "quien": [
+    "pareja-a",
+    "pareja-b"
+   ]
+  },
+  {
+   "t": 23.8,
+   "jugada": "chip",
+   "texto": "FLOOR 3"
+  },
+  {
+   "t": 23.8,
+   "jugada": "recorrido",
+   "puntos": [
+    {
+     "t": 0,
+     "pos": [
+      -4.85,
+      11.450000000000001,
+      3.7
+     ],
+     "look": [
+      -4.85,
+      10.700000000000001,
+      -3.8
+     ],
+     "fov": 46
+    },
+    {
+     "t": 2.8,
+     "pos": [
+      -4.85,
+      11.450000000000001,
+      3.5
+     ],
+     "look": [
+      -4.85,
+      10.700000000000001,
+      -3.8
+     ],
+     "fov": 46
+    },
+    {
+     "t": 3.5,
+     "pos": [
+      6.75,
+      11.450000000000001,
+      5.5
+     ],
+     "look": [
+      6.75,
+      10.700000000000001,
+      -3.8
+     ],
+     "fov": 60
+    },
+    {
+     "t": 6.6,
+     "pos": [
+      6.75,
+      11.450000000000001,
+      5.9
+     ],
+     "look": [
+      6.75,
+      10.700000000000001,
+      -3.8
+     ],
+     "fov": 60
+    }
+   ]
+  },
+  {
+   "t": 24.3,
+   "dur": 0.8,
+   "jugada": "dibujar-vivienda",
+   "viviendas": [
+    "p3-nina"
+   ],
+   "quien": [
+    "nina",
+    "madre"
+   ]
+  },
+  {
+   "t": 25.1,
+   "dur": 1.5,
+   "jugada": "burbuja",
+   "quien": "nina",
+   "cara": "happy",
+   "texto": "Mom!"
+  },
+  {
+   "t": 27.3,
+   "dur": 1.0,
+   "jugada": "dibujar-vivienda",
+   "viviendas": [
+    "p3-chico",
+    "p3-vecina"
+   ],
+   "quien": [
+    "chico",
+    "vecina"
+   ]
+  },
+  {
+   "t": 28.3,
+   "dur": 1.9,
+   "jugada": "tarjeta-en-sala",
+   "quien": "chico",
+   "tarjeta": "wall",
+   "donde": [
+    1.0,
+    0.9,
+    0.5
+   ],
+   "camara": false
+  },
+  {
+   "t": 30.4,
+   "jugada": "chip",
+   "texto": "FLOOR 4"
+  },
+  {
+   "t": 30.4,
+   "jugada": "recorrido",
+   "puntos": [
+    {
+     "t": 0,
+     "pos": [
+      -4.85,
+      14.55,
+      3.7
+     ],
+     "look": [
+      -4.85,
+      13.8,
+      -3.8
+     ],
+     "fov": 46
+    },
+    {
+     "t": 2.7,
+     "pos": [
+      -4.85,
+      14.55,
+      3.5
+     ],
+     "look": [
+      -4.85,
+      13.8,
+      -3.8
+     ],
+     "fov": 46
+    },
+    {
+     "t": 3.3,
+     "pos": [
+      4.85,
+      14.55,
+      3.5
+     ],
+     "look": [
+      4.85,
+      13.8,
+      -3.8
+     ],
+     "fov": 46
+    },
+    {
+     "t": 3.6,
+     "pos": [
+      4.85,
+      14.55,
+      3.7
+     ],
+     "look": [
+      4.85,
+      13.8,
+      -3.8
+     ],
+     "fov": 46
+    }
+   ]
+  },
+  {
+   "t": 30.9,
+   "dur": 0.8,
+   "jugada": "dibujar-vivienda",
+   "viviendas": [
+    "p4-teletrabajo"
+   ],
+   "quien": [
+    "teletrabajo"
+   ]
+  },
+  {
+   "t": 31.7,
+   "dur": 1.5,
+   "jugada": "burbuja",
+   "quien": "teletrabajo",
+   "cara": "surprised",
+   "texto": "Mute!"
+  },
+  {
+   "t": 33.4,
+   "dur": 0.6,
+   "jugada": "dibujar-vivienda",
+   "viviendas": [
+    "p4-bebe"
+   ],
+   "quien": [
+    "familia-bebe"
+   ]
+  },
+  {
+   "t": 34.0,
+   "jugada": "chip",
+   "texto": "FLOOR 5"
+  },
+  {
+   "t": 34.0,
+   "jugada": "recorrido",
+   "puntos": [
+    {
+     "t": 0,
+     "pos": [
+      -4.85,
+      17.65,
+      3.7
+     ],
+     "look": [
+      -4.85,
+      16.9,
+      -3.8
+     ],
+     "fov": 46
+    },
+    {
+     "t": 2.7,
+     "pos": [
+      -4.85,
+      17.65,
+      3.5
+     ],
+     "look": [
+      -4.85,
+      16.9,
+      -3.8
+     ],
+     "fov": 46
+    },
+    {
+     "t": 3.3,
+     "pos": [
+      4.85,
+      17.65,
+      3.5
+     ],
+     "look": [
+      4.85,
+      16.9,
+      -3.8
+     ],
+     "fov": 46
+    },
+    {
+     "t": 3.6,
+     "pos": [
+      4.85,
+      17.65,
+      3.7
+     ],
+     "look": [
+      4.85,
+      16.9,
+      -3.8
+     ],
+     "fov": 46
+    }
+   ]
+  },
+  {
+   "t": 34.5,
+   "dur": 0.8,
+   "jugada": "dibujar-vivienda",
+   "viviendas": [
+    "p5-viajera"
+   ],
+   "quien": [
+    "viajera"
+   ]
+  },
+  {
+   "t": 35.3,
+   "dur": 1.5,
+   "jugada": "burbuja",
+   "quien": "viajera",
+   "cara": "curious",
+   "texto": "Next?"
+  },
+  {
+   "t": 37.0,
+   "dur": 0.6,
+   "jugada": "dibujar-vivienda",
+   "viviendas": [
+    "p5-plantera"
+   ],
+   "quien": [
+    "plantera"
+   ]
+  },
+  {
+   "t": 37.6,
+   "jugada": "chip",
+   "texto": "ATTIC"
+  },
+  {
+   "t": 37.6,
+   "jugada": "recorrido",
+   "puntos": [
+    {
+     "t": 0,
+     "pos": [
+      5.0,
+      20.75,
+      4.5
+     ],
+     "look": [
+      5.0,
+      20.0,
+      -3.8
+     ],
+     "fov": 46
+    },
+    {
+     "t": 0.7,
+     "pos": [
+      5.0,
+      20.75,
+      4.4
+     ],
+     "look": [
+      5.0,
+      20.0,
+      -3.8
+     ],
+     "fov": 46
+    },
+    {
+     "t": 1.0,
+     "pos": [
+      -6.0,
+      20.75,
+      4.5
+     ],
+     "look": [
+      -6.0,
+      20.0,
+      -3.8
+     ],
+     "fov": 46
+    },
+    {
+     "t": 6.2,
+     "pos": [
+      -6.0,
+      20.75,
+      4.800000000000001
+     ],
+     "look": [
+      -6.0,
+      20.0,
+      -3.8
+     ],
+     "fov": 46
+    }
+   ]
+  },
+  {
+   "t": 37.75,
+   "dur": 0.55,
+   "jugada": "dibujar-vivienda",
+   "viviendas": [
+    "atico-secadero"
+   ],
+   "quien": []
+  },
+  {
+   "t": 38.7,
+   "dur": 0.8,
+   "jugada": "dibujar-vivienda",
+   "viviendas": [
+    "atico-artista"
+   ],
+   "quien": [
+    "artista"
+   ]
+  },
+  {
+   "t": 39.5,
+   "dur": 1.5,
+   "jugada": "burbuja",
+   "quien": "artista",
+   "cara": "curious",
+   "texto": "Almost"
+  },
+  {
+   "t": 41.0,
+   "dur": 1.9,
+   "jugada": "tarjeta-en-sala",
+   "quien": "artista",
+   "tarjeta": "sun",
+   "donde": [
+    1.0,
+    0.4,
+    0.6
+   ],
+   "camara": false
+  },
+  {
+   "t": 43.8,
+   "jugada": "chip",
+   "texto": "ROOF"
+  },
+  {
+   "t": 43.8,
+   "jugada": "colocar",
+   "quien": "profesional",
+   "pos": [
+    -3.2,
+    18.85,
+    -0.9
+   ],
+   "giro": -25,
+   "pose": "stand"
+  },
+  {
+   "t": 43.8,
+   "dur": 3.4,
+   "jugada": "camara",
+   "pos": [
+    -4.0,
+    23.85,
+    6.5
+   ],
+   "look": [
+    -4.0,
+    20.150000000000002,
+    -1.0
+   ],
+   "fov": 46
+  },
+  {
+   "t": 44.3,
+   "dur": 0.9,
+   "jugada": "dibujar-vivienda",
+   "viviendas": [],
+   "quien": [
+    "recepcionista",
+    "profesional"
+   ],
+   "objetos": [
+    "terraza"
+   ]
+  },
+  {
+   "t": 45.3,
+   "dur": 1.5,
+   "jugada": "burbuja",
+   "quien": "recepcionista",
+   "cara": "happy",
+   "texto": "Cheers!"
+  },
+  {
+   "t": 47.2,
+   "jugada": "chip",
+   "texto": "CITY"
+  },
+  {
+   "t": 47.2,
+   "jugada": "recorrido",
+   "puntos": [
+    {
+     "t": 0,
+     "pos": [
+      -2.0,
+      21.5,
+      -1.0
+     ],
+     "look": [
+      -8.0,
+      18.0,
+      40.0
+     ],
+     "fov": 50
+    },
+    {
+     "t": 3.4,
+     "pos": [
+      -2.0,
+      21.5,
+      -1.0
+     ],
+     "look": [
+      8.0,
+      17.0,
+      40.0
+     ],
+     "fov": 50
+    }
+   ]
+  },
+  {
+   "t": 47.7,
+   "dur": 1.5,
+   "jugada": "dibujar-vivienda",
+   "viviendas": [],
+   "quien": [],
+   "objetos": [
+    "fondo:ciudad"
+   ]
+  },
+  {
+   "t": 50.6,
+   "jugada": "chip",
+   "texto": "STREET"
+  },
+  {
+   "t": 50.6,
+   "jugada": "recorrido",
+   "puntos": [
+    {
+     "t": 0,
+     "pos": [
+      0.0,
+      23.0,
+      16.0
+     ],
+     "look": [
+      0.0,
+      19.0,
+      -2.0
+     ],
+     "fov": 50
+    },
+    {
+     "t": 2.5,
+     "pos": [
+      0.0,
+      10.0,
+      15.0
+     ],
+     "look": [
+      0.0,
+      8.0,
+      -2.0
+     ],
+     "fov": 50
+    },
+    {
+     "t": 4.6,
+     "pos": [
+      -4.0,
+      2.4,
+      14.0
+     ],
+     "look": [
+      -2.0,
+      2.2,
+      -1.0
+     ],
+     "fov": 50
+    }
+   ]
+  },
+  {
+   "t": 55.2,
+   "dur": 2.1,
+   "jugada": "camara-plano",
+   "centro": [
+    0,
+    11.0,
+    -3.5
+   ],
+   "alto": 40
+  },
+  {
+   "t": 57.3,
+   "dur": 2.7,
+   "jugada": "borrar-sitio"
+  }
+ ]
+}

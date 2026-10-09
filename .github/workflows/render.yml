@@ -1,0 +1,78 @@
+# Renders a GM video in parts on several free machines at once, then joins the parts and mixes the sound.
+# Started from the main project (videos/_base/motor/nube.py) or by hand: Actions > render > Run workflow.
+name: render
+on:
+  workflow_dispatch:
+    inputs:
+      clip: { description: 'folder in _base/videos (e.g. terraza)', required: true }
+      partes: { description: 'how many machines', default: '10' }
+      borrador: { description: 'true = draft (24 fps), false = final (60 fps)', default: 'true' }
+      desde: { description: 'only from this second (empty = whole video)', default: '' }
+      hasta: { description: 'only up to this second (empty = whole video)', default: '' }
+      unir: { description: 'join the parts and mix the sound', default: 'true' }
+
+concurrency: { group: 'render-${{ inputs.clip }}', cancel-in-progress: false }
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs: { tramos: '${{ steps.t.outputs.tramos }}' }
+    steps:
+      - uses: actions/checkout@v4
+      - id: t
+        run: echo "tramos=$(python3 _base/motor/video.py _base/videos/${{ inputs.clip }} tramos ${{ inputs.partes }} '${{ inputs.desde }}' '${{ inputs.hasta }}')" >> "$GITHUB_OUTPUT"
+
+  parte:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix: { tramo: '${{ fromJson(needs.plan.outputs.tramos) }}' }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
+      - run: npm ci --no-audit --no-fund
+      - run: pip install -q numpy pillow
+      - run: npx hyperframes browser ensure
+      - name: render part
+        env: { GM_WORKERS: '3' }
+        run: |
+          B=""; [ "${{ inputs.borrador }}" = "true" ] && B="--borrador"
+          python3 _base/motor/video.py _base/videos/${{ inputs.clip }} parte ${{ matrix.tramo.desde }} ${{ matrix.tramo.hasta }} $B
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: parte-${{ matrix.tramo.desde }}
+          path: _base/videos/${{ inputs.clip }}/render/partes/
+          retention-days: 3
+
+  unir:
+    needs: parte
+    if: inputs.unir == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg libsndfile1 > /dev/null
+      - run: pip install -q numpy pillow soundfile scipy
+      - uses: actions/download-artifact@v4
+        with: { pattern: 'parte-*', merge-multiple: true, path: '_base/videos/${{ inputs.clip }}/render/partes/' }
+      - name: join, sound, check
+        run: |
+          B=""; [ "${{ inputs.borrador }}" = "true" ] && B="--borrador"
+          python3 _base/motor/video.py _base/videos/${{ inputs.clip }} unir $B
+          M=$(ls _base/videos/${{ inputs.clip }}/*.mp4 | head -1)
+          python3 _base/motor/qc.py _base/videos/${{ inputs.clip }} "$M" || true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: video
+          path: |
+            _base/videos/${{ inputs.clip }}/*.mp4
+            _base/videos/${{ inputs.clip }}/qc/
+          retention-days: 7

@@ -1,0 +1,21 @@
+{
+ "module": "sala-espera/escena.js",
+ "size": [
+  3600,
+  2400
+ ],
+ "cell": 4,
+ "out": "sala-espera/hojas/_tmp",
+ "opts": {
+  "gente": "media",
+  "de_pie": true
+ },
+ "shots": [
+  {
+   "name": "sala",
+   "cam": "v41",
+   "mood": "dia",
+   "light": 0.7
+  }
+ ]
+}

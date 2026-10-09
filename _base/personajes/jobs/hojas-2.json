@@ -1,0 +1,43 @@
+{
+ "module": "personajes/escena-hoja.js",
+ "size": [
+  5376,
+  3584
+ ],
+ "cell": 4,
+ "out": "personajes/hojas",
+ "shots": [
+  {
+   "name": "abuelo",
+   "cam": "hoja",
+   "opts": {
+    "layout": "personaje",
+    "id": "abuelo"
+   }
+  },
+  {
+   "name": "abuela",
+   "cam": "hoja",
+   "opts": {
+    "layout": "personaje",
+    "id": "abuela"
+   }
+  },
+  {
+   "name": "pareja-a",
+   "cam": "hoja",
+   "opts": {
+    "layout": "personaje",
+    "id": "pareja-a"
+   }
+  },
+  {
+   "name": "pareja-b",
+   "cam": "hoja",
+   "opts": {
+    "layout": "personaje",
+    "id": "pareja-b"
+   }
+  }
+ ]
+}

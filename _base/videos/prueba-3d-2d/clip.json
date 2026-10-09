@@ -1,0 +1,149 @@
+{
+ "name": "prueba-3d-2d",
+ "size": [
+  1080,
+  1920
+ ],
+ "cell": 4,
+ "camStep": 12,
+ "duration": 12.7,
+ "ending": true,
+ "sitio": {
+  "tipo": "sala-espera",
+  "opts": {
+   "disposicion": "v41"
+  }
+ },
+ "reparto": {
+  "abuelo": {
+   "asiento": {
+    "z": -4.55,
+    "n": 1
+   },
+   "emocion": 2
+  },
+  "estudiante": {
+   "asiento": {
+    "z": -1.5,
+    "n": 0
+   },
+   "emocion": 3
+  },
+  "chico": {
+   "asiento": {
+    "z": -1.5,
+    "n": 2
+   },
+   "hold": {
+    "R": "phone"
+   },
+   "emocion": 4
+  }
+ },
+ "foco": "chico",
+ "chip": "LIVE | WEEK 06",
+ "tarjetas": {
+  "coach": {
+   "label": "coach",
+   "num": "01",
+   "title": "Coach",
+   "sub": "from €1.05/min",
+   "icon": "chat",
+   "w": 0.62
+  }
+ },
+ "pulsos": [
+  {
+   "t": 0.0,
+   "dur": 2.7,
+   "jugada": "dibujar-sitio",
+   "quien": [
+    "abuelo",
+    "estudiante",
+    "chico"
+   ]
+  },
+  {
+   "t": 0.0,
+   "dur": 2.7,
+   "jugada": "camara-plano",
+   "de": "chico",
+   "alto": 3.0
+  },
+  {
+   "t": 2.7,
+   "dur": 1.4,
+   "jugada": "abrir-3d",
+   "de": "chico",
+   "giro": 32
+  },
+  {
+   "t": 3.0,
+   "dur": 0.75,
+   "jugada": "coger-movil",
+   "quien": "chico"
+  },
+  {
+   "t": 3.4,
+   "dur": 1.7,
+   "jugada": "burbuja",
+   "quien": "chico",
+   "cara": "worried"
+  },
+  {
+   "t": 5.1,
+   "dur": 1.9,
+   "jugada": "tarjeta-en-sala",
+   "quien": "chico",
+   "tarjeta": "coach"
+  },
+  {
+   "t": 7.0,
+   "dur": 2.1,
+   "jugada": "tarjeta-pantalla",
+   "tarjeta": "coach"
+  },
+  {
+   "t": 9.1,
+   "dur": 0.6,
+   "jugada": "tarjeta-al-movil",
+   "quien": "chico",
+   "tarjeta": "coach"
+  },
+  {
+   "t": 9.1,
+   "dur": 3.0,
+   "jugada": "camara",
+   "de": "chico",
+   "lado": -30,
+   "alza": -11,
+   "dist": 2.25,
+   "fov": 50
+  },
+  {
+   "t": 9.75,
+   "dur": 0.9,
+   "jugada": "resolver",
+   "quien": "chico"
+  },
+  {
+   "t": 9.85,
+   "dur": 0.6,
+   "jugada": "dejar-movil",
+   "quien": "chico"
+  },
+  {
+   "t": 10.5,
+   "dur": 1.3,
+   "jugada": "burbuja",
+   "quien": "chico",
+   "cara": "happy",
+   "lado": "R"
+  },
+  {
+   "t": 11.85,
+   "jugada": "subir-al-logo",
+   "quien": "chico"
+  }
+ ]
+}

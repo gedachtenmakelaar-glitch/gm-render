@@ -1,0 +1,2 @@
+{"module":"motor/ejemplo.js","size":[1080,1920],"cell":4,"out":"hojas/_prueba-hilo","opts":{"draw":true},"shots":[
+{"name":"t0-6","cam":"tresCuartos","t":0.6},{"name":"t1-3","cam":"tresCuartos","t":1.3},{"name":"t2-0","cam":"tresCuartos","t":2.0},{"name":"t2-6","cam":"tresCuartos","t":2.6},{"name":"t3-3","cam":"tresCuartos","t":3.3},{"name":"t4-0","cam":"tresCuartos","t":4.0}]}

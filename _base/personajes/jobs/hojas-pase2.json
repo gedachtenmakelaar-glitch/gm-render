@@ -1,0 +1,43 @@
+{
+ "module": "personajes/escena-hoja.js",
+ "size": [
+  5376,
+  3584
+ ],
+ "cell": 4,
+ "out": "personajes/hojas",
+ "shots": [
+  {
+   "name": "chico",
+   "cam": "hoja",
+   "opts": {
+    "layout": "personaje",
+    "id": "chico"
+   }
+  },
+  {
+   "name": "vecina",
+   "cam": "hoja",
+   "opts": {
+    "layout": "personaje",
+    "id": "vecina"
+   }
+  },
+  {
+   "name": "abuelo",
+   "cam": "hoja",
+   "opts": {
+    "layout": "personaje",
+    "id": "abuelo"
+   }
+  },
+  {
+   "name": "nina",
+   "cam": "hoja",
+   "opts": {
+    "layout": "personaje",
+    "id": "nina"
+   }
+  }
+ ]
+}

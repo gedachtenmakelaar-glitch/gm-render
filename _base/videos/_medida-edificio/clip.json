@@ -1,0 +1,9 @@
+{ "name": "medida-edificio", "size": [1080, 1920], "duration": 10.0, "ending": false,
+  "sitio": { "tipo": "edificio", "mood": "dia", "ocultar": [], "opts": { "cutaway": true, "street": true, "neighbours": true, "skyline": true, "residents": true } },
+  "reparto": { "chico": { "existente": true, "emocion": 2 } },
+  "pulsos": [
+    { "t": 0, "dur": 2.7, "jugada": "dibujar-sitio", "quien": ["chico"] },
+    { "t": 0, "jugada": "camara-plano", "de": "chico", "alto": 14 },
+    { "t": 2.7, "dur": 1.4, "jugada": "abrir-3d", "de": "chico" },
+    { "t": 5.0, "dur": 5.0, "jugada": "camara", "de": "chico", "lado": 30, "alza": 5, "dist": 3.0 }
+  ] }

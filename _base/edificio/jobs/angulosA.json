@@ -1,0 +1,69 @@
+{
+"module": "edificio/escena.js",
+"size": [
+1080,
+1920
+],
+"cell": 4,
+"out": "edificio/hojas/_angulos",
+"shots": [
+{
+"name": "warm",
+"cam": "calle",
+"t": 0,
+"opts": {
+"cutaway": false
+}
+},
+{
+"name": "z1-ciudad",
+"cam": "zoom-1-ciudad",
+"t": 0,
+"opts": {
+"cutaway": false,
+"farHouses": true
+}
+},
+{
+"name": "z2-calle",
+"cam": "zoom-2-calle",
+"t": 4,
+"opts": {
+"cutaway": false
+}
+},
+{
+"name": "noche",
+"cam": "edificio",
+"t": 0,
+"opts": {
+"cutaway": false
+},
+"mood": "noche"
+},
+{
+"name": "z3-edificio",
+"cam": "zoom-3-edificio",
+"t": 0,
+"opts": {
+"cutaway": [
+"p3-nina",
+"p3-chico",
+"p3-vecina"
+]
+}
+},
+{
+"name": "z4-planta",
+"cam": "zoom-4-planta",
+"t": 0,
+"opts": {
+"cutaway": [
+"p3-nina",
+"p3-chico",
+"p3-vecina"
+]
+}
+}
+]
+}

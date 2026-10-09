@@ -1,0 +1,18 @@
+{
+ "module": "personajes/escena-hoja.js",
+ "size": [
+  3584,
+  3584
+ ],
+ "cell": 4,
+ "out": "personajes/hojas/_nuevos",
+ "shots": [
+  {
+   "name": "knit-rock",
+   "cam": "knitrock",
+   "opts": {
+    "layout": "knit-rock"
+   }
+  }
+ ]
+}

@@ -1,0 +1,25 @@
+{
+ "duracion": 10.0,
+ "final": false,
+ "bpm": 110,
+ "musica_desde": 0.0,
+ "golpes": [
+  {
+   "t": 0,
+   "tipo": "entra-hilo"
+  },
+  {
+   "t0": 0.135,
+   "t1": 2.646,
+   "tipo": "lapiz"
+  },
+  {
+   "t": 2.7,
+   "tipo": "corte"
+  },
+  {
+   "t": 5.0,
+   "tipo": "corte"
+  }
+ ]
+}

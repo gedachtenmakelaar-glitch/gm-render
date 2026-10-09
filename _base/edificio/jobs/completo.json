@@ -1,0 +1,51 @@
+{
+"module": "edificio/escena.js",
+"size": [
+3000,
+3600
+],
+"cell": 4,
+"out": "edificio/hojas",
+"opts": {
+"street": false,
+"neighbours": false,
+"skyline": false,
+"cutaway": true
+},
+"shots": [
+{
+"name": "warm",
+"cam": {
+"pos": [
+0,
+33,
+100
+],
+"look": [
+0,
+11.3,
+0
+],
+"ortho": 3
+},
+"t": 0
+},
+{
+"name": "edificio-completo",
+"cam": {
+"pos": [
+0,
+33,
+100
+],
+"look": [
+0,
+11.3,
+0
+],
+"ortho": 14.3
+},
+"t": 0
+}
+]
+}

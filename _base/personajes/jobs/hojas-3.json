@@ -1,0 +1,51 @@
+{
+ "module": "personajes/escena-hoja.js",
+ "size": [
+  5376,
+  3584
+ ],
+ "cell": 4,
+ "out": "personajes/hojas",
+ "shots": [
+  {
+   "name": "estudiante",
+   "cam": "hoja",
+   "opts": {
+    "layout": "personaje",
+    "id": "estudiante"
+   }
+  },
+  {
+   "name": "teletrabajo",
+   "cam": "hoja",
+   "opts": {
+    "layout": "personaje",
+    "id": "teletrabajo"
+   }
+  },
+  {
+   "name": "familia-bebe",
+   "cam": "hoja",
+   "opts": {
+    "layout": "personaje",
+    "id": "familia-bebe"
+   }
+  },
+  {
+   "name": "recepcionista",
+   "cam": "hoja",
+   "opts": {
+    "layout": "personaje",
+    "id": "recepcionista"
+   }
+  },
+  {
+   "name": "profesional",
+   "cam": "hoja",
+   "opts": {
+    "layout": "personaje",
+    "id": "profesional"
+   }
+  }
+ ]
+}

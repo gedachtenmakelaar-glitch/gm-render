@@ -1,0 +1,87 @@
+{
+ "module": "edificio/escena.js",
+ "size": [
+  1100,
+  800
+ ],
+ "cell": 4,
+ "out": "edificio/hojas/_andar",
+ "opts": {
+  "cutaway": false
+ },
+ "shots": [
+  {
+   "name": "warm",
+   "cam": "calleMov",
+   "t": 0
+  },
+  {
+   "name": "t1",
+   "cam": {
+    "pos": [
+     -2,
+     2.0,
+     9
+    ],
+    "look": [
+     -2,
+     1.0,
+     2
+    ],
+    "fov": 34
+   },
+   "t": 1
+  },
+  {
+   "name": "t4",
+   "cam": {
+    "pos": [
+     4,
+     2.0,
+     9
+    ],
+    "look": [
+     4,
+     1.0,
+     2
+    ],
+    "fov": 34
+   },
+   "t": 4
+  },
+  {
+   "name": "t8",
+   "cam": {
+    "pos": [
+     2,
+     2.0,
+     9
+    ],
+    "look": [
+     2,
+     1.0,
+     2
+    ],
+    "fov": 34
+   },
+   "t": 8
+  },
+  {
+   "name": "t13",
+   "cam": {
+    "pos": [
+     2,
+     2.0,
+     9
+    ],
+    "look": [
+     2,
+     1.0,
+     2
+    ],
+    "fov": 34
+   },
+   "t": 13
+  }
+ ]
+}
