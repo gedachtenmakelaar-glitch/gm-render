@@ -11,7 +11,7 @@ import { Y, ROOF, D, LIFT } from './medidas.js';
 
 const K = 'modelos/kenney/';
 export const MODELOS = [...MOD_HOMES, ...['sedan', 'hatchback-sports', 'suv', 'taxi', 'van', 'sedan-sports', 'suv-luxury'].map((n) => K + 'car-kit/' + n + '.glb')];
-const SKY = { dia: 0.57, tarde: 0.42, noche: 0.05 };       // linear grey of the sky background (dither: pale dotted / denser / dark)
+const SKY = { dia: 0.57, tarde: 0.42, noche: 0.2 };   // noche lighter since 09/10 (Dil: too dark)       // linear grey of the sky background (dither: pale dotted / denser / dark)
 
 export function cameraSet(anchors) {
   const C = {};

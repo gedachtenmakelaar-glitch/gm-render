@@ -1,6 +1,6 @@
 # Pieza B v2 «Un día en el barrio» (~118 s + logo): one day, morning to night, showing the whole world and cast.
 # Chapters (each one its own place/light; the pen erases between them and draws the next):
-#   1 morning in the building and its street (0-52)   2 the waiting room (52-66)   3 the consulting room (66-78)
+#   1 morning in the building and its street (0-52)   2 the waiting room: her phone and the GM card (52-78)
 #   4 afternoon: home, and everyone on the roof (78-101)   5 night: the professional walks home (101-118) + logo
 # python hacer_clip.py  ->  clip.json   (v1, the 60 s loop: hacer_clip-v1.py / clip-v1.json)
 import json, math, os
@@ -90,43 +90,44 @@ add(50.6, 'borrar-sitio', dur=1.4)
 CH1 = {'desde': 0, 'sitio': building('dia'), 'reparto': residents({'profesional': {'pos': [-13, 0, 1.5], 'rotY': 1.5708, 'emocion': 0}}),
        'foco': 'profesional', 'pulsos': P1}
 
-# =============================================================== 2. the waiting room
+# =============================================================== 2. the waiting room (52-78): others are called in, she keeps waiting;
+# she takes her phone and the big card with our logo floats up; her head untangles. Nobody "treats" her: the help is GM.
 P2, add = beats()
-add(52.0, 'camara', nombre='v41-v', dur=3.5, deriva=3)
-add(52.0, 'dibujar-sitio', dur=2.6, quien=['abuela', 'estudiante', 'nina', 'madre', 'vecina'])
+add(52.0, 'camara', nombre='v41-v', dur=3.3, deriva=3)
+add(52.0, 'dibujar-sitio', dur=2.4, quien=['abuela', 'estudiante', 'chico', 'nina', 'madre', 'vecina'])
 add(52.0, 'vida', quien='abuela', pose='knit-sit', periodo=1.2)
-add(54.8, 'chip', texto='WAITING ROOM')
-add(55.5, 'camara', nombre='reloj-v', dur=1.6)
-add(57.1, 'camara', nombre='asiento-1-v', dur=2.0, deriva=-3)
-add(57.3, 'burbuja', quien='vecina', cara='worried', dur=1.4)
-add(59.1, 'colocar', quien='profesional', pos=[-4.0, 0, -1.4], giro=90, pose='wave')
-add(59.1, 'camara', nombre='ancho-puerta-v', dur=3.0, deriva=3)
-add(59.4, 'burbuja', quien='profesional', cara='happy', texto='Come in!', dur=1.4)
-add(61.0, 'pose', quien='vecina', pose='stand', dur=0.5)
-add(61.6, 'caminar', quien='vecina', a=[-3.4, 0, -1.4], dur=1.6, fin='stand', giro=-90)
-add(62.1, 'camara', nombre='v41-v', dur=2.3, deriva=-3)
-add(64.4, 'borrar-sitio', dur=1.4)
-CH2 = {'desde': 52.0, 'sitio': {'tipo': 'sala-espera', 'opts': {'disposicion': 'v41'}},
-       'reparto': {'abuela': {'asiento': 4, 'pose': 'knit-sit', 'emocion': 1}, 'vecina': {'asiento': 6, 'emocion': 4},
-                   'estudiante': {'asiento': 1, 'emocion': 2}, 'nina': {'asiento': 9, 'emocion': 1}, 'madre': {'asiento': 10, 'hold': {'R': 'phone'}, 'emocion': 2},
-                   'profesional': {'pos': [-30, 0, -30], 'emocion': 0}},
-       'foco': 'vecina', 'pulsos': P2}
-
-# =============================================================== 3. the consulting room: talking untangles her head
-P3, add = beats()
-add(66.0, 'camara', nombre='v41-v', dur=3.0, deriva=3)
-add(66.0, 'dibujar-sitio', dur=2.4, quien=['profesional', 'vecina'])
-add(68.6, 'camara', nombre='asiento-2-v', dur=2.6, deriva=-3)
-add(68.9, 'burbuja', quien='vecina', cara='worried', dur=1.3)
-add(70.5, 'camara', de='profesional', lado=30, alza=-4, dist=2.2, dur=1.6)
-add(70.7, 'burbuja', quien='profesional', cara='curious', dur=1.2)
-add(72.1, 'camara', nombre='asiento-2-v', dur=4.2, deriva=3)
-add(72.4, 'resolver', quien='vecina', dur=1.0)
-add(73.8, 'burbuja', quien='vecina', cara='happy', texto='Thanks!', dur=1.5)
+add(54.5, 'chip', texto='WAITING ROOM')
+add(55.3, 'camara', nombre='reloj-v', dur=1.4)                                   # time passes
+add(56.7, 'camara', nombre='recepcion-hombro-v', dur=2.0, deriva=-3)
+add(56.9, 'burbuja', quien='recepcionista', cara='happy', texto='Next!', dur=1.4)
+add(58.7, 'camara', nombre='v41-v', dur=2.6, deriva=3)
+add(58.8, 'pose', quien='estudiante', pose='stand', dur=0.4)
+add(59.2, 'caminar', quien='estudiante', a=[-4.1, 0, -1.4], dur=1.8, fin='stand')
+add(61.1, 'colocar', quien='estudiante', pos=[-30, 0, -30])                     # through the door
+add(61.3, 'camara', nombre='asiento-1-v', dur=1.8, deriva=-3)
+add(61.5, 'burbuja', quien='vecina', cara='worried', dur=1.4)
+add(63.1, 'camara', nombre='reloj-v', dur=1.0)
+add(64.1, 'camara', nombre='v41-v', dur=2.4, deriva=-3)
+add(64.2, 'burbuja', quien='recepcionista', cara='happy', texto='Next!', dur=1.2)
+add(64.5, 'pose', quien='chico', pose='stand', dur=0.4)
+add(64.9, 'caminar', quien='chico', a=[-4.1, 0, -1.4], dur=1.6, fin='stand')
+add(66.6, 'colocar', quien='chico', pos=[-31, 0, -30])
+add(66.5, 'camara', de='vecina', lado=25, alza=-4, dist=1.9, dur=1.6)            # she is still waiting... and takes her phone
+add(66.8, 'coger-movil', quien='vecina', dur=0.75)
+add(68.1, 'tarjeta-en-sala', quien='vecina', tarjeta='gm', donde=[0.0, 0.85, 0.35], dur=1.4)
+add(69.5, 'tarjeta-pantalla', tarjeta='gm', dur=2.6)                              # the big logo card, floating in the middle
+add(72.6, 'camara', de='vecina', lado=20, alza=-4, dist=1.7, dur=2.4)
+add(72.8, 'resolver', quien='vecina', dur=1.0)
+add(74.0, 'burbuja', quien='vecina', cara='happy', dur=1.3)
+add(75.1, 'camara', nombre='v41-v', dur=1.4, deriva=3)
 add(76.4, 'borrar-sitio', dur=1.4)
-CH3 = {'desde': 66.0, 'sitio': {'tipo': 'sala-espera', 'opts': {'variante': 'consultorio'}},
-       'reparto': {'vecina': {'asiento': 0, 'emocion': 4}, 'profesional': {'asiento': 3, 'emocion': 0}},
-       'foco': 'vecina', 'pulsos': P3}
+CH2 = {'desde': 52.0, 'sitio': {'tipo': 'sala-espera', 'opts': {'disposicion': 'v41', 'recepcionista': False}},
+       'reparto': {'abuela': {'asiento': 4, 'pose': 'knit-sit', 'emocion': 1}, 'vecina': {'asiento': 6, 'emocion': 4, 'hold': {'R': 'phone'}},
+                   'estudiante': {'asiento': 1, 'emocion': 2}, 'chico': {'asiento': 2, 'emocion': 2}, 'nina': {'asiento': 9, 'emocion': 1},
+                   'madre': {'asiento': 10, 'hold': {'R': 'phone'}, 'emocion': 2},
+                   'recepcionista': {'pos': [3.6, 0, -5.3], 'rotY': 0, 'pose': 'stand', 'emocion': 0}},
+       'tarjetas': {'gm': {'logo': True, 'w': 0.62}},
+       'foco': 'vecina', 'pulsos': P2}
 
 # =============================================================== 4. afternoon: home again, and everyone on the roof
 P4, add = beats()
@@ -176,6 +177,6 @@ CH5 = {'desde': 101.0, 'sitio': building('noche', cutaway=False, culling=False),
        'foco': 'profesional', 'pulsos': P5}
 
 clip = {'name': 'edificio-vivo', 'size': [1080, 1920], 'duration': 118.0, 'ending': True, 'bpm': 112,
-        'capitulos': [CH1, CH2, CH3, CH4, CH5]}
+        'capitulos': [CH1, CH2, CH4, CH5]}
 json.dump(clip, open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'clip.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 print('ok', sum(len(c['pulsos']) for c in clip['capitulos']), 'pulsos in', len(clip['capitulos']), 'chapters; tour ends', round(T_END, 2))

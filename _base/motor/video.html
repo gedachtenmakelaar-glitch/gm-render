@@ -46,7 +46,7 @@ const mk = (id, alpha) => {
   const r = new THREE.WebGLRenderer({ canvas: document.getElementById(id), antialias: true, alpha, preserveDrawingBuffer: true });
   r.setPixelRatio(1); r.setSize(W, H, false); r.outputColorSpace = THREE.SRGBColorSpace; r.toneMapping = THREE.NoToneMapping; return r;
 };
-const rw = mk('world', false); rw.shadowMap.enabled = true; rw.shadowMap.type = THREE.PCFSoftShadowMap;
+const rw = mk('world', false); rw.localClippingEnabled = true; rw.shadowMap.enabled = true; rw.shadowMap.type = THREE.PCFSoftShadowMap;
 const rc = mk('clean', true); rc.localClippingEnabled = true; rc.setClearColor(0x000000, 0);
 const retro = makeRetro(rw, W, H, { cell: CELL });
 const ctx = {

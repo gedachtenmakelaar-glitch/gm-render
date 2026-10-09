@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=__W__, height=__H__" />
+<script src="motor/vendor/gsap.min.js"></script>
+<script type="importmap">{"imports":{"three":"./motor/vendor/three.module.js","three/addons/":"./motor/vendor/addons/"}}</script>
+<style>
+@font-face{font-family:'GM Jakarta';font-weight:800;src:url('motor/recursos/PlusJakartaSans-800.woff2') format('woff2');}
+@font-face{font-family:'GM Mono';font-weight:500;src:url('motor/recursos/JetBrainsMono-500.woff2') format('woff2');}
+@font-face{font-family:'GM Mono';font-weight:700;src:url('motor/recursos/JetBrainsMono-700.woff2') format('woff2');}
+html,body{margin:0;background:#F9F8F5}#root{position:relative;width:__W__px;height:__H__px;overflow:hidden;background:#F9F8F5}
+canvas{position:absolute;left:0;top:0;width:__W__px;height:__H__px}
+</style></head><body>
+<div id="root" data-composition-id="main" data-start="0" data-width="__W__" data-height="__H__" data-duration="5"><canvas id="cv" width="__W__" height="__H__"></canvas></div>
+<script type="module">
+import * as G from './motor/gm3d.js';
+import { tarjeta } from './motor/tarjeta.js';
+import { tarjeta as tarjetaVieja } from './motor/tarjeta.backup-0910.js';
+const THREE = G.THREE;
+await Promise.all(["800 48px 'GM Jakarta'", "500 20px 'GM Mono'", "700 20px 'GM Mono'"].map((f) => document.fonts.load(f)));
+const r = new THREE.WebGLRenderer({ canvas: document.getElementById('cv'), antialias: true, preserveDrawingBuffer: true });
+r.setPixelRatio(1); r.setSize(__W__, __H__, false); r.outputColorSpace = THREE.SRGBColorSpace; r.localClippingEnabled = true; r.setClearColor(0xF9F8F5, 1);
+const cam = new THREE.PerspectiveCamera(30, __W__ / __H__, 0.1, 50); cam.position.set(0, 0, 3.5); cam.lookAt(0, 0, 0);
+const mk = (fn, o, x) => { const c = fn(o); c.group.position.x = x; return c; };
+const A = mk(tarjeta, { logo: true, navy: false, w: 0.7 }, -0.5), B = mk(tarjeta, { logo: true, w: 0.7 }, 0.5);
+const N = mk(tarjeta, { label: 'coach', num: '01', title: 'Coach', sub: 'from €1.05/min', icon: 'chat', w: 0.7 }, 0);
+const V = mk(tarjetaVieja, { label: 'coach', num: '01', title: 'Coach', sub: 'from €1.05/min', icon: 'chat', w: 0.7 }, 0);
+const all = [A, B, N, V]; let scene = new THREE.Scene();
+const show = (list, wq, k = 1) => { scene = new THREE.Scene(); for (const c of all) { c.group.visible = false; } for (const c of list) { scene.add(c.group); c.show(k); c.write(wq, 0.5); c.tick(0.5 + 2, 1); } r.render(scene, cam); };
+const draw = (T) => { const i = Math.floor(T);
+  if (i <= 1) show([A, B], 1); else if (i === 2) show([A, B], 0.4); else if (i === 3) { N.group.position.x = 0; show([N], 1); } else { V.group.position.x = 0; show([V], 1); } };
+const tl = gsap.timeline({ paused: true }); const c = { t: 0 };
+tl.to(c, { t: 5, duration: 5, ease: 'none', onUpdate: () => draw(c.t) }); draw(0);
+window.__timelines = window.__timelines || {}; window.__timelines['main'] = tl;
+</script></body></html>

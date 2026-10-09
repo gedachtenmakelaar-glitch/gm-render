@@ -56,7 +56,7 @@ export function makeRetro(renderer, W, H, opts = {}) {
       scene.traverse((o) => {
         if (o.userData && o.userData.hilo) { if (!o.material.userData.accent && o.visible) { saved.push([o, null]); o.visible = false; } }
         else if (o.userData && o.userData.hull) { if (o.visible) { saved.push([o, null]); o.visible = false; } }
-        else if (o.isMesh && o.visible) { saved.push([o, o.material]); const ms = Array.isArray(o.material) ? o.material : [o.material]; o.material = ms.some((m) => m.userData && m.userData.accent) ? MASK.on : MASK.off; }
+        else if (o.isMesh && o.visible) { saved.push([o, o.material]); const ms = Array.isArray(o.material) ? o.material : [o.material]; { const base = ms.some((m) => m.userData && m.userData.accent) ? MASK.on : MASK.off, cp = ms[0].clippingPlanes, key = base === MASK.on ? '_mOn' : '_mOff'; if (cp && cp.length) { if (!o.userData[key]) { const mm = base.clone(); mm.clippingPlanes = cp; o.userData[key] = mm; } o.material = o.userData[key]; } else o.material = base; } }
         else if (o.isLine && o.visible) { saved.push([o, null]); o.visible = false; }
       });
       const bg = scene.background; scene.background = new THREE.Color(0x000000);

@@ -15,9 +15,6 @@
 //                    the 3D icon builds itself (scale + turn from 0 with a spring). t = clock for the icon's slow turn.
 //   c.tick(t,amp) -> t = seconds since the card started to build (0 = fill starts). Spring entry with elevation, two-axis sway, bob,
 //                    shadow separation, sheen. Moves an INNER pivot only. amp 0..1 scales the pose (1 = the ad's pose rx 9 / ry -14).
-//   LOGO face (09/10/2026): tarjeta({ logo: true, w }) = the same body, but the face shows only the OFFICIAL joined lockup, as wide as the face allows
-//                    (motor/recursos/gm-logo-oficial-*.png). o.navy (default true): navy #1a3854 face + orange logo; o.navy = false: beige #F9F8F5 face + navy logo.
-//                    write(wq) brings the logo in over 0..1 with the house spring from a soft blur. underline() = a short line under the logo.
 //   c.penAt(wq)   -> (kept for compatibility) a point travelling over the interior; no longer needed.
 // Fonts: 'GM Jakarta' 800 and 'GM Mono' 500 + 700 must be loaded before tarjeta() (motor/video.html does it).
 import * as G from './gm3d.js';
@@ -30,13 +27,6 @@ const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
 const seg = (t, s, d) => clamp((t - s) / d, 0, 1);
 const eo3 = (x) => 1 - Math.pow(1 - x, 3);
 const sprOut = (u) => (u <= 0 ? 0 : u >= 1 ? 1 : 1 - Math.exp(-8 * u) * Math.cos(9 * u));   // damped spring 0 -> 1 with a ~6 % overshoot
-// the logo images (only used by tarjeta({logo:true})). Top-level await: every importer waits until they are decoded, so the first frame already has them.
-// If they cannot be loaded (e.g. a still job that copies no png) the logo face is drawn empty and the other cards are not affected.
-const loadImg = (name) => new Promise((res) => { const im = new Image(); const to = setTimeout(() => res(null), 8000); im.onload = () => { clearTimeout(to); res(im); }; im.onerror = () => { clearTimeout(to); res(null); }; im.src = new URL('./recursos/' + name, import.meta.url).href; });
-const LOGO = { orange: await loadImg('gm-logo-oficial-orange.png'), navy: await loadImg('gm-logo-oficial-navy.png') };   // the OFFICIAL lockup (GM. LOGO PNG), cropped to its box + 6 px
-const LOGO_LAY = { w: 328 };   // card px: the lockup is 861 x 286, so it is 109 px high; as wide as the face allows (18 px side margins)
-const logoBox = () => { const h = LOGO_LAY.w * 286 / 861; return { y: (H0 - h) / 2, h }; };
-const sprIn = (u) => (u <= 0 ? 0 : u >= 1 ? 1 : 1 - Math.exp(-6 * u) * Math.cos(8 * u));   // the house spring for the logo (soft overshoot ~ 3 %)
 function rrect(c, x, y, w, h, r) { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
 
 // the interior enters in wq 0..1: each block [from, to]; the icon builds itself from `icon`
@@ -50,7 +40,6 @@ function fitFont(c, family, weight, size, min, text, maxW) {
 }
 // measure everything once: font sizes (auto-fit), per-letter x positions, widths
 function layout(o) {
-  if (o.logo) return null;
   const cv = document.createElement('canvas'), c = cv.getContext('2d'); c.textBaseline = 'alphabetic';
   const item = (family, weight, size, min, text, maxW) => {
     const px = fitFont(c, family, weight, size, min, text, maxW), font = c.font, xs = [];
@@ -68,17 +57,8 @@ function layout(o) {
 function drawFace(c, o, M, w) {
   c.setTransform(S, 0, 0, S, 0, 0); c.clearRect(0, 0, W0, H0); c.filter = 'none'; c.globalAlpha = 1;
   rrect(c, 0, 0, W0, H0, R0); c.save(); c.clip();
-  const g = c.createLinearGradient(0, 0, W0, 0);
-  if (o.logo) { const f = o.navy !== false ? NAVY : '#F9F8F5'; g.addColorStop(0, f); g.addColorStop(1, f); } else { g.addColorStop(0, '#ffffff'); g.addColorStop(0.6, '#ffffff'); g.addColorStop(1, '#f1f2f6'); }
+  const g = c.createLinearGradient(0, 0, W0, 0); g.addColorStop(0, '#ffffff'); g.addColorStop(0.6, '#ffffff'); g.addColorStop(1, '#f1f2f6');
   c.fillStyle = g; c.fillRect(0, 0, W0, H0);
-  if (o.logo) {   // the logo face: icon then wordmark, each rising 16 px from a 10 px blur with a spring scale
-    const B = logoBox();
-    const put = (im, cx, y, ww, hh, k) => { const u = sprIn(k); if (!im || k <= 0) return; const e = eo3(k);
-      c.save(); c.globalAlpha = Math.min(1, e * 1.4); c.filter = e < 0.999 ? `blur(${((1 - e) * 10 * S).toFixed(2)}px)` : 'none';
-      const sc = 0.86 + 0.14 * u; c.translate(cx, y + hh / 2 + (1 - e) * 16); c.scale(sc, sc); c.drawImage(im, -ww / 2, -hh / 2, ww, hh); c.restore(); };
-    put(o.navy !== false ? LOGO.orange : LOGO.navy, W0 / 2, B.y, LOGO_LAY.w, B.h, seg(w, 0, 1));
-    c.restore(); c.strokeStyle = NAVY; c.lineWidth = 5; rrect(c, 2.5, 2.5, W0 - 5, H0 - 5, R0 - 2); c.stroke(); return;
-  }
   const kk = (n) => seg(w, STEPS[n][0], STEPS[n][1] - STEPS[n][0]);
   c.textBaseline = 'alphabetic';
   const kin = (it, x, base, color, k) => {
@@ -170,7 +150,7 @@ void main(){
 
 export function tarjeta(o = {}) {
   const w = o.w ?? 0.6, h = w * H0 / W0, r = w * R0 / W0, dep = w * DEP_K, pxm = w / W0;   // pxm: metres per card px
-  const group = new THREE.Group(); group.name = 'tarjeta:' + (o.logo ? 'logo' : (o.label || ''));
+  const group = new THREE.Group(); group.name = 'tarjeta:' + (o.label || '');
   const pivot = new THREE.Group(); pivot.name = 'tarjeta-pivot'; group.add(pivot);   // sway / bob / elevation live here, never on `group`
   const x0 = -w / 2, y0 = -h / 2;
   const mkShape = (inset) => { const a = x0 + inset, b = y0 + inset, ww = w - 2 * inset, hh = h - 2 * inset, rr = Math.max(0.001, r - inset), s = new THREE.Shape();
@@ -190,7 +170,7 @@ export function tarjeta(o = {}) {
   const M = layout(o); let wNow = -1; drawFace(fx, o, M, 0);
   const faceMat = new THREE.MeshBasicMaterial({ map: faceTex, transparent: true, clippingPlanes: clips, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 });
   const face = new THREE.Mesh(new THREE.PlaneGeometry(w, h), faceMat); face.renderOrder = 2; pivot.add(face);
-  const ic = o.logo ? { tex: null, render() {} } : icon3D(o.icon), icS = w * LAY.iconSize / W0;
+  const ic = icon3D(o.icon), icS = w * LAY.iconSize / W0;
   // the icon plane: no depth write (it used to z-fight with the face when the card shrank), drawn right after the face
   const icon = new THREE.Mesh(new THREE.PlaneGeometry(icS, icS), new THREE.MeshBasicMaterial({ map: ic.tex, transparent: true, depthWrite: false, clippingPlanes: clips, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }));
   icon.position.set(0, (0.5 - LAY.iconCy / H0) * h, 0.0004); icon.renderOrder = 3; pivot.add(icon);
@@ -219,11 +199,9 @@ export function tarjeta(o = {}) {
       [w / 2, -h / 2 + r], [w / 2 - r * 0.3, -h / 2 + r * 0.3], [w / 2 - r, -h / 2], [-w / 2 + r, -h / 2], [-w / 2 + r * 0.3, -h / 2 + r * 0.3], [-w / 2, -h / 2 + r], [-w / 2, h / 2 - r]];
     return p.map(([a, b]) => toG(new THREE.Vector3(a, b, z)));
   };
-  const underline = () => (o.logo ? (() => { const B = logoBox(), y = B.y + B.h + 22, a = W0 / 2 - 56; return [[a, y], [W0 / 2, y], [a + 112, y]]; })()
-    : [[LAY.x, LAY.ulY], [LAY.x + M.title.w * 0.5, LAY.ulY], [LAY.x + M.title.w, LAY.ulY]]).map(([a, b]) => toG(V3(a, b, 0.003)));   // [x,y,z] group space
+  const underline = () => [[LAY.x, LAY.ulY], [LAY.x + M.title.w * 0.5, LAY.ulY], [LAY.x + M.title.w, LAY.ulY]].map(([a, b]) => toG(V3(a, b, 0.003)));   // [x,y,z] group space
   // (compat) a point travelling over the interior; the pen no longer writes it
   const penAt = (wq) => {
-    if (o.logo) return toG(V3(W0 / 2, H0 / 2));
     const st = (n) => seg(wq, STEPS[n][0], STEPS[n][1] - STEPS[n][0]);
     if (wq < STEPS.icon[0]) return toG(V3(LAY.x + M.label.w * st('label'), LAY.labelBase - 10));
     if (wq < STEPS.title[0]) { const a = -2.36 + st('icon') * Math.PI * 2; return toG(V3(182 + 112 * Math.cos(a), LAY.iconCy + 112 * Math.sin(a))); }
@@ -237,7 +215,7 @@ export function tarjeta(o = {}) {
     // the interior enters (wq 0..1). Returns null (the pen does not write it). t: clock for the icon's slow turn
     write(wq, t = 0) {
       const q = Math.round(clamp(wq, 0, 1) * 240) / 240; if (q !== wNow) { wNow = q; drawFace(fx, o, M, q); faceTex.needsUpdate = true; }
-      const ki = seg(q, STEPS.icon[0], STEPS.icon[1] - STEPS.icon[0]); icon.visible = !o.logo && ki > 0 && face.visible; if (icon.visible) ic.render(t, ki);
+      const ki = seg(q, STEPS.icon[0], STEPS.icon[1] - STEPS.icon[0]); icon.visible = ki > 0 && face.visible; if (icon.visible) ic.render(t, ki);
       return null;
     },
     show(k, lift = 1) {

@@ -133,7 +133,7 @@ function prepararDibujo(p) {
   const who = [...extra.filter(inFrame), ...others, ...quien.map((id) => P[id] && P[id].g)].filter((g) => g && !g.userData._res);   // the named ones last (the last is the hero)
   const plan = [], slot = (list, a, b) => list.forEach((o, i) => { const s0 = a + (b - a) * i / list.length, s1 = a + (b - a) * (i + 1) / list.length; plan.push({ obj: o, t0: p.t + d * s0, t1: p.t + d * s1 }); });
   slot([est], 0.0, 0.22); slot(items, 0.22, 0.6); slot(who, 0.6, 0.97);
-  plan.forEach((it) => { it.pts = samples(it.obj); });
+  plan.forEach((it) => { it.pts = samples(it.obj); clipPrep(it.obj); });
   p._plan = plan; p._det = { obj: det, t0: p.t + d * 0.5, t1: p.t + d * 0.62 }; p._ultimo = quien[quien.length - 1]; p._penEnd = p.t + d * 0.97;
 }
 // world points of an object to build its screen outline (at most ~1500)
@@ -164,17 +164,66 @@ function contour(it, cam) {
   return out;
 }
 // object visibility while the place is being drawn: hidden until its outline is closed, then the fill comes in
-function dibujarObjetos(t) {
-  const DR = { lineShare: 0.0001, fillStart: 0.55 }, er = S.erase;
+function dibujarObjetos(t, cam) {
+  const DR = { lineShare: 0.0001, fillStart: 0.55 }, er = S.eraseIt;
   const put = (obj, v) => { v = Math.round(v * 40) / 40; if (obj.userData._dv === v) return; obj.userData._dv = v; G.drawOn(obj, v, DR); obj.traverse((o) => { if (o.isPoints) o.visible = v > 0; }); };
   const fade = (k) => k <= 0 ? 0 : k >= 1 ? 1 : 0.55 + 0.45 * k;
-  const ek = (obj) => { const e = er && er.get(obj); return e ? seg(t, e[0], e[1] - e[0]) : 0; };
-  const out = (obj) => { const k = ek(obj); return k <= 0 ? 1 : k >= 1 ? 0 : 0.55 + 0.45 * (1 - k); };
   for (const p of S.dibujos) {
-    for (const it of p._plan) { const dd = it.t1 - it.t0; put(it.obj, Math.min(fade(seg(t, it.t0 + 0.62 * dd, 0.38 * dd + 0.12)), out(it.obj))); }
-    put(p._det.obj, Math.min(fade(seg(t, p._det.t0, p._det.t1 - p._det.t0)), out(p._det.obj)));
+    for (const it of p._plan) {
+      const e = er && er.get(it.obj);
+      if (e && t >= e.t0) {   // being erased: the pen hatches over it top to bottom and it goes where the pen has passed
+        if (t >= e.t1) { put(it.obj, 0); continue; }
+        put(it.obj, 1); const sc = scribble(e, t, cam); setReveal(it.obj, sc.k > 0 ? sc.y : null, false, cam); continue;
+      }
+      const dd = it.t1 - it.t0;
+      if (t < it.t0 + SCR_TRAVEL * dd) { put(it.obj, 0); continue; }
+      put(it.obj, 1);
+      if (t < it.t1) { const sc = scribble(it, t, cam); setReveal(it.obj, sc.y, true, cam); } else setReveal(it.obj, null, true, cam);
+    }
+    const de = S.erase && S.erase.get(p._det.obj), ko = de ? 1 - seg(t, de[0], de[1] - de[0]) : 1;
+    put(p._det.obj, Math.min(fade(seg(t, p._det.t0, p._det.t1 - p._det.t0)), ko <= 0 ? 0 : ko >= 1 ? 1 : 0.55 + 0.45 * ko));
   }
   if (S.borrar) S.root.visible = t < S.borrar.t + (S.borrar.dur || 2.7);
+}
+// THE SCRIBBLE (Dil, 09/10/2026: "que de verdad lo esté dibujando"): after a short hop, the pen hatches each thing in a zigzag
+// from top to bottom over its outline on screen; the thing shows only above the pen's row (a clipping plane through the camera
+// follows the pen), so it appears exactly where the pen has passed. Cards and bubbles keep their round outline.
+const SCR_TRAVEL = 0.15;
+function xSpan(h, y) { let lo = Infinity, hi = -Infinity; for (let i = 0; i + 1 < h.length; i++) { const a = h[i], b = h[i + 1]; if (a[1] === b[1] || (a[1] - y) * (b[1] - y) > 0) continue; const x = a[0] + (b[0] - a[0]) * (y - a[1]) / (b[1] - a[1]); lo = Math.min(lo, x); hi = Math.max(hi, x); } return lo < hi ? [lo, hi] : null; }
+function scribble(it, t, cam) {
+  if (it._sc && it._sc.t === t) return it._sc;
+  const c = contour(it, cam); let r = { t, pts: null, tip: null, y: null, k: 1, start: null, end: null };
+  if (c.length > 2) {
+    const ys = c.map((q) => q[1]), top = Math.min(...ys), bot = Math.max(...ys), hg = Math.max(1, bot - top);
+    // a hand scribble: a diagonal zigzag, edge to edge, each stroke a little lower, slightly uneven, rounded at the turns
+    const n = Math.max(4, Math.min(22, Math.round(hg / 48))), raw = [], rr = G.rng(7 + Math.round(top) % 97);
+    for (let i = 0; i <= n; i++) { const y = top + hg * (i / n), sp = xSpan(c, Math.min(bot - 1, Math.max(top + 1, y))); if (!sp) continue; const L = i % 2 === 0, j = (rr() - 0.5) * 0.08 * (sp[1] - sp[0]); raw.push([(L ? sp[0] + 6 : sp[1] - 6) + j, y + (rr() - 0.5) * 10]); }
+    const path = raw.length >= 3 ? H2.cr(raw, 6) : raw;
+    if (path.length >= 2) {
+      const dd = it.t1 - it.t0, k = seg(t, it.t0 + SCR_TRAVEL * dd, (1 - SCR_TRAVEL) * dd * 0.96);
+      const pts = H2.part(path, Math.max(0, k - 0.25), Math.max(k, 0.001)), tip = pts.length ? pts[pts.length - 1] : path[0];
+      r = { t, pts, tip, k, y: k >= 1 ? bot + 12 : Math.min(bot + 12, tip[1] + 1.1 * hg / n), start: path[0], end: path[path.length - 1] };
+    }
+  }
+  it._sc = r; return r;
+}
+// one clipping plane per drawn thing (its materials are cloned once so nothing else is clipped)
+function clipPrep(obj) {
+  if (obj.userData._plane) return; const pl = new THREE.Plane(V([0, 1, 0]), 1e6); obj.userData._plane = pl;
+  obj.traverse((m) => {
+    if (!m.material || !(m.isMesh || m.isLine || m.isLineSegments || m.isPoints)) return;
+    const cl = (x) => { const y = x.clone(); y.clippingPlanes = [pl]; y.clipShadows = true; y.userData = { ...x.userData }; return y; };
+    m.material = Array.isArray(m.material) ? m.material.map(cl) : cl(m.material);
+  });
+}
+function setReveal(obj, y, above, cam) {   // y: screen row (px); above: keep what is above it (drawing) or below it (erasing)
+  const pl = obj.userData._plane; if (!pl) return;
+  if (y == null) { pl.set(V([0, 1, 0]), 1e6); return; }
+  const o = cam.position, ndc = 1 - 2 * y / S.H, d = (x, yy) => V([x, yy, 0.5]).unproject(cam).sub(o);
+  const n = new THREE.Vector3().crossVectors(d(-1.3, ndc), d(1.3, ndc)).normalize();
+  if (n.dot(d(0, ndc + 0.3)) < 0) n.negate();   // positive (kept) side = above the row
+  if (!above) n.negate();
+  pl.set(n, -n.dot(o));
 }
 // THE ERASE (borrar-sitio): the pen goes back over everything it drew, last thing first, and each thing fades as its outline
 // is run backwards; at the end the page is blank again (the loop starts from a blank page).
@@ -182,6 +231,7 @@ function prepararBorrado(p) {
   const all = []; S.dibujos.slice().reverse().forEach((q) => { all.push(...q._plan.slice().reverse()); });
   const d = p.dur || 2.7, n = Math.max(1, all.length); S.erase = new Map();
   p._plan = all.map((it, i) => { const t0 = p.t + d * 0.92 * i / n, t1 = p.t + d * 0.92 * (i + 1) / n; S.erase.set(it.obj, [t0, t1]); return { obj: it.obj, pts: it.pts, t0, t1 }; });
+  S.eraseIt = new Map(p._plan.map((it) => [it.obj, it]));
   S.dibujos.forEach((q) => S.erase.set(q._det.obj, [p.t, p.t + d * 0.5]));
   p._det = { obj: new THREE.Group(), t0: p.t, t1: p.t }; p._from = (cam) => idleTip(p.t, cam); p._penEnd = p.t + d * 0.92;
 }
@@ -195,23 +245,18 @@ function reservar(p) {
   [...objs, ...who].forEach((o) => { root.attach(o); o.userData._res = true; });
   const d = p.dur || 1.4, plan = [], slot = (list, a, b) => list.forEach((o, i) => plan.push({ obj: o, t0: p.t + d * (a + (b - a) * i / list.length), t1: p.t + d * (a + (b - a) * (i + 1) / list.length) }));
   slot(objs, 0, who.length ? 0.6 : 1); slot(who, 0.6, 1);
-  plan.forEach((it) => { it.pts = samples(it.obj); });
+  plan.forEach((it) => { it.pts = samples(it.obj); clipPrep(it.obj); });
   p._plan = plan; p._det = { obj: G.tag(new THREE.Group(), 'dibujo:vacio'), t0: p.t, t1: p.t }; p._from = (cam) => idleTip(p.t, cam); p._penEnd = p.t + d;
 }
 // the thread while drawing the place: [active path, tip, outline still filling]
 function hiloDibujo(p, t, cam) {
   const plan = p._plan; let i = plan.findIndex((it) => t >= it.t0 && t < it.t1); if (i < 0) return null;
-  const it = plan[i], dd = it.t1 - it.t0, c = contour(it, cam); if (!c.length) return { pts: null, tip: null, fill: null };
-  const prevEnd = i > 0 ? (() => { const pc = contour(plan[i - 1], cam); return pc[pc.length - 1]; })() : p._from ? p._from(cam) : [-30, S.H * 0.3];
-  const kt = i === 0 && !p._from ? 1 : seg(t, it.t0, 0.18 * dd), kd = i === 0 ? seg(t, it.t0, 0.62 * dd) : seg(t, it.t0 + 0.18 * dd, 0.44 * dd);
-  let pts, tip;
-  if (kt < 1) { const path = H2.hop(prevEnd, c[0], 90); pts = H2.part(path, Math.max(0, io(kt) - 0.5), io(kt)); }
-  else { const cc = p.jugada === 'borrar-sitio' ? c.slice().reverse() : c; pts = H2.part(cc, 0, io(kd)); }
-  tip = pts.length ? pts[pts.length - 1] : null;
-  // the previous outline stays while its object fills, then goes
-  let fill = null; if (i > 0) { const pr = plan[i - 1], pd = pr.t1 - pr.t0; if (t < pr.t1 + 0.3 * pd) fill = contour(pr, cam); }
-  if (kd >= 1 && t < it.t1) fill = c;
-  return { pts, tip, fill };
+  const it = plan[i], dd = it.t1 - it.t0, sc = scribble(it, t, cam); if (!sc.start) return { pts: null, tip: null, fill: null };
+  const prev = i > 0 ? scribble(plan[i - 1], plan[i - 1].t1 - 1e-3, cam) : null;
+  const from = prev && prev.end ? prev.end : p._from ? p._from(cam) : [-30, S.H * 0.3];
+  const kt = seg(t, it.t0, SCR_TRAVEL * dd);
+  if (kt < 1) { const pts = H2.part(H2.hop(from, sc.start, 70), Math.max(0, io(kt) - 0.5), io(kt)); return { pts, tip: pts[pts.length - 1], fill: null }; }
+  return { pts: sc.pts, tip: sc.tip, fill: null };
 }
 
 // ------------------------------------------------------------------ camera: a state {look, hS (frame height at the subject), fov, yaw, up}
@@ -485,7 +530,7 @@ export function frame(t, ctx) {
   const tc = ctx.camT(t);
   setCam(cam, camSpec(tc));
   poseAndHead(t, cam);
-  dibujarObjetos(t);
+  dibujarObjetos(t, cam);
   if (S.cull) { const fr = new THREE.Frustum().setFromProjectionMatrix(new THREE.Matrix4().multiplyMatrices(cam.projectionMatrix, cam.matrixWorldInverse)); S.cull.forEach(([o, bx]) => { o.visible = fr.intersectsBox(bx); }); }
   const scr = (q) => G.screenOf(cam, q, W, H);
   // cards (and the orange field that belongs to them)

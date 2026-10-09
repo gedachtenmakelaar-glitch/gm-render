@@ -58,7 +58,7 @@ export function tag(obj, name, layer) { obj.name = name; if (layer) obj.userData
 // ---- lights by mood ('dia' | 'tarde' | 'noche'). Key light from the top LEFT (house rule). Call once per scene.
 export function lights(scene, mood = 'dia', o = {}) {  // o.key: key-light factor (interiors 0.6-0.8)
   const g = new THREE.Group(); g.name = 'luces';
-  const M = { dia: [0.55, 2.3, 0.6], tarde: [0.45, 1.9, 0.9], noche: [0.18, 0.45, 0.25] }[mood] || [0.55, 2.3, 0.6];
+  const M = { dia: [0.55, 2.3, 0.6], tarde: [0.45, 1.9, 0.9], noche: [0.34, 1.05, 0.42] }[mood] || [0.55, 2.3, 0.6];   // noche: halfway to day (Dil, 09/10: dark but readable)
   g.add(new THREE.AmbientLight(0xffffff, M[0]));
   const key = new THREE.DirectionalLight(0xffffff, M[1] * (o.key ?? 1)); key.position.set(-30, 45, 40); key.castShadow = true;
   key.shadow.mapSize.set(4096, 4096); const c = key.shadow.camera; c.left = -45; c.right = 45; c.top = 45; c.bottom = -15; c.near = 1; c.far = 180; key.shadow.bias = -0.0004;

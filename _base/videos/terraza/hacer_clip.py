@@ -46,24 +46,21 @@ VIDA = {'abuela': ('knit-sit', 1.2, None), 'estudiante': ('type', 0.5, None), 'c
 for who, (pose, per, hold) in VIDA.items():
     add(0, 'vida', quien=who, pose=pose, periodo=per, **({'hold': hold} if hold else {}))
 
-# ---------------- 0 to 6.5: the street. The pen draws it; the couple walks in with their bags; a tram goes by
-add(0, 'colocar', quien='pareja-b', pos=[-9.5, 0, 1.3], giro=90, pose='walk', hold={'L': 'bag'})
-add(0, 'colocar', quien='pareja-a', pos=[-10.2, 0, 1.9], giro=90, pose='walk', hold={'R': 'bag'})
-add(0, 'colocar', quien='portero', pos=[3.7, 0, 0.9], giro=-60, pose='stand', hold={'R': 'keys'})
-add(0, 'camara', pos=[-6.5, 3.2, 5.6], look=[-2.0, 0.9, 1.0], fov=58, dur=6.5, empuje=0.08, deriva=6)
-add(0, 'dibujar-sitio', dur=2.4, quien=['portero', 'pareja-a', 'pareja-b'])
-add(0.6, 'caminar', quien='pareja-b', de=[-9.5, 0, 1.3], a=[2.1, 0, 1.3], dur=5.6, hold={'L': 'bag'}, fin='stand', giro=60)
-add(0.6, 'caminar', quien='pareja-a', de=[-10.2, 0, 1.9], a=[1.5, 0, 1.9], dur=5.6, hold={'R': 'bag'}, fin='stand', giro=60)
-
-# ---------------- 6.5 to 10.6: the portal. Welcome, and the rule of the roof (the only card)
-add(6.5, 'camara', pos=[2.3, 1.75, 7.2], look=[2.7, 1.45, 1.0], fov=44, dur=4.1, deriva=-3)
-add(6.6, 'burbuja', quien='portero', cara='happy', texto='Welcome!', dur=1.4)
-add(8.0, 'pose', quien='portero', pose='point', mira=[3.0, 14.0, -2.0], hold={'R': 'keys'}, dur=0.4)
-add(8.1, 'tarjeta-en-sala', quien='portero', tarjeta='terraza', donde=[-0.7, 0.55, 0.4], dur=2.4, camara=False)
-add(8.3, 'pose', quien='pareja-b', pose='stand', mira=[3.0, 14.0, -2.0], hold={'L': 'bag'}, dur=0.5)
+# ---------------- 0 to 5.4: THE HOOK. At the street door the pen draws the porter with the roof key; the card "Rooftop,
+# neighbours only" pops at once (the goal before anything else); the new couple arrives with their bags into that.
+add(0, 'colocar', quien='pareja-b', pos=[-1.4, 0, 1.6], giro=90, pose='walk', hold={'L': 'bag'})
+add(0, 'colocar', quien='pareja-a', pos=[-2.1, 0, 2.2], giro=90, pose='walk', hold={'R': 'bag'})
+add(0, 'colocar', quien='portero', pos=[3.7, 0, 0.9], giro=-60, pose='point', hold={'R': 'keys'}, mira=[3.0, 14.0, -2.0])
+add(0, 'camara', pos=[2.0, 1.8, 7.4], look=[2.5, 1.45, 1.0], fov=46, dur=5.4, deriva=-4, empuje=0.08)
+add(0, 'dibujar-sitio', dur=1.6, quien=['pareja-a', 'pareja-b', 'portero'])
+add(1.7, 'tarjeta-en-sala', quien='portero', tarjeta='terraza', donde=[-0.7, 0.55, 0.4], dur=2.4, camara=False)
+add(1.9, 'caminar', quien='pareja-b', de=[-1.4, 0, 1.6], a=[2.0, 0, 1.4], dur=2.2, hold={'L': 'bag'}, fin='stand', giro=60)
+add(1.9, 'caminar', quien='pareja-a', de=[-2.1, 0, 2.2], a=[1.4, 0, 1.9], dur=2.2, hold={'R': 'bag'}, fin='stand', giro=60)
+add(4.1, 'pose', quien='portero', pose='stand', hold={'R': 'keys'}, dur=0.3)
+add(4.2, 'burbuja', quien='portero', cara='happy', texto='Welcome!', dur=1.2)
 
 # ---------------- 10.6 to 21: up to their flat (floor 2); floor 1: grandma knitting, grandpa and his dog
-T1, D1 = 10.6, 10.4
+T1, D1 = 5.4, 9.2
 add(T1, 'caminar', quien='pareja-b', ruta=R1, de=False, dur=D1, hold={'L': 'bag'}, fin='stand', giro=-90)
 add(T1 + LAG, 'caminar', quien='pareja-a', ruta=R1[:-1] + [[-1.4, 6.45, -5.3]], de=False, dur=D1, hold={'R': 'bag'}, fin='stand', giro=-120)
 add(T1, 'colocar', quien='portero', pos=[3.4, 18.85, -1.3], giro=-90, pose='stand', hold={'R': 'keys'})   # off screen: he takes the lift up
@@ -108,11 +105,11 @@ T2 = T1 + D1 + 0.3
 add(T2, 'pose', quien='pareja-b', pose='stand', hold={}, dur=0.4)
 add(T2 + 0.2, 'pose', quien='pareja-a', pose='stand', hold={}, dur=0.4)
 add(T1 + D1 + 0.7, 'garabato', quien='estudiante', icono='auriculares', dur=0.95)
-add(T2 + 1.6, 'pose', quien='pareja-b', pose='point', mira=[0.5, 20.0, -1.5], dur=0.4)
-add(T2 + 1.6, 'burbuja', quien='pareja-b', cara='curious', texto='Roof?', dur=1.6)
+add(T2 + 1.1, 'pose', quien='pareja-b', pose='point', mira=[0.5, 20.0, -1.5], dur=0.4)
+add(T2 + 1.2, 'burbuja', quien='pareja-b', cara='curious', texto='Roof?', dur=1.4)
 
 # ---------------- 24 to 41: up and up. One doodle per neighbour; each floor drawn just above them before they get there
-T3, D3 = T2 + 3.2, 16.6
+T3, D3 = T2 + 2.6, 13.6
 add(T3, 'caminar', quien='pareja-b', ruta=R2, de=False, dur=D3, fin='stand', giro=90)
 add(T3 + LAG, 'caminar', quien='pareja-a', ruta=R2 + [[2.2, 18.85, -0.6]], de=False, dur=D3 + 0.6, fin='stand', giro=90)
 FLOORS = [(3, 'p3-nina', 'p3-chico', ('nina', 'osito'), ('chico', 'baquetas')),
@@ -122,8 +119,8 @@ sides, doos, CUTS = [], [], []
 add(T2 + 1.5 - 1.4, 'dibujar-vivienda', viviendas=['p3-nina', 'p3-chico', 'p3-vecina'], dur=1.1)   # floor 3 drawn while they stand on 2
 for i, (f, hl, hr, (wl, il), (wr, ir)) in enumerate(FLOORS):
     tf = reach(R2, T3, D3, Y(f))
-    if f < 5: add(tf - 1.25, 'dibujar-vivienda', viviendas=[FLOORS[i + 1][1], FLOORS[i + 1][2]], dur=1.0)
-    else: add(tf - 1.25, 'dibujar-vivienda', viviendas=['atico-artista', 'atico-secadero'], dur=1.0)
+    if f < 5: add(tf - 1.0, 'dibujar-vivienda', viviendas=[FLOORS[i + 1][1], FLOORS[i + 1][2]], dur=0.8)
+    else: add(tf - 1.0, 'dibujar-vivienda', viviendas=['atico-artista', 'atico-secadero'], dur=0.8)
     for tt, who, ic, cx in ((tf - 0.2, wl, il, -0.85 * NXS[wl]), (tf + 0.85, wr, ir, 0.85 * NXS[wr])):
         add(tt, 'garabato', quien=who, icono=ic, dur=0.9); CUTS.append((tt, who))
 ta = reach(R2, T3, D3, Y(6))
@@ -148,15 +145,25 @@ T5 = T4 + 6.3
 add(T5, 'camara', pos=[0, 10.6, 62], look=[0, 10.6, -3.5], fov=23.5, dur=3.0, cerca=3.6, empuje=0.03, deriva=0)
 add(T5 + 0.1, 'repartir', dur=2.6)
 
-# ---------------- 49.5 to 53.15: everyone on the roof at sunset
+# ---------------- the finale: the neighbours come up onto the roof one by one (each with their doodle's thing), then the party
 T6 = T5 + 3.0
 ROOF = [('pareja-b', -0.6, -0.7, 10), ('pareja-a', -1.3, -1.2, 25), ('portero', 0.3, -1.3, -15), ('abuela', -2.3, -0.8, 20), ('abuelo', -3.1, -1.3, 30),
         ('estudiante', 1.2, -0.7, -10), ('chico', 2.0, -1.3, -20), ('vecina', 2.8, -0.8, -25), ('nina', -1.9, -0.3, 5), ('madre', -2.7, -1.6, 20),
         ('teletrabajo', 3.6, -1.4, -30), ('familia-bebe', -3.8, -0.6, 30), ('viajera', 4.3, -0.7, -30), ('plantera', -4.5, -1.4, 35), ('artista', 1.0, -1.7, -5)]
-for who, x, z, g in ROOF: add(T6, 'colocar', quien=who, pos=[x, 18.85, z], giro=g, pose='wave' if who in ('nina', 'chico') else 'stand', hold={})
-add(T6, 'camara', pos=[-0.6, 21.5, 5.6], look=[-0.6, 19.85, -1.0], fov=48, dur=2.8, deriva=3)
-for i, who in enumerate(['pareja-a', 'chico', 'abuela', 'estudiante', 'teletrabajo']): add(T6 + 0.3 + 0.2 * i, 'resolver', quien=who, dur=0.9)
-add(T6 + 1.2, 'burbuja', quien='vecina', cara='happy', dur=1.3)
+ARRIVE = ['abuela', 'chico', 'nina', 'estudiante', 'plantera', 'artista', 'abuelo', 'teletrabajo', 'familia-bebe', 'viajera', 'madre', 'vecina']
+add(T6, 'camara', pos=[0.6, 21.3, 6.2], look=[0.4, 19.75, -1.0], fov=50, dur=7.0, deriva=4, empuje=0.05)
+for who, x, z, g in ROOF:
+    if who in ARRIVE: continue
+    add(T6, 'colocar', quien=who, pos=[x, 18.85, z], giro=g, pose='stand', hold={})
+for k, who in enumerate(ARRIVE):   # out of the stair door at (1.5, 18.85, -1.1), a few steps to their place
+    x, z, g = next((a, b, c) for w, a, b, c in ROOF if w == who); t0 = T6 + 0.25 + 0.42 * k
+    add(t0, 'caminar', quien=who, de=[1.5, 18.85, -1.1], a=[x, 18.85, z], dur=1.3, fin='wave' if who in ('nina', 'chico') else 'stand', giro=g, hold={})
+for i, who in enumerate(['pareja-a', 'pareja-b', 'portero']): add(T6 + 0.2 + 0.25 * i, 'resolver', quien=who, dur=0.9)
+for i, who in enumerate(['abuela', 'chico', 'estudiante', 'teletrabajo', 'vecina']): add(T6 + 3.0 + 0.35 * i, 'resolver', quien=who, dur=0.9)
+add(T6 + 4.6, 'burbuja', quien='abuela', cara='happy', texto='Thank you!', dur=1.5)
+add(T6 + 6.3, 'burbuja', quien='pareja-b', cara='happy', dur=1.2)
+add(T6 + 7.0, 'camara', pos=[-1.0, 20.6, 3.8], look=[-1.0, 19.8, -0.9], fov=46, dur=3.0, deriva=-3)
+add(T6 + 10.0, 'camara', pos=[0.0, 25.0, 16.0], look=[0.0, 19.5, -1.5], fov=50, dur=3.0, empuje=0.06)
 add(53.15, 'subir-al-logo', quien='pareja-b')
 
 homes = ['pb-portero', 'p1-abuela', 'p1-abuelo', 'p2-pareja', 'p2-estudiante', 'p3-nina', 'p3-chico', 'p3-vecina', 'p4-teletrabajo', 'p4-bebe', 'p5-viajera', 'p5-plantera', 'atico-artista', 'atico-secadero']

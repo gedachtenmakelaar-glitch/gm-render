@@ -797,7 +797,8 @@
    "sitio": {
     "tipo": "sala-espera",
     "opts": {
-     "disposicion": "v41"
+     "disposicion": "v41",
+     "recepcionista": false
     }
    },
    "reparto": {
@@ -808,10 +809,17 @@
     },
     "vecina": {
      "asiento": 6,
-     "emocion": 4
+     "emocion": 4,
+     "hold": {
+      "R": "phone"
+     }
     },
     "estudiante": {
      "asiento": 1,
+     "emocion": 2
+    },
+    "chico": {
+     "asiento": 2,
      "emocion": 2
     },
     "nina": {
@@ -825,13 +833,21 @@
      },
      "emocion": 2
     },
-    "profesional": {
+    "recepcionista": {
      "pos": [
-      -30,
+      3.6,
       0,
-      -30
+      -5.3
      ],
+     "rotY": 0,
+     "pose": "stand",
      "emocion": 0
+    }
+   },
+   "tarjetas": {
+    "gm": {
+     "logo": true,
+     "w": 0.62
     }
    },
    "foco": "vecina",
@@ -840,16 +856,17 @@
      "t": 52.0,
      "jugada": "camara",
      "nombre": "v41-v",
-     "dur": 3.5,
+     "dur": 3.3,
      "deriva": 3
     },
     {
      "t": 52.0,
      "jugada": "dibujar-sitio",
-     "dur": 2.6,
+     "dur": 2.4,
      "quien": [
       "abuela",
       "estudiante",
+      "chico",
       "nina",
       "madre",
       "vecina"
@@ -863,177 +880,192 @@
      "periodo": 1.2
     },
     {
-     "t": 54.8,
+     "t": 54.5,
      "jugada": "chip",
      "texto": "WAITING ROOM"
     },
     {
-     "t": 55.5,
+     "t": 55.3,
      "jugada": "camara",
      "nombre": "reloj-v",
-     "dur": 1.6
+     "dur": 1.4
     },
     {
-     "t": 57.1,
+     "t": 56.7,
      "jugada": "camara",
-     "nombre": "asiento-1-v",
+     "nombre": "recepcion-hombro-v",
      "dur": 2.0,
      "deriva": -3
     },
     {
-     "t": 57.3,
+     "t": 56.9,
+     "jugada": "burbuja",
+     "quien": "recepcionista",
+     "cara": "happy",
+     "texto": "Next!",
+     "dur": 1.4
+    },
+    {
+     "t": 58.7,
+     "jugada": "camara",
+     "nombre": "v41-v",
+     "dur": 2.6,
+     "deriva": 3
+    },
+    {
+     "t": 58.8,
+     "jugada": "pose",
+     "quien": "estudiante",
+     "pose": "stand",
+     "dur": 0.4
+    },
+    {
+     "t": 59.2,
+     "jugada": "caminar",
+     "quien": "estudiante",
+     "a": [
+      -4.1,
+      0,
+      -1.4
+     ],
+     "dur": 1.8,
+     "fin": "stand"
+    },
+    {
+     "t": 61.1,
+     "jugada": "colocar",
+     "quien": "estudiante",
+     "pos": [
+      -30,
+      0,
+      -30
+     ]
+    },
+    {
+     "t": 61.3,
+     "jugada": "camara",
+     "nombre": "asiento-1-v",
+     "dur": 1.8,
+     "deriva": -3
+    },
+    {
+     "t": 61.5,
      "jugada": "burbuja",
      "quien": "vecina",
      "cara": "worried",
      "dur": 1.4
     },
     {
-     "t": 59.1,
-     "jugada": "colocar",
-     "quien": "profesional",
-     "pos": [
-      -4.0,
-      0,
-      -1.4
-     ],
-     "giro": 90,
-     "pose": "wave"
-    },
-    {
-     "t": 59.1,
+     "t": 63.1,
      "jugada": "camara",
-     "nombre": "ancho-puerta-v",
-     "dur": 3.0,
-     "deriva": 3
+     "nombre": "reloj-v",
+     "dur": 1.0
     },
     {
-     "t": 59.4,
+     "t": 64.1,
+     "jugada": "camara",
+     "nombre": "v41-v",
+     "dur": 2.4,
+     "deriva": -3
+    },
+    {
+     "t": 64.2,
      "jugada": "burbuja",
-     "quien": "profesional",
+     "quien": "recepcionista",
      "cara": "happy",
-     "texto": "Come in!",
-     "dur": 1.4
+     "texto": "Next!",
+     "dur": 1.2
     },
     {
-     "t": 61.0,
+     "t": 64.5,
      "jugada": "pose",
-     "quien": "vecina",
+     "quien": "chico",
      "pose": "stand",
-     "dur": 0.5
+     "dur": 0.4
     },
     {
-     "t": 61.6,
+     "t": 64.9,
      "jugada": "caminar",
-     "quien": "vecina",
+     "quien": "chico",
      "a": [
-      -3.4,
+      -4.1,
       0,
       -1.4
      ],
      "dur": 1.6,
-     "fin": "stand",
-     "giro": -90
+     "fin": "stand"
     },
     {
-     "t": 62.1,
-     "jugada": "camara",
-     "nombre": "v41-v",
-     "dur": 2.3,
-     "deriva": -3
-    },
-    {
-     "t": 64.4,
-     "jugada": "borrar-sitio",
-     "dur": 1.4
-    }
-   ]
-  },
-  {
-   "desde": 66.0,
-   "sitio": {
-    "tipo": "sala-espera",
-    "opts": {
-     "variante": "consultorio"
-    }
-   },
-   "reparto": {
-    "vecina": {
-     "asiento": 0,
-     "emocion": 4
-    },
-    "profesional": {
-     "asiento": 3,
-     "emocion": 0
-    }
-   },
-   "foco": "vecina",
-   "pulsos": [
-    {
-     "t": 66.0,
-     "jugada": "camara",
-     "nombre": "v41-v",
-     "dur": 3.0,
-     "deriva": 3
-    },
-    {
-     "t": 66.0,
-     "jugada": "dibujar-sitio",
-     "dur": 2.4,
-     "quien": [
-      "profesional",
-      "vecina"
+     "t": 66.6,
+     "jugada": "colocar",
+     "quien": "chico",
+     "pos": [
+      -31,
+      0,
+      -30
      ]
     },
     {
-     "t": 68.6,
+     "t": 66.5,
      "jugada": "camara",
-     "nombre": "asiento-2-v",
-     "dur": 2.6,
-     "deriva": -3
-    },
-    {
-     "t": 68.9,
-     "jugada": "burbuja",
-     "quien": "vecina",
-     "cara": "worried",
-     "dur": 1.3
-    },
-    {
-     "t": 70.5,
-     "jugada": "camara",
-     "de": "profesional",
-     "lado": 30,
+     "de": "vecina",
+     "lado": 25,
      "alza": -4,
-     "dist": 2.2,
+     "dist": 1.9,
      "dur": 1.6
     },
     {
-     "t": 70.7,
-     "jugada": "burbuja",
-     "quien": "profesional",
-     "cara": "curious",
-     "dur": 1.2
+     "t": 66.8,
+     "jugada": "coger-movil",
+     "quien": "vecina",
+     "dur": 0.75
     },
     {
-     "t": 72.1,
+     "t": 68.1,
+     "jugada": "tarjeta-en-sala",
+     "quien": "vecina",
+     "tarjeta": "gm",
+     "donde": [
+      0.0,
+      0.85,
+      0.35
+     ],
+     "dur": 1.4
+    },
+    {
+     "t": 69.5,
+     "jugada": "tarjeta-pantalla",
+     "tarjeta": "gm",
+     "dur": 2.6
+    },
+    {
+     "t": 72.6,
      "jugada": "camara",
-     "nombre": "asiento-2-v",
-     "dur": 4.2,
-     "deriva": 3
+     "de": "vecina",
+     "lado": 20,
+     "alza": -4,
+     "dist": 1.7,
+     "dur": 2.4
     },
     {
-     "t": 72.4,
+     "t": 72.8,
      "jugada": "resolver",
      "quien": "vecina",
      "dur": 1.0
     },
     {
-     "t": 73.8,
+     "t": 74.0,
      "jugada": "burbuja",
      "quien": "vecina",
      "cara": "happy",
-     "texto": "Thanks!",
-     "dur": 1.5
+     "dur": 1.3
+    },
+    {
+     "t": 75.1,
+     "jugada": "camara",
+     "nombre": "v41-v",
+     "dur": 1.4,
+     "deriva": 3
     },
     {
      "t": 76.4,
