@@ -31,8 +31,11 @@ def reach(r, t0, dur, y):   # first time the route gets to height y
         if at(r, k)[1] >= y - 0.02: return t0 + k * dur
     return t0 + dur
 
-R1 = fix_uturns([[3, 0.25, -0.7], [1.4, 0.25, -1.1], [0.8, 0.49, -1.1], [-1.6, 3.35, -1.1], [-1.6, 3.35, -2.1], [-1.6, 3.59, -1.1], [0.8, 6.45, -1.1], [0.8, 6.45, -2.1], [0.5, 6.45, -2.7], [0, 6.45, -4.4], [-2.05, 6.45, -5.85]])
-R2 = fix_uturns([[-2.05, 6.45, -5.85], [0, 6.45, -4.4], [0.5, 6.45, -2.7], [0.8, 6.45, -2.1], [0.8, 6.69, -1.1], [-1.6, 9.55, -1.1], [-1.6, 9.55, -2.1], [-1.6, 9.79, -1.1], [0.8, 12.65, -1.1], [0.8, 12.65, -2.1], [0.8, 12.89, -1.1], [-1.6, 15.75, -1.1], [-1.6, 15.75, -2.1], [-1.6, 15.99, -1.1], [0.8, 18.85, -1.1], [1.5, 18.85, -1.1]])
+# 10/10/2026 (Dil): no detour to their door and back (it was dead time). They stop on the floor-2 landing, ask "Roof?" and go on up.
+R1_OLD = fix_uturns([[3, 0.25, -0.7], [1.4, 0.25, -1.1], [0.8, 0.49, -1.1], [-1.6, 3.35, -1.1], [-1.6, 3.35, -2.1], [-1.6, 3.59, -1.1], [0.8, 6.45, -1.1], [0.8, 6.45, -2.1], [0.5, 6.45, -2.7], [0, 6.45, -4.4], [-2.05, 6.45, -5.85]])
+R1 = fix_uturns([[3, 0.25, -0.7], [1.4, 0.25, -1.1], [0.8, 0.49, -1.1], [-1.6, 3.35, -1.1], [-1.6, 3.35, -2.1], [-1.6, 3.59, -1.1], [0.8, 6.45, -1.1], [0.8, 6.45, -1.7]])
+R2_OLD = fix_uturns([[-2.05, 6.45, -5.85], [0, 6.45, -4.4], [0.5, 6.45, -2.7], [0.8, 6.45, -2.1], [0.8, 6.69, -1.1], [-1.6, 9.55, -1.1], [-1.6, 9.55, -2.1], [-1.6, 9.79, -1.1], [0.8, 12.65, -1.1], [0.8, 12.65, -2.1], [0.8, 12.89, -1.1], [-1.6, 15.75, -1.1], [-1.6, 15.75, -2.1], [-1.6, 15.99, -1.1], [0.8, 18.85, -1.1], [1.5, 18.85, -1.1]])
+R2 = fix_uturns([[0.8, 6.45, -1.7], [0.8, 6.69, -1.1], [-1.6, 9.55, -1.1], [-1.6, 9.55, -2.1], [-1.6, 9.79, -1.1], [0.8, 12.65, -1.1], [0.8, 12.65, -2.1], [0.8, 12.89, -1.1], [-1.6, 15.75, -1.1], [-1.6, 15.75, -2.1], [-1.6, 15.99, -1.1], [0.8, 18.85, -1.1], [1.5, 18.85, -1.1]])
 NXS = {'nina': 5.7, 'chico': 5.2, 'teletrabajo': 4.8, 'familia-bebe': 4.9, 'viajera': 4.1, 'plantera': 5.5}   # |x| of each neighbour
 LAG = 0.8                            # pareja-a follows pareja-b this far behind
 
@@ -60,9 +63,9 @@ add(4.1, 'pose', quien='portero', pose='stand', hold={'R': 'keys'}, dur=0.3)
 add(4.2, 'burbuja', quien='portero', cara='happy', texto='Welcome!', dur=1.2)
 
 # ---------------- 10.6 to 21: up to their flat (floor 2); floor 1: grandma knitting, grandpa and his dog
-T1, D1 = 5.4, 9.2
-add(T1, 'caminar', quien='pareja-b', ruta=R1, de=False, dur=D1, hold={'L': 'bag'}, fin='stand', giro=-90)
-add(T1 + LAG, 'caminar', quien='pareja-a', ruta=R1[:-1] + [[-1.4, 6.45, -5.3]], de=False, dur=D1, hold={'R': 'bag'}, fin='stand', giro=-120)
+T1 = 5.4; D1 = round(9.2 * sum(lens(R1)) / sum(lens(R1_OLD)), 2)   # same walking speed as before, shorter way
+add(T1, 'caminar', quien='pareja-b', ruta=R1, de=False, dur=D1, hold={'L': 'bag'}, fin='stand', giro=20)
+add(T1 + LAG, 'caminar', quien='pareja-a', ruta=R1[:-1] + [[0.2, 6.45, -1.5]], de=False, dur=D1 - LAG + 0.3, hold={'R': 'bag'}, fin='stand', giro=40)
 add(T1, 'colocar', quien='portero', pos=[3.4, 18.85, -1.3], giro=-90, pose='stand', hold={'R': 'keys'})   # off screen: he takes the lift up
 
 def climb_cams(route, t0, dur, until, sides):
@@ -98,18 +101,18 @@ DOO1 = [(f1 - 0.9, 'abuela', 'ovillo', -4.6), (f1 + 0.3, 'abuelo', 'hueso', 3.3)
 add(T1 - 0.2, 'dibujar-vivienda', viviendas=['p1-abuela', 'p1-abuelo'], dur=1.1)
 add(T1 + 1.2, 'dibujar-vivienda', viviendas=['p2-pareja', 'p2-estudiante'], dur=1.1, sin=['pareja-a', 'pareja-b'])
 for tt, who, ic, cx in DOO1: add(tt, 'garabato', quien=who, icono=ic, dur=0.95)
-climb(R1, T1, D1, T1 + D1 + 3.0, [(tt, who) for tt, who, _, _ in DOO1] + [(T1 + D1 + 0.7, 'estudiante')])
+climb(R1, T1, D1, T1 + D1 + 3.0, [(tt, who) for tt, who, _, _ in DOO1] + [(T1 + D1 - 1.1, 'estudiante')])
 
 # ---------------- 21 to 24: their door. Bags down; the student next door; they look up: the roof?
 T2 = T1 + D1 + 0.3
 add(T2, 'pose', quien='pareja-b', pose='stand', hold={}, dur=0.4)
 add(T2 + 0.2, 'pose', quien='pareja-a', pose='stand', hold={}, dur=0.4)
-add(T1 + D1 + 0.7, 'garabato', quien='estudiante', icono='auriculares', dur=0.95)
+add(T1 + D1 - 1.1, 'garabato', quien='estudiante', icono='auriculares', dur=0.95)
 add(T2 + 1.1, 'pose', quien='pareja-b', pose='point', mira=[0.5, 20.0, -1.5], dur=0.4)
 add(T2 + 1.2, 'burbuja', quien='pareja-b', cara='curious', texto='Roof?', dur=1.4)
 
 # ---------------- 24 to 41: up and up. One doodle per neighbour; each floor drawn just above them before they get there
-T3, D3 = T2 + 2.6, 13.6
+T3 = T2 + 2.6; D3 = round(13.6 * sum(lens(R2)) / sum(lens(R2_OLD)), 2)
 add(T3, 'caminar', quien='pareja-b', ruta=R2, de=False, dur=D3, fin='stand', giro=90)
 add(T3 + LAG, 'caminar', quien='pareja-a', ruta=R2 + [[2.2, 18.85, -0.6]], de=False, dur=D3 + 0.6, fin='stand', giro=90)
 FLOORS = [(3, 'p3-nina', 'p3-chico', ('nina', 'osito'), ('chico', 'baquetas')),
@@ -157,20 +160,22 @@ for who, x, z, g in ROOF:
     add(T6, 'colocar', quien=who, pos=[x, 18.85, z], giro=g, pose='stand', hold={})
 for k, who in enumerate(ARRIVE):   # out of the stair door at (1.5, 18.85, -1.1), a few steps to their place
     x, z, g = next((a, b, c) for w, a, b, c in ROOF if w == who); t0 = T6 + 0.25 + 0.42 * k
-    add(t0, 'caminar', quien=who, de=[1.5, 18.85, -1.1], a=[x, 18.85, z], dur=1.3, fin='wave' if who in ('nina', 'chico') else 'stand', giro=g, hold={})
+    add(t0, 'caminar', quien=who, de=[1.5, 18.85, -1.1], a=[x, 18.85, z], dur=1.3, fin='wave' if who in ('nina', 'chico') else 'stand', giro=g, hold={}, sonido=0.8)
 for i, who in enumerate(['pareja-a', 'pareja-b', 'portero']): add(T6 + 0.2 + 0.25 * i, 'resolver', quien=who, dur=0.9)
-for i, who in enumerate(['abuela', 'chico', 'estudiante', 'teletrabajo', 'vecina']): add(T6 + 3.0 + 0.35 * i, 'resolver', quien=who, dur=0.9)
+for who in ['abuela', 'chico', 'estudiante', 'teletrabajo', 'vecina']: add(T6 + 0.25 + 0.42 * ARRIVE.index(who) + 1.25, 'resolver', quien=who, dur=0.9)   # each one lights up as they ARRIVE
 add(T6 + 4.6, 'burbuja', quien='abuela', cara='happy', texto='Thank you!', dur=1.5)
 add(T6 + 6.3, 'burbuja', quien='pareja-b', cara='happy', dur=1.2)
 add(T6 + 7.0, 'camara', pos=[-1.0, 20.6, 3.8], look=[-1.0, 19.8, -0.9], fov=46, dur=3.0, deriva=-3)
 add(T6 + 10.0, 'camara', pos=[0.0, 25.0, 16.0], look=[0.0, 19.5, -1.5], fov=50, dur=3.0, empuje=0.06)
-add(53.15, 'subir-al-logo', quien='pareja-b')
+END = round(T6 + 12.75, 2)
+add(END, 'subir-al-logo', quien='pareja-b')
 
 homes = ['pb-portero', 'p1-abuela', 'p1-abuelo', 'p2-pareja', 'p2-estudiante', 'p3-nina', 'p3-chico', 'p3-vecina', 'p4-teletrabajo', 'p4-bebe', 'p5-viajera', 'p5-plantera', 'atico-artista', 'atico-secadero']
 ids = ['abuela', 'abuelo', 'estudiante', 'chico', 'vecina', 'nina', 'madre', 'teletrabajo', 'familia-bebe', 'viajera', 'plantera', 'artista', 'portero']
 clip = {
-    'name': 'terraza', 'size': [1080, 1920], 'duration': 54.0, 'ending': True, 'bpm': 112,
-    'musica': {'archivo': 'sonido/musica/barriers.mp3', 'desde': 10.755, 'gain_db': 0, 'bpm': None, 'primer_pulso': None, 'alinear': False},   # CC0, Zane Little
+    'name': 'terraza', 'size': [1080, 1920], 'duration': round(END + 0.85, 2), 'ending': True, 'bpm': 112,
+    'golpes_extra': [{'t': round(T6 + 0.15, 3), 'tipo': 'objeto', 'que': 'puerta-abre'}],
+    'musica': {'archivo': 'sonido/musica/barriers.mp3', 'desde': 11.12, 'gain_db': -3, 'bpm': None, 'primer_pulso': None, 'alinear': False},   # CC0, Zane Little
     'sitio': {'tipo': 'edificio', 'mood': 'tarde', 'culling': True,
               'ocultar': ['balcon:' + h for h in homes if h.startswith('p')],
               'opts': {'cutaway': True, 'street': True, 'neighbours': True, 'skyline': True, 'residents': True, 'bikeLaneAccent': True}},

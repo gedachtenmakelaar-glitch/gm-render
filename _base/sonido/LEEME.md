@@ -18,7 +18,7 @@ Sin la clave, todo es como antes (misma cama sintetizada, mismos bytes). Con ell
 ```
 - `archivo`: ruta absoluta, o relativa a `_base/` (se prueba también en la carpeta del clip y en `sonido/`). `desde`: segundo de la pista donde empieza la historia (0 por defecto). `gain_db`: sube o baja la música (0 = música sola a -17 LUFS dentro de la mezcla final). `bpm` y `primer_pulso` (segundo de la pista del primer 1 del compás): si van a `null`, los estima `pulso.py` (con caché en `musica/_pulso-cache.json`) y se anotan en `render/render.log`. `alinear: true` mueve `desde` (el valor dado es el punto de partida) a la fase del pulso que acerca más los `corte` al pulso.
 - Se corta a `duracion` (la historia), entrada de 0,15 s y salida de 1,5 s en coseno que termina EN el último pulso antes del final (hasta un pulso, ~0,5 s, de silencio antes del logo); luego entra el final de 6,6 s como siempre.
-- Ducking: bajo cada efecto la música baja 2 dB (lápiz, subida), 3 dB (corte, burbuja, entra-hilo, naranja, resolver, tic) o 3,5 a 4 dB (tarjeta, golpe); ataque 60 ms, suelta 120 ms, anticipado 50 ms. Tabla `DUCK` en `mezcla.py`.
+- Ducking: bajo cada efecto la música baja 2 dB (lápiz, subida), 3 dB (corte, burbuja, entra-hilo, naranja, resolver, tic) o 3,5 a 4 dB (tarjeta, golpe); ataque 60 ms, suelta 120 ms, anticipado 50 ms. Tabla `DUCK` en `mezcla.py`. Pasos: 1 dB; desenredo 3 dB; objeto 2,5 dB. Música real a -18,5 LUFS sola (desde el 10/10: más al fondo, la acción delante).
 - Nivel: la música sola queda en -17 LUFS (+ `gain_db`) tras normalizar la mezcla a -14 LUFS / pico real <= -1 dBTP; se ajusta en 2 a 6 pasadas (una mezcla de 60 s tarda ~30 s). La línea de resultado de siempre se imprime y se añade una de música (también al `render.log`).
 - `python sonido/pulso.py <audio> [--clip <carpeta> | --cortes 6.5,41.1 --dur 54] [--cerca 12]`: BPM, primer pulso y el mejor `desde`. El primer 1 del compás se decide por la energía grave: puede equivocarse de pulso en música sin bombo claro (pon `primer_pulso` a mano).
 - Prueba: `python sonido/musica/_generar-prueba.py` crea `_prueba-112.wav` (3 min, 112 BPM, primer pulso en 0,20 s, 31 MB, se puede borrar). `sonido/_prueba-clip/` es un clip de prueba (copia de terraza con la clave).
@@ -36,6 +36,9 @@ Sin la clave, todo es como antes (misma cama sintetizada, mismos bytes). Con ell
 | `subida` | `t`, `hasta` opcional | el hilo sube hacia el final: ruido que se abre, tono que sube y el riser de la casa aterrizando justo al final | el riser del kit (s05) + casa riser |
 | `golpe` | `t` | golpe suave genérico | kit low_thump + casa click |
 | `tic` | `t` | tic de reloj, alterna dos alturas | casa tick |
+| `paso` | `t`, `suelo` ('escalera'), `peso` | una pisada (3 variantes alternas, ±3,5 % de tono); en escalera más grave y con cuerpo. `video.py` los pone solos en cada `caminar` | foley step_soft_1-3 |
+| `desenredo` | `t`, `dur` | el cable se estira, tirones que suben de tono y se suelta. Sale solo con `resolver` | foley cable_* |
+| `objeto` | `t`, `que` | movil, bolsa, llaves, papel, puerta-abre, puerta-cierra, sentarse, tela, dejar, toque. `coger-movil`/`dejar-movil` lo ponen solos | foley (de Nudos y Pared) |
 
 Un tipo desconocido, un `lapiz` sin `t0`/`t1` o un golpe fuera del clip paran con un error claro y sin escribir nada.
 

@@ -56,6 +56,90 @@ def prepare(clip_dir, work=None, desde=0.0, hasta=None):
     return cfg, work, total
 
 
+# footsteps (Dil, 10/10/2026: every action that is seen is heard). One "paso" per footfall, in sync with the engine's walk cycle
+# (jugadas.js: phase = k * total / stride, stride 1.4 m flat or 0.9 m on stairs; a foot lands at phase 0 and 0.5). Who the camera follows
+# (the chapter's foco or the camera's "de") sounds in front; the rest softer, and a crowd is scaled down so steps never become noise.
+def pasos(pulsos, foco):
+    import math
+    pos, out = {}, []
+    for p in sorted(pulsos, key=lambda q: q['t']):
+        q = p.get('quien')
+        if p['jugada'] == 'colocar' and p.get('pos') and isinstance(q, str): pos[q] = p['pos']
+        if p['jugada'] != 'caminar' or not isinstance(q, str): continue
+        pts = ([] if p.get('de') is False else [p.get('de') or pos.get(q)]) + (p.get('ruta') or [p.get('a')])
+        pts = [x for x in pts if x]
+        if len(pts) < 2: pts = None
+        L = [math.dist(pts[i], pts[i - 1]) for i in range(1, len(pts))] if pts else []
+        tot = sum(L) or 1.25 * (p.get('dur') or 2.0); d = p.get('dur') or tot / 1.25
+        if pts: pos[q] = pts[-1]
+        n = int(d * 240); last = None
+        for i in range(n + 1):
+            k = i / max(1, n); sdist = k * tot; j = 0
+            while L and j < len(L) - 1 and sdist > L[j]: sdist -= L[j]; j += 1
+            esc = bool(L) and abs(pts[j + 1][1] - pts[j][1]) > 0.25 * math.hypot(pts[j + 1][0] - pts[j][0], pts[j + 1][2] - pts[j][2])
+            ph = (k * tot / (0.9 if esc else 1.4)) % 1; half = int(ph * 2)
+            if last is not None and half != last and k < 0.995: out.append({'t': round(p['t'] + k * d, 3), 'tipo': 'paso', 'quien': q, **({'suelo': 'escalera'} if esc else {}), **({'g': p['sonido']} if p.get('sonido') else {})})
+            last = half
+    for e in out:   # in front: who is followed; a crowd (several walking at once) gets quieter
+        near = sum(1 for o in out if abs(o['t'] - e['t']) < 0.3 and o['quien'] != e['quien'])
+        e['g'] = round(e.get('g') or (1.0 if e['quien'] == foco else 0.55) / math.sqrt(1 + near * 0.5), 3)
+    out.sort(key=lambda e: (e['t'], -e['g']))   # two feet landing within 70 ms sound like one flam: keep the louder
+    keep = []
+    for e in out:
+        if keep and e['t'] - keep[-1]['t'] < 0.07: continue
+        keep.append(e)
+    for e in keep: e.pop('quien')
+    return keep
+
+
+# what the camera is looking at decides what is heard (Dil, 10/10/2026: "each little detail"): the resident's life in a home shot
+# (typing, knitting needles, drums, the hush and the lullaby for the baby, watering, the brush, kneading) and the place's ambience
+# (street + birds by day, crickets at night, wind on the roof, the waiting room's air, the basement washer). Pure function of the beats.
+HOME_OWNER = {'p1-abuela': 'abuela', 'p1-abuelo': 'abuelo', 'p2-estudiante': 'estudiante', 'p2-pareja': 'pareja-b', 'p3-nina': 'nina', 'p3-chico': 'chico',
+              'p3-vecina': 'vecina', 'p4-teletrabajo': 'teletrabajo', 'p4-bebe': 'familia-bebe', 'p5-viajera': 'viajera', 'p5-plantera': 'plantera',
+              'atico-artista': 'artista', 'pb-panaderia': 'panadera', 'pb-portero': 'portero'}
+HOME_AMB = {'sotano-lavanderia': ['washer_hum'], 'sotano-bicis': ['bike_tick'], 'atico-secadero': ['wind_soft'], 'azotea': ['wind_soft', 'birds']}
+CAMS = ('camara-plano', 'abrir-3d', 'camara', 'recorrido', 'tarjeta-en-sala', 'tarjeta-pantalla')
+def escena_sonido(pulsos, sitio, t_a, t_b):
+    ps = sorted(pulsos, key=lambda q: q['t'])
+    cams = [p for p in ps if p['jugada'] in CAMS and p.get('camara', True) is not False and t_a - 1e-6 <= p['t'] < t_b]
+    vida = {}
+    for p in ps:
+        if p['jugada'] == 'vida' and isinstance(p.get('quien'), str): vida[p['quien']] = p
+    tipo, mood = (sitio or {}).get('tipo', 'edificio'), (sitio or {}).get('mood', 'dia')
+    out = []
+    def amb(a, b, que, g=1.0):
+        if b - a > 0.1: out.append({'t0': round(a, 3), 't1': round(b, 3), 'tipo': 'ambiente', 'que': que, 'g': g})
+    if tipo == 'sala-espera':   # one room: its air all through, and whoever is doing something is heard softly all the time
+        amb(t_a, t_b, 'room_tone', 1.0)
+        for who, v in vida.items(): out.append({'t0': round(max(t_a, v['t']), 3), 't1': round(t_b, 3), 'tipo': 'vida', 'que': v.get('pose'), 'periodo': v.get('periodo', 1.0), 'ref': v['t'], 'g': 0.45})
+        return out
+    for i, c in enumerate(cams):
+        a, b = c['t'], (cams[i + 1]['t'] if i + 1 < len(cams) else t_b)
+        nombre = c.get('nombre') or ''; home = nombre[:-len('-tresCuartos')] if nombre.endswith('-tresCuartos') else (nombre if nombre in HOME_AMB else None)
+        ys = [q.get('look', [0, 0, 0])[1] for q in (c.get('puntos') or [c]) if isinstance(q.get('look'), list)]
+        roof = home == 'azotea' or (ys and min(ys) > 17.5)
+        who = HOME_OWNER.get(home) if home else (c.get('de') if isinstance(c.get('de'), str) else None)
+        if who in vida: out.append({'t0': round(a, 3), 't1': round(b, 3), 'tipo': 'vida', 'que': vida[who].get('pose'), 'periodo': vida[who].get('periodo', 1.0), 'ref': vida[who]['t']})
+        if home in HOME_AMB and home != 'azotea':
+            for q in HOME_AMB[home]: amb(a, b, q, 1.4)
+        elif roof: amb(a, b, 'wind_soft', 1.0); amb(a, b, 'birds', 0.0 if mood == 'noche' else 0.8)
+        elif home: pass   # inside a home: the life is the sound
+        elif mood == 'noche': amb(a, b, 'crickets', 1.0); amb(a, b, 'street_amb', 0.6)
+        else: amb(a, b, 'street_amb', 1.0); amb(a, b, 'birds', 0.7)
+    for p in ps:   # a home being drawn: its resident is heard while the pen draws it (the bakery in the street shot)
+        if p['jugada'] == 'dibujar-vivienda' and t_a <= p['t'] < t_b:
+            for h in p.get('viviendas', []):
+                w = HOME_OWNER.get(h)
+                if w in vida and not any(e['tipo'] == 'vida' and e['que'] == vida[w].get('pose') and e['t0'] <= p['t'] < e['t1'] for e in out):
+                    out.append({'t0': round(p['t'], 3), 't1': round(p['t'] + 2.6, 3), 'tipo': 'vida', 'que': vida[w].get('pose'), 'periodo': vida[w].get('periodo', 1.0), 'ref': vida[w]['t'], 'g': 0.8})
+    for i, c in enumerate(cams):   # a clock in shot ticks
+        if (c.get('nombre') or '').startswith('reloj'):
+            b = cams[i + 1]['t'] if i + 1 < len(cams) else t_b; tt = c['t'] + 0.2
+            while tt < b - 0.1: out.append({'t': round(tt, 3), 'tipo': 'tic'}); tt += 0.5
+    return [e for e in out if e.get('g', 1) > 0]
+
+
 # sound events from the beat table (each playbook move has its sounds). Extra/manual ones: clip.json "golpes_extra".
 def golpes(clip_dir, cfg):
     G = []
@@ -66,12 +150,20 @@ def golpes(clip_dir, cfg):
         elif j == 'burbuja': G += [{'t': t + 0.45, 'tipo': 'burbuja'}, {'t0': t, 't1': t + 1.0, 'tipo': 'lapiz'}]
         elif j == 'tarjeta-en-sala': G += [{'t0': t + 0.25, 't1': t + 0.85, 'tipo': 'lapiz'}, {'t': t + 0.85, 'tipo': 'tarjeta'}, {'t0': t + 1.05, 't1': t + 1.8, 'tipo': 'lapiz'}]
         elif j == 'tarjeta-pantalla': G.append({'t': t + 0.3, 'tipo': 'naranja'})
-        elif j == 'resolver': G += [{'t': t, 'tipo': 'resolver'}, {'t0': t, 't1': t + p.get('dur', 0.9), 'tipo': 'lapiz'}]
+        elif j == 'resolver': G += [{'t': t, 'tipo': 'resolver'}, {'t': t, 'tipo': 'desenredo', 'dur': p.get('dur', 0.9)}, {'t0': t, 't1': t + p.get('dur', 0.9), 'tipo': 'lapiz'}]
+        elif j == 'coger-movil': G.append({'t': t + 0.15, 'tipo': 'objeto', 'que': 'movil'})
+        elif j == 'dejar-movil': G.append({'t': t + 0.3, 'tipo': 'objeto', 'que': 'dejar'})
         elif j == 'subir-al-logo': G.append({'t': t, 'tipo': 'subida'})
         elif j in ('dibujar-vivienda', 'borrar-sitio'): G.append({'t0': t + 0.05, 't1': t + 0.95 * (d or 1.4), 'tipo': 'lapiz'})
         elif j == 'chip': G.append({'t0': t, 't1': t + 0.5, 'tipo': 'lapiz'})
         elif j == 'garabato': G.append({'t0': t + 0.1, 't1': t + (d or 1.0), 'tipo': 'lapiz'})
         elif j in ('abanico', 'repartir'): G.append({'t': t, 'tipo': 'burbuja'})
+    G += pasos(cfg.get('pulsos', []), cfg.get('foco'))
+    if cfg.get('pulsos'): G += escena_sonido(cfg['pulsos'], cfg.get('sitio'), 0.0, float(cfg['duration']))
+    caps = cfg.get('capitulos', [])
+    for i, c in enumerate(caps):
+        G += pasos(c.get('pulsos', []), c.get('foco'))
+        G += escena_sonido(c.get('pulsos', []), c.get('sitio'), float(c.get('desde', 0)), float(caps[i + 1]['desde']) if i + 1 < len(caps) else float(cfg['duration']))
     G += cfg.get('golpes_extra', [])
     G = sorted({json.dumps(g, sort_keys=True): g for g in G}.values(), key=lambda g: g.get('t', g.get('t0', 0)))   # one cut sound per instant
     out = {'duracion': float(cfg['duration']), 'final': bool(cfg.get('ending')), 'bpm': cfg.get('bpm', 110), 'musica_desde': cfg.get('musica_desde', 0.0), 'bucle': bool(cfg.get('bucle')), 'golpes': G}
@@ -107,6 +199,18 @@ def snap(clip_dir, ats):
         still.unlock()
     pngs = sorted(glob.glob(os.path.join(out, '*.png')), key=lambda p: float(''.join(c for c in os.path.basename(p).split('at-')[-1].split('s')[0] if c in '0123456789.') or 0))
     if len(pngs) != len(ats): print(log[-2000:]); sys.exit(f'expected {len(ats)} frames, got {len(pngs)}')
+    # 10/10/2026: the snapshot tool sometimes returns flat beige frames when it seeks many times in one page; redo those in pairs
+    flat = lambda q: (lambda e: max(c[1] - c[0] for c in e) < 6)(Image.open(q).convert('RGB').getextrema())
+    bad = [i for i in range(1, len(ats)) if flat(pngs[i])]
+    for k in range(0, len(bad), 2):
+        grp = [ats[i] for i in bad[k:k + 2]]; o2 = out + f'-r{k}'
+        still.lock()
+        try: run(f'{HF} snapshot "{work}" --at {",".join(str(a) for a in [grp[0]] + grp)} --no-end -o "{o2}" --describe false --timeout 90000', 300)
+        finally: still.unlock()
+        got = sorted(glob.glob(os.path.join(o2, '*.png')), key=lambda p: float(''.join(c for c in os.path.basename(p).split('at-')[-1].split('s')[0] if c in '0123456789.') or 0))[1:]
+        for i, q in zip(bad[k:k + 2], got):
+            if not flat(q): pngs[i] = q
+    if bad: print(f'snapshot: {len(bad)} blank frame(s) redone, {sum(flat(pngs[i]) for i in bad)} still blank')
     fdir = os.path.join(clip_dir, 'fotogramas'); os.makedirs(fdir, exist_ok=True)
     for f in glob.glob(os.path.join(fdir, '*.png')): os.remove(f)
     ims = []

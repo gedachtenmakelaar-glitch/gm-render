@@ -128,7 +128,10 @@ function applyPose(P, pose, o, extra) {
   const hold = o.hold || AUTO_HOLD[pose] || {}; const free = FREE_POSES.includes(pose);
   for (const S of ['R', 'L']) {
     let item = hold[S]; if (!item) continue; if (typeof item === 'object') item = item.prop;
-    if (free && !spec['reach' + S] && HOLD_ARM[item]) { spec['reach' + S] = HOLD_ARM[item](S); delete spec['arm' + S]; if (item === 'phone') { spec.head = [12, 0, 0]; spec.neck = [8, 0, 0]; } }
+    if (free && !spec['reach' + S] && HOLD_ARM[item]) { spec['reach' + S] = HOLD_ARM[item](S); delete spec['arm' + S]; if (item === 'phone') { spec.head = [12, 0, 0]; spec.neck = [8, 0, 0];
+        // 10/10/2026: a phone in use is held with BOTH hands (the free one cradles it from the other side), like a real person reading it
+        const O = S === 'R' ? 'L' : 'R';
+        if (!hold[O] && !spec['reach' + O]) { spec['reach' + O] = { to: (c) => c.anchor('eyes').add(c.v(sgn(S) * .06 * c.k, -.37 * c.k, .23 * c.k)), pole: [sgn(O) * .5, -1, -.4], roll: 62 }; delete spec['arm' + O]; spec['hand' + O] = 'grip-phone'; } } }
     if (!free && !spec['reach' + S] && HOLD_ARM[item] && !(item === 'bag')) { /* la pose manda */ }
   }
   rig.pose(spec, { ...extra, other: extra.other, meet: extra.meet });

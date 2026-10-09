@@ -369,7 +369,10 @@ function personState(x, t) {
       if (k < 1) { const sube = Math.abs(v.y) > 0.25 * flat; st.pos = a.clone().lerp(b, s / L[i]); st.walk = { pose: sube ? 'stairs-up' : (p.pose || 'walk'), phase: (k * tot / (sube ? 0.9 : 1.4)) % 1 }; }
       else { st.pos = pts[pts.length - 1]; st.walk = null; st.pose = p.fin || 'stand'; if (p.giro != null) st.rot = p.giro * D2R; }
     }
-    if (p.jugada === 'pose') { st.from = { pose: st.pose, hold: st.hold, mira: st.mira }; st.pose = p.pose || st.pose; if (p.hold) st.hold = p.hold; if (p.mira) st.mira = p.mira; if (p.giro != null) st.rot = p.giro * D2R; st.k = io(seg(t, p.t, p.dur ?? 0.5)); st.loop = st.walk = null; }
+    if (p.jugada === 'pose') { const wasSit = /sit/.test(st.pose) || /sit/.test((st.loop || {}).pose || ''), rot0 = st.rot;
+      st.from = { pose: st.pose, hold: st.hold, mira: st.mira }; st.pose = p.pose || st.pose; if (p.hold) st.hold = p.hold; if (p.mira) st.mira = p.mira; if (p.giro != null) st.rot = p.giro * D2R; st.k = io(seg(t, p.t, p.dur ?? 0.5)); st.loop = st.walk = null;
+      // 10/10/2026: getting up from a seat, the body first steps OUT of the chair (forward 0.42 m) instead of standing inside it
+      if (wasSit && !/sit/.test(st.pose) && p.levantar !== false) st.pos = st.pos.clone().add(V([Math.sin(rot0), 0, Math.cos(rot0)]).multiplyScalar(0.42 * st.k)); }
     if (p.jugada === 'vida') { st.loop = { pose: p.pose || st.pose, periodo: p.periodo || 2, hold: p.hold || st.hold, t0: p.t }; st.from = st.walk = null; st.k = 1; }
   }
   return st;

@@ -3,12 +3,12 @@ Ejecuta la copia de build_mix.py (herramientas/build_mix.py, la del kit) con el 
 (herramientas/timeline-nudos1.json) y la musica music-45-short.wav, y se detiene justo antes de la normalizacion.
 Guarda recursos/final-6.6s.wav (estereo 48 kHz, float32, sin normalizar: mismas unidades que los SFX de mezcla.py)
 y recursos/final-ref.json (nivel de la cama de la historia en esas mismas unidades).
-Uso: python herramientas/extraer_final.py   (necesita ../../_kit)"""
+Uso: python herramientas/extraer_final.py   (necesita ../../archivo/_kit)"""
 import os, json, re
 import numpy as np, soundfile as sf
 HERE = os.path.dirname(os.path.abspath(__file__))
 SON = os.path.abspath(os.path.join(HERE, '..'))
-KIT = os.path.abspath(os.path.join(SON, '..', '..', '_kit'))
+KIT = os.path.abspath(os.path.join(SON, '..', '..', 'archivo', '_kit'))
 src = open(os.path.join(HERE, 'build_mix.py'), encoding='utf-8').read()
 src = src.replace("ROOT = os.path.abspath(os.path.join(HERE, '..', '..'))", f"ROOT = {KIT!r}")
 src = src.replace("json.load(open(os.path.join(ROOT, 'timeline.json')))", f"json.load(open({os.path.join(HERE,'timeline-nudos1.json')!r}))")

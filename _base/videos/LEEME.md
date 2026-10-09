@@ -44,6 +44,14 @@ Un grupo de tres: mientras se renderiza el borrador del 1, se escribe el `clip.j
   - `pose`, `hold` y `emocion` (0 a 5).
 - **`tarjetas`:** las de la serie. Siempre el diseño del anuncio; solo cambia el contenido. Iconos: `chat`, `hourglass`, `heart`.
 - **Sonido:** los golpes salen solos de los pulsos (corte, lápiz, burbuja, tarjeta, naranja, resolver, subida). `golpes_extra` sirve para sonidos sueltos. Tipos: `sonido/LEEME.md`.
+- **Foley, toda acción suena (Dil, 10/10/2026), también automático:**
+  - `caminar`: una pisada (`paso`) en cada pie que toca el suelo, en sincronía con el ciclo de andar; en escalera, más grave. Quien sigue la cámara (el `foco` del capítulo) suena delante; los demás, más bajo, y un grupo se atenúa para no hacer ruido.
+  - `resolver`: además del acorde, el `desenredo` (el cable se estira, tirones que suben de tono y se suelta).
+  - `coger-movil` / `dejar-movil`: `objeto` (coger el móvil, dejarlo).
+  - Lo demás que se toque se pone en `golpes_extra` con `{"t", "tipo": "objeto", "que": movil | bolsa | llaves | papel | puerta-abre | puerta-cierra | sentarse | tela | dejar | toque}`. Si una acción se ve y no tiene sonido, se añade.
+  - La música va más al fondo (`MUSICA_LUFS` -18,5) y baja un poco bajo cada efecto: la acción manda.
+  - **Lo que mira la cámara es lo que suena** (`video.py` `escena_sonido`): en el plano de una casa suena lo que hace quien vive allí (su `vida`: teclear, agujas de tejer, batería, el «shhh» y la nana al bebé, la regadera, el pincel, amasar, pasar página); cuando el lápiz dibuja una casa, también. El sitio tiene su ambiente muy al fondo: calle con pájaros de día, grillos de noche, viento en la azotea, el aire de la sala de espera, la lavadora del sótano. Un reloj en plano hace tic. En la sala de espera, la vida de los que esperan se oye bajita todo el rato.
+  - Para forzar el volumen de unos pasos: `"sonido": 0.8` en el `caminar`.
 
 ## Capítulos (varios sitios o luces en un vídeo)
 `"capitulos": [{desde, sitio, reparto, foco, coleccion, pulsos}, ...]` en lugar de `sitio/reparto/pulsos`: cada capítulo se construye entero (su mundo, sus luces, su gente, sus pulsos con tiempos absolutos) y solo se ve el del momento. Para pasar de uno a otro: `borrar-sitio` al final del capítulo y `dibujar-sitio` al empezar el siguiente. Ejemplo: `edificio-vivo/hacer_clip.py` (mañana, sala de espera, consulta, tarde, noche).
@@ -59,7 +67,7 @@ Un grupo de tres: mientras se renderiza el borrador del 1, se escribe el `clip.j
 | `emocion` | `quien, nivel` | Cambia la densidad del garabato. |
 | `resolver` | `quien, dur (0.9)` | Desenredo: el garabato se desenrolla en un hilo que sube y se enrolla en la espiral, y la cabeza se aclara. |
 | `burbuja` | `quien, dur (mín. 1,3), cara, lado` | LA burbuja, dibujada por el lápiz: el hilo llega desde la cabeza, traza el contorno y dibuja la carita (~1,1 s). Caras: `neutral worried sad surprised happy curious`. La patita va sola hacia la cabeza; `lado: 'L'/'R'` la fuerza. |
-| `tarjeta-en-sala` | `quien, tarjeta, dur (mín. 1.9), donde, camara` | El hilo viaja desde la cabeza y traza SOLO el borde; la tarjeta (con grosor, balanceo y sombra de puntos) se rellena y su interior entra como en la v4.1 (letras que suben desde un desenfoque, icono que se construye) mientras el lápiz subraya el título. Se va sola con la siguiente tarjeta o a los ~3,2 s. `camara: false` = no mueve la cámara (pon tú un `camara`). |
+| `tarjeta-en-sala` | `quien, tarjeta, dur (mín. 1.9), donde, camara` | El hilo viaja desde la cabeza y traza SOLO el borde; la tarjeta (con grosor, balanceo y sombra de puntos) se rellena y su interior entra como en la v4.1 (letras que suben desde un desenfoque, icono que se construye) mientras el lápiz subraya el título. Se va sola con la siguiente tarjeta o a los ~3,2 s. `camara: false` = no mueve la cámara (pon tú un `camara`). `sale: 'R'|'L'` (10/10): la tarjeta SALE de lo que tiene esa mano (el móvil), crece hasta su sitio y al final vuelve a él; `giro` (grados, -24 por defecto) la gira hacia la cámara. Para la ayuda de GM: `sale`, sin `tarjeta-pantalla` (nada de fondo naranja) y con la cabeza del personaje a la vista. |
 | `tarjeta-pantalla` | `tarjeta, dur` | La cámara empuja, la tarjeta gira a cámara y se abre el fondo naranja (el aspecto del anuncio); el hilo hace su arco. |
 | `tarjeta-al-movil` | `quien, tarjeta, dur (0.6)` | Va con una `camara` en el MISMO `t`: corte escondido bajo el naranja, la tarjeta vuela al móvil y el naranja se cierra. |
 | `subir-al-logo` | `quien` | El mundo baja, el hilo sube desde la cabeza y empalma con el final. Siempre el último pulso, unos 0,85 s antes de `duration`. |

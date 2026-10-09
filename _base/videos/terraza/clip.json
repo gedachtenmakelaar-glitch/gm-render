@@ -4,13 +4,20 @@
   1080,
   1920
  ],
- "duration": 54.0,
+ "duration": 48.21,
  "ending": true,
  "bpm": 112,
+ "golpes_extra": [
+  {
+   "t": 34.76,
+   "tipo": "objeto",
+   "que": "puerta-abre"
+  }
+ ],
  "musica": {
   "archivo": "sonido/musica/barriers.mp3",
-  "desde": 10.755,
-  "gain_db": 0,
+  "desde": 11.12,
+  "gain_db": -3,
   "bpm": null,
   "primer_pulso": null,
   "alinear": false
@@ -390,31 +397,16 @@
     [
      0.8,
      6.45,
-     -2.1
-    ],
-    [
-     0.5,
-     6.45,
-     -2.7
-    ],
-    [
-     0,
-     6.45,
-     -4.4
-    ],
-    [
-     -2.05,
-     6.45,
-     -5.85
+     -1.7
     ]
    ],
    "de": false,
-   "dur": 9.2,
+   "dur": 6.29,
    "hold": {
     "L": "bag"
    },
    "fin": "stand",
-   "giro": -90
+   "giro": 20
   },
   {
    "t": 5.4,
@@ -481,12 +473,12 @@
      "t": 1.5,
      "pos": [
       0.0,
-      1.443,
+      1.442,
       30.0
      ],
      "look": [
       0.0,
-      1.443,
+      1.442,
       -3.0
      ],
      "fov": 22.286
@@ -495,12 +487,12 @@
      "t": 2.0,
      "pos": [
       0.0,
-      2.147,
+      2.145,
       30.0
      ],
      "look": [
       0.0,
-      2.147,
+      2.145,
       -3.0
      ],
      "fov": 22.286
@@ -549,33 +541,18 @@
      -1.1
     ],
     [
-     0.8,
+     0.2,
      6.45,
-     -2.1
-    ],
-    [
-     0.5,
-     6.45,
-     -2.7
-    ],
-    [
-     0,
-     6.45,
-     -4.4
-    ],
-    [
-     -1.4,
-     6.45,
-     -5.3
+     -1.5
     ]
    ],
    "de": false,
-   "dur": 9.2,
+   "dur": 5.79,
    "hold": {
     "R": "bag"
    },
    "fin": "stand",
-   "giro": -120
+   "giro": 40
   },
   {
    "t": 6.6,
@@ -591,67 +568,53 @@
    ]
   },
   {
-   "t": 7.625,
+   "t": 7.621,
    "jugada": "camara",
    "nombre": "p1-abuela-tresCuartos",
    "dur": 1.4,
    "deriva": 3
   },
   {
-   "t": 7.775,
+   "t": 7.771,
    "jugada": "garabato",
    "quien": "abuela",
    "icono": "ovillo",
    "dur": 0.95
   },
   {
-   "t": 8.825,
+   "t": 8.821,
    "jugada": "camara",
    "nombre": "p1-abuelo-tresCuartos",
    "dur": 1.4,
    "deriva": 3
   },
   {
-   "t": 8.975,
+   "t": 8.971,
    "jugada": "garabato",
    "quien": "abuelo",
    "icono": "hueso",
    "dur": 0.95
   },
   {
-   "t": 10.225,
+   "t": 10.44,
+   "jugada": "camara",
+   "nombre": "p2-estudiante-tresCuartos",
+   "dur": 1.4,
+   "deriva": 3
+  },
+  {
+   "t": 10.59,
+   "jugada": "garabato",
+   "quien": "estudiante",
+   "icono": "auriculares",
+   "dur": 0.95
+  },
+  {
+   "t": 11.84,
    "jugada": "recorrido",
    "puntos": [
     {
-     "t": 0.175,
-     "pos": [
-      0.0,
-      5.699,
-      30.0
-     ],
-     "look": [
-      0.0,
-      5.699,
-      -3.0
-     ],
-     "fov": 22.286
-    },
-    {
-     "t": 0.675,
-     "pos": [
-      0.0,
-      6.403,
-      30.0
-     ],
-     "look": [
-      0.0,
-      6.403,
-      -3.0
-     ],
-     "fov": 22.286
-    },
-    {
-     "t": 1.175,
+     "t": 0.06,
      "pos": [
       0.0,
       7.05,
@@ -665,7 +628,7 @@
      "fov": 22.286
     },
     {
-     "t": 1.675,
+     "t": 0.56,
      "pos": [
       0.0,
       7.05,
@@ -679,7 +642,7 @@
      "fov": 22.286
     },
     {
-     "t": 2.175,
+     "t": 1.06,
      "pos": [
       0.0,
       7.05,
@@ -693,7 +656,7 @@
      "fov": 22.286
     },
     {
-     "t": 2.675,
+     "t": 1.56,
      "pos": [
       0.0,
       7.05,
@@ -707,7 +670,7 @@
      "fov": 22.286
     },
     {
-     "t": 3.175,
+     "t": 2.06,
      "pos": [
       0.0,
       7.05,
@@ -721,35 +684,7 @@
      "fov": 22.286
     },
     {
-     "t": 3.675,
-     "pos": [
-      0.0,
-      7.05,
-      30.0
-     ],
-     "look": [
-      0.0,
-      7.05,
-      -3.0
-     ],
-     "fov": 22.286
-    },
-    {
-     "t": 4.175,
-     "pos": [
-      0.0,
-      7.05,
-      30.0
-     ],
-     "look": [
-      0.0,
-      7.05,
-      -3.0
-     ],
-     "fov": 22.286
-    },
-    {
-     "t": 4.675,
+     "t": 2.56,
      "pos": [
       0.0,
       7.05,
@@ -766,7 +701,7 @@
    "cerca": 3.05
   },
   {
-   "t": 14.9,
+   "t": 11.99,
    "jugada": "pose",
    "quien": "pareja-b",
    "pose": "stand",
@@ -774,7 +709,7 @@
    "dur": 0.4
   },
   {
-   "t": 15.0,
+   "t": 12.09,
    "jugada": "dibujar-vivienda",
    "viviendas": [
     "p3-nina",
@@ -784,7 +719,7 @@
    "dur": 1.1
   },
   {
-   "t": 15.1,
+   "t": 12.19,
    "jugada": "pose",
    "quien": "pareja-a",
    "pose": "stand",
@@ -792,21 +727,7 @@
    "dur": 0.4
   },
   {
-   "t": 15.15,
-   "jugada": "camara",
-   "nombre": "p2-estudiante-tresCuartos",
-   "dur": 1.4,
-   "deriva": 3
-  },
-  {
-   "t": 15.3,
-   "jugada": "garabato",
-   "quien": "estudiante",
-   "icono": "auriculares",
-   "dur": 0.95
-  },
-  {
-   "t": 16.0,
+   "t": 13.09,
    "jugada": "pose",
    "quien": "pareja-b",
    "pose": "point",
@@ -818,7 +739,7 @@
    "dur": 0.4
   },
   {
-   "t": 16.1,
+   "t": 13.19,
    "jugada": "burbuja",
    "quien": "pareja-b",
    "cara": "curious",
@@ -826,64 +747,14 @@
    "dur": 1.4
   },
   {
-   "t": 16.55,
-   "jugada": "recorrido",
-   "puntos": [
-    {
-     "t": 0.35,
-     "pos": [
-      0.0,
-      7.05,
-      30.0
-     ],
-     "look": [
-      0.0,
-      7.05,
-      -3.0
-     ],
-     "fov": 22.286
-    },
-    {
-     "t": 0.85,
-     "pos": [
-      0.0,
-      7.05,
-      30.0
-     ],
-     "look": [
-      0.0,
-      7.05,
-      -3.0
-     ],
-     "fov": 22.286
-    }
-   ],
-   "cerca": 3.05
-  },
-  {
-   "t": 17.5,
+   "t": 14.59,
    "jugada": "caminar",
    "quien": "pareja-b",
    "ruta": [
     [
-     -2.05,
-     6.45,
-     -5.85
-    ],
-    [
-     0,
-     6.45,
-     -4.4
-    ],
-    [
-     0.5,
-     6.45,
-     -2.7
-    ],
-    [
      0.8,
      6.45,
-     -2.1
+     -1.7
     ],
     [
      0.8,
@@ -947,12 +818,12 @@
     ]
    ],
    "de": false,
-   "dur": 13.6,
+   "dur": 10.72,
    "fin": "stand",
    "giro": 90
   },
   {
-   "t": 17.5,
+   "t": 14.59,
    "jugada": "recorrido",
    "puntos": [
     {
@@ -973,12 +844,12 @@
      "t": 0.5,
      "pos": [
       0.0,
-      7.05,
+      7.504,
       30.0
      ],
      "look": [
       0.0,
-      7.05,
+      7.504,
       -3.0
      ],
      "fov": 22.286
@@ -987,12 +858,12 @@
      "t": 1.0,
      "pos": [
       0.0,
-      7.05,
+      8.213,
       30.0
      ],
      "look": [
       0.0,
-      7.05,
+      8.213,
       -3.0
      ],
      "fov": 22.286
@@ -1001,12 +872,12 @@
      "t": 1.5,
      "pos": [
       0.0,
-      7.05,
+      8.922,
       30.0
      ],
      "look": [
       0.0,
-      7.05,
+      8.922,
       -3.0
      ],
      "fov": 22.286
@@ -1015,82 +886,12 @@
      "t": 2.0,
      "pos": [
       0.0,
-      7.05,
+      9.631,
       30.0
      ],
      "look": [
       0.0,
-      7.05,
-      -3.0
-     ],
-     "fov": 22.286
-    },
-    {
-     "t": 2.5,
-     "pos": [
-      0.0,
-      7.05,
-      30.0
-     ],
-     "look": [
-      0.0,
-      7.05,
-      -3.0
-     ],
-     "fov": 22.286
-    },
-    {
-     "t": 3.0,
-     "pos": [
-      0.0,
-      7.19,
-      30.0
-     ],
-     "look": [
-      0.0,
-      7.19,
-      -3.0
-     ],
-     "fov": 22.286
-    },
-    {
-     "t": 3.5,
-     "pos": [
-      0.0,
-      7.672,
-      30.0
-     ],
-     "look": [
-      0.0,
-      7.672,
-      -3.0
-     ],
-     "fov": 22.286
-    },
-    {
-     "t": 4.0,
-     "pos": [
-      0.0,
-      8.381,
-      30.0
-     ],
-     "look": [
-      0.0,
-      8.381,
-      -3.0
-     ],
-     "fov": 22.286
-    },
-    {
-     "t": 4.5,
-     "pos": [
-      0.0,
-      9.09,
-      30.0
-     ],
-     "look": [
-      0.0,
-      9.09,
+      9.631,
       -3.0
      ],
      "fov": 22.286
@@ -1099,29 +900,14 @@
    "cerca": 3.05
   },
   {
-   "t": 18.3,
+   "t": 15.39,
    "jugada": "caminar",
    "quien": "pareja-a",
    "ruta": [
     [
-     -2.05,
-     6.45,
-     -5.85
-    ],
-    [
-     0,
-     6.45,
-     -4.4
-    ],
-    [
-     0.5,
-     6.45,
-     -2.7
-    ],
-    [
      0.8,
      6.45,
-     -2.1
+     -1.7
     ],
     [
      0.8,
@@ -1190,12 +976,12 @@
     ]
    ],
    "de": false,
-   "dur": 14.2,
+   "dur": 11.32,
    "fin": "stand",
    "giro": 90
   },
   {
-   "t": 21.736,
+   "t": 15.948,
    "jugada": "dibujar-vivienda",
    "viviendas": [
     "p4-teletrabajo",
@@ -1204,35 +990,35 @@
    "dur": 0.8
   },
   {
-   "t": 22.386,
+   "t": 16.598,
    "jugada": "camara",
    "nombre": "p3-nina-tresCuartos",
    "dur": 1.4,
    "deriva": 3
   },
   {
-   "t": 22.536,
+   "t": 16.748,
    "jugada": "garabato",
    "quien": "nina",
    "icono": "osito",
    "dur": 0.9
   },
   {
-   "t": 23.436,
+   "t": 17.648,
    "jugada": "camara",
    "nombre": "p3-chico-tresCuartos",
    "dur": 1.4,
    "deriva": 3
   },
   {
-   "t": 23.586,
+   "t": 17.798,
    "jugada": "garabato",
    "quien": "chico",
    "icono": "baquetas",
    "dur": 0.9
   },
   {
-   "t": 24.402,
+   "t": 18.607,
    "jugada": "dibujar-vivienda",
    "viviendas": [
     "p5-viajera",
@@ -1241,35 +1027,35 @@
    "dur": 0.8
   },
   {
-   "t": 25.052,
+   "t": 19.257,
    "jugada": "camara",
    "nombre": "p4-teletrabajo-tresCuartos",
    "dur": 1.4,
    "deriva": 3
   },
   {
-   "t": 25.202,
+   "t": 19.407,
    "jugada": "garabato",
    "quien": "teletrabajo",
    "icono": "zapatilla",
    "dur": 0.9
   },
   {
-   "t": 26.102,
+   "t": 20.307,
    "jugada": "camara",
    "nombre": "p4-bebe-tresCuartos",
    "dur": 1.4,
    "deriva": 3
   },
   {
-   "t": 26.252,
+   "t": 20.457,
    "jugada": "garabato",
    "quien": "familia-bebe",
    "icono": "bebe",
    "dur": 0.9
   },
   {
-   "t": 27.054,
+   "t": 21.266,
    "jugada": "dibujar-vivienda",
    "viviendas": [
     "atico-artista",
@@ -1278,49 +1064,49 @@
    "dur": 0.8
   },
   {
-   "t": 27.704,
+   "t": 21.916,
    "jugada": "camara",
    "nombre": "p5-viajera-tresCuartos",
    "dur": 1.4,
    "deriva": 3
   },
   {
-   "t": 27.854,
+   "t": 22.066,
    "jugada": "garabato",
    "quien": "viajera",
    "icono": "mapa",
    "dur": 0.9
   },
   {
-   "t": 28.754,
+   "t": 22.966,
    "jugada": "camara",
    "nombre": "p5-plantera-tresCuartos",
    "dur": 1.4,
    "deriva": 3
   },
   {
-   "t": 28.904,
+   "t": 23.116,
    "jugada": "garabato",
    "quien": "plantera",
    "icono": "regadera",
    "dur": 0.9
   },
   {
-   "t": 29.969,
+   "t": 24.174,
    "jugada": "camara",
    "nombre": "atico-artista-tresCuartos",
    "dur": 1.4,
    "deriva": 3
   },
   {
-   "t": 30.119,
+   "t": 24.324,
    "jugada": "garabato",
    "quien": "artista",
    "icono": "pincel",
    "dur": 0.9
   },
   {
-   "t": 31.1,
+   "t": 25.31,
    "jugada": "camara",
    "pos": [
     2.4,
@@ -1337,7 +1123,7 @@
    "deriva": 3
   },
   {
-   "t": 31.2,
+   "t": 25.41,
    "jugada": "burbuja",
    "quien": "portero",
    "cara": "curious",
@@ -1345,13 +1131,13 @@
    "dur": 1.8
   },
   {
-   "t": 33.0,
+   "t": 27.21,
    "jugada": "abanico",
    "centro": "portero",
    "dur": 2.0
   },
   {
-   "t": 33.0,
+   "t": 27.21,
    "jugada": "pose",
    "quien": "pareja-b",
    "pose": "point",
@@ -1363,13 +1149,13 @@
    "dur": 0.4
   },
   {
-   "t": 33.7,
+   "t": 27.91,
    "jugada": "resolver",
    "quien": "portero",
    "dur": 0.8
   },
   {
-   "t": 34.1,
+   "t": 28.31,
    "jugada": "burbuja",
    "quien": "portero",
    "cara": "happy",
@@ -1377,7 +1163,7 @@
    "dur": 1.7
   },
   {
-   "t": 35.4,
+   "t": 29.61,
    "jugada": "camara",
    "de": "pareja-b",
    "lado": -30,
@@ -1386,7 +1172,7 @@
    "dur": 1.9
   },
   {
-   "t": 35.5,
+   "t": 29.71,
    "jugada": "pose",
    "quien": "portero",
    "pose": "stand",
@@ -1394,7 +1180,7 @@
    "dur": 0.3
   },
   {
-   "t": 35.5,
+   "t": 29.71,
    "jugada": "pose",
    "quien": "pareja-b",
    "pose": "stand",
@@ -1404,7 +1190,7 @@
    "dur": 0.3
   },
   {
-   "t": 35.9,
+   "t": 30.11,
    "jugada": "burbuja",
    "quien": "pareja-b",
    "cara": "happy",
@@ -1412,7 +1198,7 @@
    "dur": 1.5
   },
   {
-   "t": 37.4,
+   "t": 31.61,
    "jugada": "camara",
    "pos": [
     0,
@@ -1431,12 +1217,12 @@
    "deriva": 0
   },
   {
-   "t": 37.5,
+   "t": 31.71,
    "jugada": "repartir",
    "dur": 2.6
   },
   {
-   "t": 40.4,
+   "t": 34.61,
    "jugada": "camara",
    "pos": [
     0.6,
@@ -1454,7 +1240,7 @@
    "empuje": 0.05
   },
   {
-   "t": 40.4,
+   "t": 34.61,
    "jugada": "colocar",
    "quien": "pareja-b",
    "pos": [
@@ -1467,7 +1253,7 @@
    "hold": {}
   },
   {
-   "t": 40.4,
+   "t": 34.61,
    "jugada": "colocar",
    "quien": "pareja-a",
    "pos": [
@@ -1480,7 +1266,7 @@
    "hold": {}
   },
   {
-   "t": 40.4,
+   "t": 34.61,
    "jugada": "colocar",
    "quien": "portero",
    "pos": [
@@ -1493,13 +1279,13 @@
    "hold": {}
   },
   {
-   "t": 40.6,
+   "t": 34.81,
    "jugada": "resolver",
    "quien": "pareja-a",
    "dur": 0.9
   },
   {
-   "t": 40.65,
+   "t": 34.86,
    "jugada": "caminar",
    "quien": "abuela",
    "de": [
@@ -1515,16 +1301,17 @@
    "dur": 1.3,
    "fin": "stand",
    "giro": 20,
-   "hold": {}
+   "hold": {},
+   "sonido": 0.8
   },
   {
-   "t": 40.85,
+   "t": 35.06,
    "jugada": "resolver",
    "quien": "pareja-b",
    "dur": 0.9
   },
   {
-   "t": 41.07,
+   "t": 35.28,
    "jugada": "caminar",
    "quien": "chico",
    "de": [
@@ -1540,16 +1327,17 @@
    "dur": 1.3,
    "fin": "wave",
    "giro": -20,
-   "hold": {}
+   "hold": {},
+   "sonido": 0.8
   },
   {
-   "t": 41.1,
+   "t": 35.31,
    "jugada": "resolver",
    "quien": "portero",
    "dur": 0.9
   },
   {
-   "t": 41.49,
+   "t": 35.7,
    "jugada": "caminar",
    "quien": "nina",
    "de": [
@@ -1565,10 +1353,17 @@
    "dur": 1.3,
    "fin": "wave",
    "giro": 5,
-   "hold": {}
+   "hold": {},
+   "sonido": 0.8
   },
   {
-   "t": 41.91,
+   "t": 36.11,
+   "jugada": "resolver",
+   "quien": "abuela",
+   "dur": 0.9
+  },
+  {
+   "t": 36.12,
    "jugada": "caminar",
    "quien": "estudiante",
    "de": [
@@ -1584,10 +1379,17 @@
    "dur": 1.3,
    "fin": "stand",
    "giro": -10,
-   "hold": {}
+   "hold": {},
+   "sonido": 0.8
   },
   {
-   "t": 42.33,
+   "t": 36.53,
+   "jugada": "resolver",
+   "quien": "chico",
+   "dur": 0.9
+  },
+  {
+   "t": 36.54,
    "jugada": "caminar",
    "quien": "plantera",
    "de": [
@@ -1603,10 +1405,11 @@
    "dur": 1.3,
    "fin": "stand",
    "giro": 35,
-   "hold": {}
+   "hold": {},
+   "sonido": 0.8
   },
   {
-   "t": 42.75,
+   "t": 36.96,
    "jugada": "caminar",
    "quien": "artista",
    "de": [
@@ -1622,10 +1425,17 @@
    "dur": 1.3,
    "fin": "stand",
    "giro": -5,
-   "hold": {}
+   "hold": {},
+   "sonido": 0.8
   },
   {
-   "t": 43.17,
+   "t": 37.37,
+   "jugada": "resolver",
+   "quien": "estudiante",
+   "dur": 0.9
+  },
+  {
+   "t": 37.38,
    "jugada": "caminar",
    "quien": "abuelo",
    "de": [
@@ -1641,16 +1451,11 @@
    "dur": 1.3,
    "fin": "stand",
    "giro": 30,
-   "hold": {}
+   "hold": {},
+   "sonido": 0.8
   },
   {
-   "t": 43.4,
-   "jugada": "resolver",
-   "quien": "abuela",
-   "dur": 0.9
-  },
-  {
-   "t": 43.59,
+   "t": 37.8,
    "jugada": "caminar",
    "quien": "teletrabajo",
    "de": [
@@ -1666,16 +1471,11 @@
    "dur": 1.3,
    "fin": "stand",
    "giro": -30,
-   "hold": {}
+   "hold": {},
+   "sonido": 0.8
   },
   {
-   "t": 43.75,
-   "jugada": "resolver",
-   "quien": "chico",
-   "dur": 0.9
-  },
-  {
-   "t": 44.01,
+   "t": 38.22,
    "jugada": "caminar",
    "quien": "familia-bebe",
    "de": [
@@ -1691,16 +1491,11 @@
    "dur": 1.3,
    "fin": "stand",
    "giro": 30,
-   "hold": {}
+   "hold": {},
+   "sonido": 0.8
   },
   {
-   "t": 44.1,
-   "jugada": "resolver",
-   "quien": "estudiante",
-   "dur": 0.9
-  },
-  {
-   "t": 44.43,
+   "t": 38.64,
    "jugada": "caminar",
    "quien": "viajera",
    "de": [
@@ -1716,22 +1511,17 @@
    "dur": 1.3,
    "fin": "stand",
    "giro": -30,
-   "hold": {}
+   "hold": {},
+   "sonido": 0.8
   },
   {
-   "t": 44.45,
+   "t": 39.05,
    "jugada": "resolver",
    "quien": "teletrabajo",
    "dur": 0.9
   },
   {
-   "t": 44.8,
-   "jugada": "resolver",
-   "quien": "vecina",
-   "dur": 0.9
-  },
-  {
-   "t": 44.85,
+   "t": 39.06,
    "jugada": "caminar",
    "quien": "madre",
    "de": [
@@ -1747,10 +1537,11 @@
    "dur": 1.3,
    "fin": "stand",
    "giro": 20,
-   "hold": {}
+   "hold": {},
+   "sonido": 0.8
   },
   {
-   "t": 45.0,
+   "t": 39.21,
    "jugada": "burbuja",
    "quien": "abuela",
    "cara": "happy",
@@ -1758,7 +1549,7 @@
    "dur": 1.5
   },
   {
-   "t": 45.27,
+   "t": 39.48,
    "jugada": "caminar",
    "quien": "vecina",
    "de": [
@@ -1774,17 +1565,24 @@
    "dur": 1.3,
    "fin": "stand",
    "giro": -25,
-   "hold": {}
+   "hold": {},
+   "sonido": 0.8
   },
   {
-   "t": 46.7,
+   "t": 40.73,
+   "jugada": "resolver",
+   "quien": "vecina",
+   "dur": 0.9
+  },
+  {
+   "t": 40.91,
    "jugada": "burbuja",
    "quien": "pareja-b",
    "cara": "happy",
    "dur": 1.2
   },
   {
-   "t": 47.4,
+   "t": 41.61,
    "jugada": "camara",
    "pos": [
     -1.0,
@@ -1801,7 +1599,7 @@
    "deriva": -3
   },
   {
-   "t": 50.4,
+   "t": 44.61,
    "jugada": "camara",
    "pos": [
     0.0,
@@ -1818,7 +1616,7 @@
    "empuje": 0.06
   },
   {
-   "t": 53.15,
+   "t": 47.36,
    "jugada": "subir-al-logo",
    "quien": "pareja-b"
   }

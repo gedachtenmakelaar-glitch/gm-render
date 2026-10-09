@@ -1,6 +1,6 @@
 # Mundo base GM (léeme primero)
 
-La base reutilizable de todas las historias desde el 08/10/2026. Es un mundo 3D de verdad, con materiales grises, que el motor convierte en trama retro: puntos navy y naranja sobre beige, como los objetos de las tarjetas del anuncio v4. Hay un solo modelo y una sola cámara, así que cualquier ángulo cuadra con el sitio. Sustituye al `_kit/` 2D para todo lo nuevo.
+La base reutilizable de todas las historias desde el 08/10/2026. Es un mundo 3D de verdad, con materiales grises, que el motor convierte en trama retro: puntos navy y naranja sobre beige, como los objetos de las tarjetas del anuncio v4. Hay un solo modelo y una sola cámara, así que cualquier ángulo cuadra con el sitio. Sustituye al `archivo/_kit/` 2D para todo lo nuevo.
 
 | Carpeta | Qué hay | Catálogo |
 |---|---|---|
@@ -21,7 +21,7 @@ La base reutilizable de todas las historias desde el 08/10/2026. Es un mundo 3D 
 ## Lo que falta antes del primer vídeo de verdad (08/10, tras la prueba 3D/2D)
 - Movimiento de la trama: medido; con cámara suave los puntos resbalan. Dil eligió cámara a saltos (`camStep` 12, por defecto).
 - La cabeza resuelta no muestra la espiral encima en el vídeo de prueba (revisar `setEmotion(0, true)`).
-- Sonido: la prueba es muda; falta llevar la cama musical y los efectos del kit (`_kit/tools/audio`) al motor de vídeo.
+- Sonido: la prueba es muda; falta llevar la cama musical y los efectos del kit (`archivo/_kit/tools/audio`) al motor de vídeo.
 - Render: 17 s con 4 personas en ~6 min (bien).
 
 ## Pendiente tras la prueba 3D/2D (Dil, 08/10; para lo próximo, el vídeo no se toca)

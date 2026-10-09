@@ -17,7 +17,7 @@ REC = os.path.join(AQUI, 'recursos')
 SR = 48000
 FINAL_DUR = 6.6
 NIVEL_CAMA = 10 ** (2.5 / 20)   # la cama del kit (RMS medido en Nudos 1) +2.5 dB: una historia nueva tiene menos efectos que Nudos y la cama quedaba corta
-TIPOS = ['corte', 'lapiz', 'entra-hilo', 'burbuja', 'tarjeta', 'naranja', 'resolver', 'subida', 'golpe', 'tic']
+TIPOS = ['corte', 'lapiz', 'entra-hilo', 'burbuja', 'tarjeta', 'naranja', 'resolver', 'subida', 'golpe', 'tic', 'paso', 'desenredo', 'objeto', 'vida', 'ambiente']
 
 
 # ------------------------------------------------------------------ utilidades de señal (las del kit)
@@ -97,6 +97,7 @@ def A(carpeta, nombre):
 
 def casa(n): return A('sfx-casa', n)
 def kit(n): return A('sfx-kit', n)
+def foley(n): return A('sfx-foley', n)   # los de Nudos y Pared (pasos, cable, objetos): la regla de Dil del 10/10/2026, toda accion suena
 
 
 # ------------------------------------------------------------------ eventos.  Cada uno: f(ctx, ev, k) coloca sonido en ctx.bus
@@ -182,8 +183,73 @@ def ev_tic(c, ev, k):            # tic de reloj, alterna dos alturas
     c.bus.place(pitch(casa('tick'), [1.0, 0.9][c.n['tic'] % 2]), ev['t'], 0.5 * _g(ev), _p(ev))
 
 
+# ------------------------------------------------------------------ foley (10/10/2026): cada accion que se ve, suena. Niveles como en Nudos 1 (pasos 0.2-0.5).
+def ev_paso(c, ev, k):           # una pisada: t, g (el motor ya da mas a quien se sigue y menos a los de fondo), suelo 'escalera' = mas grave y con cuerpo
+    r = c.rng(k); x = foley(['step_soft_1', 'step_soft_2', 'step_soft_3'][c.n['paso'] % 3])
+    esc = ev.get('suelo') == 'escalera'; rate = (0.86 if esc else 1.0) * float(ev.get('peso', 1.0)) * (1 + 0.035 * r.uniform(-1, 1))
+    g = 0.34 * _g(ev) * (0.9 + 0.1 * (c.n['paso'] % 2))
+    c.bus.place(pitch(x, rate), ev['t'], g, _p(ev))
+    if esc: c.bus.place(lp(pitch(x, 0.7), 900), ev['t'] + 0.004, 0.5 * g, _p(ev))
+
+
+def ev_desenredo(c, ev, k):      # la cabeza se desenreda: el cable se estira, tirones que suben de tono, y se suelta (cable_wrap) al final
+    t, d = ev['t'], float(ev.get('dur', 1.0)); r = c.rng(k); g = _g(ev)
+    c.bus.place(foley('cable_stretch'), t, 0.28 * g, _p(ev))
+    n = max(2, int(round(d / 0.22)))
+    for i in range(n):
+        c.bus.place(pitch(foley(['cable_tug_1', 'cable_tug_2', 'cable_tug_3'][i % 3]), 0.9 + 0.25 * i / max(1, n - 1) + 0.02 * r.uniform(-1, 1)), t + 0.08 + i * d * 0.8 / n, 0.3 * g, _p(ev, 0.15 * (-1) ** i))
+    c.bus.place(foley('cable_wrap'), t + d * 0.85, 0.32 * g, _p(ev))
+
+
+OBJETOS = {'movil': [('v2_take_soft', 0.0, 0.5), ('button_click', 0.32, 0.22)], 'bolsa': [('bag_rustle', 0.0, 0.5)], 'llaves': [('keys_jingle_1', 0.0, 0.32)],
+           'papel': [('pared_paper_fold', 0.0, 0.45)], 'puerta-abre': [('doors_open', 0.0, 0.45)], 'puerta-cierra': [('doors_close', 0.0, 0.55)],
+           'sentarse': [('pared_sofa_creak', 0.0, 0.25)], 'tela': [('pared_towel', 0.0, 0.4)], 'dejar': [('v2_tray_down', 0.0, 0.4)], 'toque': [('tonk', 0.0, 0.35)]}
+
+
+def ev_objeto(c, ev, k):         # un objeto que se toca: que = movil, bolsa, llaves, papel, puerta-abre, puerta-cierra, sentarse, tela, dejar, toque
+    for nombre, dt, g in OBJETOS.get(ev.get('que', 'toque'), OBJETOS['toque']): c.bus.place(foley(nombre), ev['t'] + dt, g * _g(ev), _p(ev))
+
+
+def ev_vida(c, ev, k):           # lo que hace alguien en su casa mientras la camara lo mira: t0, t1, que (la pose del bucle), periodo, ref (inicio del bucle)
+    t0, t1, per, ref, g, q = ev['t0'], ev['t1'], float(ev.get('periodo', 1.0)), float(ev.get('ref', ev['t0'])), _g(ev), ev.get('que', '')
+    r = c.rng(k); pan = _p(ev)
+    def ciclos(fases):   # instantes del bucle (fases 0..1 de cada periodo) que caen en la ventana
+        n0 = int(np.floor((t0 - ref) / per)) - 1; out = []
+        for n in range(n0, n0 + int((t1 - t0) / per) + 3):
+            for f in fases:
+                tt = ref + (n + f) * per
+                if t0 <= tt < t1 - 0.05: out.append(tt)
+        return out
+    if q == 'type':
+        tt = t0 + 0.05
+        while tt < t1 - 0.3: c.bus.place(foley('type_burst_%d' % (1 + int(r.integers(3)))), tt, 0.55 * g, pan); tt += 0.62 + 0.25 * r.random()
+    elif q in ('knit', 'knit-sit'):
+        for i, tt in enumerate(ciclos([0.0, 0.5])): c.bus.place(pitch(foley('knit_click_%d' % (1 + i % 3)), 1 + 0.04 * r.uniform(-1, 1)), tt, 0.4 * g, pan)
+    elif q == 'drum':
+        for tt in ciclos([0.0]): c.bus.place(foley('drum_kick'), tt, 0.42 * g, pan)
+        for tt in ciclos([0.5]): c.bus.place(foley('drum_snare'), tt, 0.36 * g, pan)
+        for tt in ciclos([0.25, 0.75]): c.bus.place(foley('drum_hat'), tt, 0.26 * g, pan)
+    elif q == 'rock':
+        for i, tt in enumerate(ciclos([0.1])): c.bus.place(foley('shush_%d' % (1 + i % 2)), tt, 0.32 * g, pan)
+        if t1 - t0 > 1.4: c.bus.place(fade(foley('hum_lullaby')[: int((t1 - t0 - 0.2) * SR)], 0.05, 0.4), t0 + 0.15, 0.22 * g, pan)
+    elif q == 'water': c.bus.place(fade(loop_to(foley('water_pour'), t1 - t0), 0.15, 0.3), t0, 0.38 * g, pan)
+    elif q == 'paint':
+        for i, tt in enumerate(ciclos([0.0, 0.5])): c.bus.place(foley('brush_stroke_%d' % (1 + i % 2)), tt, 0.42 * g, pan)
+    elif q == 'knead':
+        for i, tt in enumerate(ciclos([0.0])): c.bus.place(foley('dough_knead_%d' % (1 + i % 2)), tt, 0.5 * g, pan)
+    elif q == 'read':
+        if t1 - t0 > 1.0: c.bus.place(foley('page_turn'), t0 + 0.5 * (t1 - t0), 0.4 * g, pan)
+
+
+def ev_ambiente(c, ev, k):       # el sonido del sitio, en bucle y muy al fondo: que = street_amb, birds, wind_soft, crickets, room_tone, washer_hum, bike_tick
+    t0, t1 = ev['t0'], ev['t1']; q = ev.get('que', 'room_tone'); L = t1 - t0
+    if L <= 0.05: return
+    x = foley(q); x = loop_to(x, L) if len(x) < L * SR else x[: int(L * SR)]
+    c.bus.place(fade(x, min(0.3, L / 3), min(0.4, L / 3)), t0, 0.1 * _g(ev), _p(ev))
+
+
 EVENTOS = {'corte': ev_corte, 'lapiz': ev_lapiz, 'entra-hilo': ev_entra_hilo, 'burbuja': ev_burbuja, 'tarjeta': ev_tarjeta,
-           'naranja': ev_naranja, 'resolver': ev_resolver, 'subida': ev_subida, 'golpe': ev_golpe, 'tic': ev_tic}
+           'naranja': ev_naranja, 'resolver': ev_resolver, 'subida': ev_subida, 'golpe': ev_golpe, 'tic': ev_tic, 'paso': ev_paso, 'desenredo': ev_desenredo, 'objeto': ev_objeto, 'vida': ev_vida, 'ambiente': ev_ambiente}
 assert sorted(EVENTOS) == sorted(TIPOS)
 
 
@@ -286,10 +352,11 @@ def cama(t_ini, t_fin, bpm, semilla=11, bucle=False):
 
 # ------------------------------------------------------------------ musica real (clip.json -> "musica"): pista de audio en lugar de la cama sintetizada
 DUCK = {'corte': (0.15, 0.55, 3.0), 'entra-hilo': (0.0, 0.5, 3.0), 'burbuja': (0.0, 0.3, 3.0), 'tarjeta': (0.05, 0.55, 3.5), 'naranja': (0.1, 1.3, 3.0),
-        'resolver': (0.3, 1.4, 3.0), 'golpe': (0.0, 0.35, 4.0), 'tic': (0.0, 0.12, 2.0)}   # tipo: (antes, despues, dB de bajada); lapiz y subida van aparte
+        'resolver': (0.3, 1.4, 3.0), 'golpe': (0.0, 0.35, 4.0), 'tic': (0.0, 0.12, 2.0),
+        'paso': (0.0, 0.12, 1.0), 'desenredo': (0.05, 1.1, 3.0), 'objeto': (0.0, 0.45, 2.5)}   # tipo: (antes, despues, dB de bajada); lapiz y subida van aparte
 DUCK_LAPIZ, DUCK_SUBIDA = 2.0, 2.0
 DUCK_ATAQUE, DUCK_SUELTA, DUCK_ADELANTO = 0.06, 0.12, 0.05   # constantes de tiempo (s) y cuanto se anticipa la bajada para que ya este abajo cuando suena el efecto
-MUSICA_LUFS = -17.0       # sonoridad de la musica sola dentro de la mezcla final (ya normalizada a -14); gain_db la mueve
+MUSICA_LUFS = -18.5       # sonoridad de la musica sola dentro de la mezcla final (ya normalizada a -14); gain_db la mueve
 FADE_IN, FADE_OUT = 0.15, 1.5
 _ULTIMO = {}              # datos de la ultima mezcla con musica (para pruebas): 'duck_db', 'fs_duck', 'info'
 
@@ -307,6 +374,7 @@ def curva_duck(golpes, dur, fs=1000):
     n = int(np.ceil((dur + 8.0) * fs)); tgt = np.zeros(n)
     for e in golpes:
         tp = e['tipo']
+        if tp in ('vida', 'ambiente'): continue   # la vida y el ambiente no apartan la musica
         if tp == 'lapiz': a, b, d = e['t0'], e['t1'], DUCK_LAPIZ
         elif tp == 'subida':
             t = e['t']; L = (e['hasta'] - t) if 'hasta' in e else (dur - t)
@@ -397,11 +465,11 @@ def leer(carpeta):
     for i, e in enumerate(j['golpes']):
         tipo = e.get('tipo')
         if tipo not in EVENTOS: sys.exit(f'ERROR: golpe {i}: tipo desconocido {tipo!r}. Tipos validos: {", ".join(TIPOS)}')
-        if tipo == 'lapiz':
-            if 't0' not in e or 't1' not in e: sys.exit(f'ERROR: golpe {i} (lapiz) necesita "t0" y "t1"')
-            if not e['t1'] > e['t0']: sys.exit(f'ERROR: golpe {i} (lapiz): t1 debe ser mayor que t0')
+        if tipo in ('lapiz', 'vida', 'ambiente'):
+            if 't0' not in e or 't1' not in e: sys.exit(f'ERROR: golpe {i} ({tipo}) necesita "t0" y "t1"')
+            if not e['t1'] > e['t0']: sys.exit(f'ERROR: golpe {i} ({tipo}): t1 debe ser mayor que t0')
         elif 't' not in e: sys.exit(f'ERROR: golpe {i} ({tipo}) necesita "t"')
-        tt = e['t0'] if tipo == 'lapiz' else e['t']
+        tt = e['t0'] if tipo in ('lapiz', 'vida', 'ambiente') else e['t']
         if tt < -0.2 or tt > dur + (FINAL_DUR if j['final'] else 0): sys.exit(f'ERROR: golpe {i} ({tipo}) en t={tt} esta fuera del clip (0 a {dur})')
     return j
 
@@ -507,12 +575,12 @@ def mezclar(carpeta, grafico=None):
         # musica real: el nivel se ajusta hasta que la musica SOLA, dentro de la mezcla ya normalizada a -14 LUFS, quede en MUSICA_LUFS + gain_db
         mus0, gd, minfo = preparar_musica(musica, carpeta, j, N)
         objetivo = MUSICA_LUFS + minfo['gain_db']; mg = 0.0; real = None; tp_techo = -1.5
-        for it in range(10):
+        for it in range(18):
             musd = mus0 * gd * 10 ** (mg / 20); mix, esc = construir(musd)
             sf.write(pre, mix.T, SR, subtype='PCM_24')
             G = normalizar(pre, tmp, total, out, pad=PADS, TP=tp_techo)
             pico = medir(out)[1]
-            if pico > -1.1 and it < 9: tp_techo -= (pico + 1.3); continue   # el limitador deja pasar picos entre muestras: bajar su techo y repetir
+            if pico > -1.1 and it < 17: tp_techo -= (pico + 1.3); continue   # el limitador deja pasar picos entre muestras: bajar su techo y repetir
             real = medir_musica(musd[:, :i0 if final else N] * esc, tmp) + G
             if abs(real - objetivo) < 0.4: break
             mg += objetivo - real
@@ -548,7 +616,7 @@ def dibujar(d, sr, marcas, dur, final, total, ruta, lufs, tp):
     import matplotlib; matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     mono = d.mean(axis=1); t = np.arange(len(mono)) / sr
-    col = {'corte': '#d05000', 'lapiz': '#1a3854', 'entra-hilo': '#2a7', 'burbuja': '#a3a', 'tarjeta': '#c80', 'naranja': '#f60', 'resolver': '#080', 'subida': '#c00', 'golpe': '#555', 'tic': '#888'}
+    col = {'corte': '#d05000', 'lapiz': '#1a3854', 'entra-hilo': '#2a7', 'burbuja': '#a3a', 'tarjeta': '#c80', 'naranja': '#f60', 'resolver': '#080', 'subida': '#c00', 'golpe': '#555', 'tic': '#888', 'paso': '#999', 'desenredo': '#0a6', 'objeto': '#a60', 'vida': '#69c', 'ambiente': '#ccc'}
     fig, ax = plt.subplots(2, 1, figsize=(16, 7), sharex=True, gridspec_kw={'height_ratios': [2, 1]})
     ax[0].plot(t, d[:, 0], lw=0.4, color='#1a3854'); ax[0].plot(t, d[:, 1], lw=0.4, color='#FFA462', alpha=0.7); ax[0].set_ylim(-1, 1)
     hop = int(0.01 * sr); rms = np.array([np.sqrt(np.mean(mono[i:i + 2 * hop] ** 2) + 1e-12) for i in range(0, len(mono) - 2 * hop, hop)])
