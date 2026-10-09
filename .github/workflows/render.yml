@@ -19,8 +19,9 @@ jobs:
     outputs: { tramos: '${{ steps.t.outputs.tramos }}' }
     steps:
       - uses: actions/checkout@v4
+      - run: pip install -q numpy pillow
       - id: t
-        run: echo "tramos=$(python3 _base/motor/video.py _base/videos/${{ inputs.clip }} tramos ${{ inputs.partes }} '${{ inputs.desde }}' '${{ inputs.hasta }}')" >> "$GITHUB_OUTPUT"
+        run: echo "tramos=$(python3 _base/motor/video.py _base/videos/${{ inputs.clip }} tramos ${{ inputs.partes }} '${{ inputs.desde }}' '${{ inputs.hasta }}')" >> "$GITHUB_OUTPUT"; grep -q desde "$GITHUB_OUTPUT"
 
   parte:
     needs: plan
