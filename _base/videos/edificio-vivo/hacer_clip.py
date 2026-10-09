@@ -58,25 +58,28 @@ add(12.4, 'dibujar-vivienda', viviendas=['pb-portero', 'sotano-bicis', 'sotano-l
 add(13.2, 'pose', quien='portero', pose='wave', hold={'R': 'keys'}, dur=0.4)
 add(14.6, 'vida', quien='panadera', pose='knead', periodo=1.0)
 
-# the tour: one level every 3.5 s, the camera sweeps the floor (left to right, then right to left above), the pen draws the next level
-LEVELS = [(-1, 'BASEMENT', []), (0, 'GROUND FLOOR', ['p1-abuela', 'p1-abuelo']), (1, 'FLOOR 1', ['p2-pareja', 'p2-estudiante']),
-          (2, 'FLOOR 2', ['p3-nina', 'p3-chico', 'p3-vecina']), (3, 'FLOOR 3', ['p4-teletrabajo', 'p4-bebe']), (4, 'FLOOR 4', ['p5-viajera', 'p5-plantera']),
-          (5, 'FLOOR 5', ['atico-artista', 'atico-secadero']), (6, 'ATTIC', []), (6.6, 'ROOF', [])]
-T0, DT, pts = 15.4, 3.5, []
+# the tour, bottom to top: one short shot INSIDE each home (its resident doing their thing); the pen draws the home as we
+# arrive. A chip names the level when it changes. The worried neighbour (vecina) gets the longest shot: the day's story starts there.
+TOUR = [('sotano-bicis', 1.5, 'BASEMENT', None), ('sotano-lavanderia', 1.5, None, None),
+        ('p1-abuela', 2.0, 'FLOOR 1', None), ('p1-abuelo', 1.9, None, None),
+        ('p2-pareja', 2.3, 'FLOOR 2', ('pareja-b', 'surprised', 'So many boxes!')), ('p2-estudiante', 1.8, None, None),
+        ('p3-nina', 2.1, 'FLOOR 3', ('nina', 'happy', 'Hi!')), ('p3-chico', 1.8, None, None), ('p3-vecina', 3.6, None, ('vecina', 'worried', None)),
+        ('p4-teletrabajo', 1.8, 'FLOOR 4', None), ('p4-bebe', 1.8, None, None),
+        ('p5-viajera', 1.8, 'FLOOR 5', None), ('p5-plantera', 1.8, None, None),
+        ('atico-artista', 1.9, 'ATTIC', None), ('atico-secadero', 1.4, None, None), ('azotea', 1.9, 'ROOF', None)]
+T0 = 15.4
 add(13.9, 'pose', quien='portero', pose='stand', hold={'R': 'keys'}, dur=0.3)
-for k, (lv, name, nxt) in enumerate(LEVELS):
-    tl, d = T0 + k * DT, 1 if k % 2 == 0 else -1
-    cy = Y(lv) + 1.3 if -1 < lv < 6.5 else (Y(6) + 1.6 if lv > 6.5 else Y(-1) + 3.2)
-    # dwell on one home, swing to the other, dwell (the homes sit at about x = +-6)
-    pts += [{'t': round(tl - T0, 3), **facade_cam(-5.6 * d, cy)}, {'t': round(tl - T0 + 1.25, 3), **facade_cam(-5.3 * d, cy)},
-            {'t': round(tl - T0 + 2.05, 3), **facade_cam(5.3 * d, cy)}, {'t': round(tl - T0 + 3.1, 3), **facade_cam(5.6 * d, cy)}]
-    if nxt: add(tl - 0.25, 'dibujar-vivienda', viviendas=nxt, dur=1.0)
-    add(tl + 0.95, 'chip', texto=name)
-add(T0, 'recorrido', puntos=pts, cerca=3.05)
-add(T0 + 4 * DT + 1.5, 'pose', quien='nina', pose='wave', dur=0.4)
-add(T0 + 4 * DT + 1.6, 'burbuja', quien='nina', cara='happy', texto='Hi!', dur=1.2)
-add(T0 + 3 * DT + 1.6, 'burbuja', quien='pareja-b', cara='surprised', texto='So many boxes!', dur=1.5)
-T_END = T0 + len(LEVELS) * DT          # 46.9
+t = T0
+for home, d, chip, bub in TOUR:
+    cam = {'nombre': home + '-tresCuartos'} if home != 'azotea' else {'nombre': 'azotea'}
+    add(t, 'camara', dur=d, deriva=4, **cam)
+    if home != 'azotea': add(t, 'dibujar-vivienda', viviendas=[home], dur=0.75)
+    if chip: add(t + 0.8, 'chip', texto=chip)
+    if bub: add(t + 0.9, 'burbuja', quien=bub[0], cara=bub[1], dur=min(1.6, d - 1.0), **({'texto': bub[2]} if bub[2] else {}))
+    if home == 'p3-nina': add(t + 0.8, 'pose', quien='nina', pose='wave', dur=0.4)
+    if home == 'p3-vecina': add(t + 0.2, 'pose', quien='vecina', pose='hands-on-head', dur=0.5)
+    t += d
+T_END = round(t, 3)
 # noon: the worried neighbour goes out
 add(T_END, 'colocar', quien='vecina', pos=[3.4, 0, 2.1], giro=90, pose='stand', hold={})
 add(T_END, 'camara', pos=[2.0, 1.9, 9.5], look=[7.0, 1.2, 2.2], fov=48, dur=3.8, deriva=4)
@@ -149,7 +152,7 @@ for who, x, z, g in ROOF:
 add(TR, 'vida', quien='chico', pose='drum', periodo=0.6, hold={'R': 'sticks', 'L': 'sticks'})
 add(TR, 'camara', pos=[0.0, 22.6, 8.5], look=[0.0, 19.9, -1.0], fov=50, dur=3.0, deriva=3)
 add(TR + 0.2, 'chip', texto='ROOF')
-add(TR + 0.9, 'burbuja', quien='pareja-b', cara='happy', texto='Welcome!', dur=1.4)
+add(TR + 0.9, 'burbuja', quien='vecina', cara='happy', texto='Welcome, new neighbours!', dur=1.8)
 add(TR + 3.0, 'camara', pos=[-1.4, 20.9, 4.6], look=[-1.2, 19.7, -0.9], fov=46, dur=3.4, deriva=-4)
 add(TR + 3.3, 'burbuja', quien='abuela', cara='happy', dur=1.2)
 add(TR + 4.6, 'burbuja', quien='estudiante', cara='happy', dur=1.2)

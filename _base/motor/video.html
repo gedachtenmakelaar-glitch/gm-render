@@ -73,7 +73,7 @@ window.gmQC = async (from = 0, to = DUR - 0.01, step = 0.25) => {   // automatic
   const seen = new Map(); r.forEach((x) => { const k = x.aviso; if (!seen.has(k)) seen.set(k, [x.t, x.t]); else seen.get(k)[1] = x.t; });
   return [...seen].map(([a, [t0, t1]]) => `${t0.toFixed(2)}-${t1.toFixed(2)} s  ${a}`);
 };
-window.gmVer = async (t) => { CLIP.frame(Math.min(Math.max(0, t), DUR - 1e-4), ctx); await new Promise((r) => { requestAnimationFrame(() => requestAnimationFrame(r)); setTimeout(r, 60); }); return t; };   // instant preview hook (waits for the paint)
+window.gmVer = async (t) => { CLIP.frame(Math.min(Math.max(0, t), DUR - 1e-4), ctx); await new Promise((r) => setTimeout(r, 80)); return t; };   // (no requestAnimationFrame in this page: it forces HyperFrames into slow screenshot capture)   // instant preview hook (waits for the paint)
 </script>
 </body>
 </html>

@@ -19,6 +19,8 @@ jobs:
     outputs: { tramos: '${{ steps.t.outputs.tramos }}' }
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
       - run: pip install -q numpy pillow
       - id: t
         run: echo "tramos=$(python3 _base/motor/video.py _base/videos/${{ inputs.clip }} tramos ${{ inputs.partes }} '${{ inputs.desde }}' '${{ inputs.hasta }}')" >> "$GITHUB_OUTPUT"; grep -q desde "$GITHUB_OUTPUT"
@@ -39,7 +41,10 @@ jobs:
       - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
       - run: npm ci --no-audit --no-fund
       - run: pip install -q numpy pillow
-      - run: npx hyperframes browser ensure
+      - name: chrome-headless-shell (BeginFrame capture, much faster than screenshots)
+        run: |
+          npx --yes @puppeteer/browsers install chrome-headless-shell@stable --path "$HOME/.cache/puppeteer" > /dev/null
+          echo "PRODUCER_HEADLESS_SHELL_PATH=$(find "$HOME/.cache/puppeteer" -name chrome-headless-shell -type f | head -1)" >> "$GITHUB_ENV"
       - name: render part
         env: { GM_WORKERS: '3' }
         run: |

@@ -419,641 +419,316 @@
      "dur": 0.3
     },
     {
-     "t": 16.35,
+     "t": 15.4,
+     "jugada": "camara",
+     "dur": 1.5,
+     "deriva": 4,
+     "nombre": "sotano-bicis-tresCuartos"
+    },
+    {
+     "t": 15.4,
+     "jugada": "dibujar-vivienda",
+     "viviendas": [
+      "sotano-bicis"
+     ],
+     "dur": 0.75
+    },
+    {
+     "t": 16.2,
      "jugada": "chip",
      "texto": "BASEMENT"
     },
     {
-     "t": 18.65,
+     "t": 16.9,
+     "jugada": "camara",
+     "dur": 1.5,
+     "deriva": 4,
+     "nombre": "sotano-lavanderia-tresCuartos"
+    },
+    {
+     "t": 16.9,
      "jugada": "dibujar-vivienda",
      "viviendas": [
-      "p1-abuela",
-      "p1-abuelo"
+      "sotano-lavanderia"
      ],
-     "dur": 1.0
+     "dur": 0.75
     },
     {
-     "t": 19.85,
-     "jugada": "chip",
-     "texto": "GROUND FLOOR"
+     "t": 18.4,
+     "jugada": "camara",
+     "dur": 2.0,
+     "deriva": 4,
+     "nombre": "p1-abuela-tresCuartos"
     },
     {
-     "t": 22.15,
+     "t": 18.4,
      "jugada": "dibujar-vivienda",
      "viviendas": [
-      "p2-pareja",
-      "p2-estudiante"
+      "p1-abuela"
      ],
-     "dur": 1.0
+     "dur": 0.75
     },
     {
-     "t": 23.35,
+     "t": 19.2,
      "jugada": "chip",
      "texto": "FLOOR 1"
     },
     {
-     "t": 25.65,
-     "jugada": "dibujar-vivienda",
-     "viviendas": [
-      "p3-nina",
-      "p3-chico",
-      "p3-vecina"
-     ],
-     "dur": 1.0
+     "t": 20.4,
+     "jugada": "camara",
+     "dur": 1.9,
+     "deriva": 4,
+     "nombre": "p1-abuelo-tresCuartos"
     },
     {
-     "t": 26.85,
+     "t": 20.4,
+     "jugada": "dibujar-vivienda",
+     "viviendas": [
+      "p1-abuelo"
+     ],
+     "dur": 0.75
+    },
+    {
+     "t": 22.3,
+     "jugada": "camara",
+     "dur": 2.3,
+     "deriva": 4,
+     "nombre": "p2-pareja-tresCuartos"
+    },
+    {
+     "t": 22.3,
+     "jugada": "dibujar-vivienda",
+     "viviendas": [
+      "p2-pareja"
+     ],
+     "dur": 0.75
+    },
+    {
+     "t": 23.1,
      "jugada": "chip",
      "texto": "FLOOR 2"
     },
     {
-     "t": 29.15,
-     "jugada": "dibujar-vivienda",
-     "viviendas": [
-      "p4-teletrabajo",
-      "p4-bebe"
-     ],
-     "dur": 1.0
+     "t": 23.2,
+     "jugada": "burbuja",
+     "quien": "pareja-b",
+     "cara": "surprised",
+     "dur": 1.2999999999999998,
+     "texto": "So many boxes!"
     },
     {
-     "t": 30.35,
+     "t": 24.6,
+     "jugada": "camara",
+     "dur": 1.8,
+     "deriva": 4,
+     "nombre": "p2-estudiante-tresCuartos"
+    },
+    {
+     "t": 24.6,
+     "jugada": "dibujar-vivienda",
+     "viviendas": [
+      "p2-estudiante"
+     ],
+     "dur": 0.75
+    },
+    {
+     "t": 26.4,
+     "jugada": "camara",
+     "dur": 2.1,
+     "deriva": 4,
+     "nombre": "p3-nina-tresCuartos"
+    },
+    {
+     "t": 26.4,
+     "jugada": "dibujar-vivienda",
+     "viviendas": [
+      "p3-nina"
+     ],
+     "dur": 0.75
+    },
+    {
+     "t": 27.2,
      "jugada": "chip",
      "texto": "FLOOR 3"
     },
     {
-     "t": 32.65,
-     "jugada": "dibujar-vivienda",
-     "viviendas": [
-      "p5-viajera",
-      "p5-plantera"
-     ],
-     "dur": 1.0
+     "t": 27.3,
+     "jugada": "burbuja",
+     "quien": "nina",
+     "cara": "happy",
+     "dur": 1.1,
+     "texto": "Hi!"
     },
     {
-     "t": 33.85,
-     "jugada": "chip",
-     "texto": "FLOOR 4"
-    },
-    {
-     "t": 36.15,
-     "jugada": "dibujar-vivienda",
-     "viviendas": [
-      "atico-artista",
-      "atico-secadero"
-     ],
-     "dur": 1.0
-    },
-    {
-     "t": 37.35,
-     "jugada": "chip",
-     "texto": "FLOOR 5"
-    },
-    {
-     "t": 40.85,
-     "jugada": "chip",
-     "texto": "ATTIC"
-    },
-    {
-     "t": 44.35,
-     "jugada": "chip",
-     "texto": "ROOF"
-    },
-    {
-     "t": 15.4,
-     "jugada": "recorrido",
-     "puntos": [
-      {
-       "t": 0.0,
-       "pos": [
-        -5.6,
-        0.35,
-        30.0
-       ],
-       "look": [
-        -5.6,
-        0.35,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 1.25,
-       "pos": [
-        -5.3,
-        0.35,
-        30.0
-       ],
-       "look": [
-        -5.3,
-        0.35,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 2.05,
-       "pos": [
-        5.3,
-        0.35,
-        30.0
-       ],
-       "look": [
-        5.3,
-        0.35,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 3.1,
-       "pos": [
-        5.6,
-        0.35,
-        30.0
-       ],
-       "look": [
-        5.6,
-        0.35,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 3.5,
-       "pos": [
-        5.6,
-        1.55,
-        30.0
-       ],
-       "look": [
-        5.6,
-        1.55,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 4.75,
-       "pos": [
-        5.3,
-        1.55,
-        30.0
-       ],
-       "look": [
-        5.3,
-        1.55,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 5.55,
-       "pos": [
-        -5.3,
-        1.55,
-        30.0
-       ],
-       "look": [
-        -5.3,
-        1.55,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 6.6,
-       "pos": [
-        -5.6,
-        1.55,
-        30.0
-       ],
-       "look": [
-        -5.6,
-        1.55,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 7.0,
-       "pos": [
-        -5.6,
-        4.65,
-        30.0
-       ],
-       "look": [
-        -5.6,
-        4.65,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 8.25,
-       "pos": [
-        -5.3,
-        4.65,
-        30.0
-       ],
-       "look": [
-        -5.3,
-        4.65,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 9.05,
-       "pos": [
-        5.3,
-        4.65,
-        30.0
-       ],
-       "look": [
-        5.3,
-        4.65,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 10.1,
-       "pos": [
-        5.6,
-        4.65,
-        30.0
-       ],
-       "look": [
-        5.6,
-        4.65,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 10.5,
-       "pos": [
-        5.6,
-        7.75,
-        30.0
-       ],
-       "look": [
-        5.6,
-        7.75,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 11.75,
-       "pos": [
-        5.3,
-        7.75,
-        30.0
-       ],
-       "look": [
-        5.3,
-        7.75,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 12.55,
-       "pos": [
-        -5.3,
-        7.75,
-        30.0
-       ],
-       "look": [
-        -5.3,
-        7.75,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 13.6,
-       "pos": [
-        -5.6,
-        7.75,
-        30.0
-       ],
-       "look": [
-        -5.6,
-        7.75,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 14.0,
-       "pos": [
-        -5.6,
-        10.85,
-        30.0
-       ],
-       "look": [
-        -5.6,
-        10.85,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 15.25,
-       "pos": [
-        -5.3,
-        10.85,
-        30.0
-       ],
-       "look": [
-        -5.3,
-        10.85,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 16.05,
-       "pos": [
-        5.3,
-        10.85,
-        30.0
-       ],
-       "look": [
-        5.3,
-        10.85,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 17.1,
-       "pos": [
-        5.6,
-        10.85,
-        30.0
-       ],
-       "look": [
-        5.6,
-        10.85,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 17.5,
-       "pos": [
-        5.6,
-        13.95,
-        30.0
-       ],
-       "look": [
-        5.6,
-        13.95,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 18.75,
-       "pos": [
-        5.3,
-        13.95,
-        30.0
-       ],
-       "look": [
-        5.3,
-        13.95,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 19.55,
-       "pos": [
-        -5.3,
-        13.95,
-        30.0
-       ],
-       "look": [
-        -5.3,
-        13.95,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 20.6,
-       "pos": [
-        -5.6,
-        13.95,
-        30.0
-       ],
-       "look": [
-        -5.6,
-        13.95,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 21.0,
-       "pos": [
-        -5.6,
-        17.05,
-        30.0
-       ],
-       "look": [
-        -5.6,
-        17.05,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 22.25,
-       "pos": [
-        -5.3,
-        17.05,
-        30.0
-       ],
-       "look": [
-        -5.3,
-        17.05,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 23.05,
-       "pos": [
-        5.3,
-        17.05,
-        30.0
-       ],
-       "look": [
-        5.3,
-        17.05,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 24.1,
-       "pos": [
-        5.6,
-        17.05,
-        30.0
-       ],
-       "look": [
-        5.6,
-        17.05,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 24.5,
-       "pos": [
-        5.6,
-        20.15,
-        30.0
-       ],
-       "look": [
-        5.6,
-        20.15,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 25.75,
-       "pos": [
-        5.3,
-        20.15,
-        30.0
-       ],
-       "look": [
-        5.3,
-        20.15,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 26.55,
-       "pos": [
-        -5.3,
-        20.15,
-        30.0
-       ],
-       "look": [
-        -5.3,
-        20.15,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 27.6,
-       "pos": [
-        -5.6,
-        20.15,
-        30.0
-       ],
-       "look": [
-        -5.6,
-        20.15,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 28.0,
-       "pos": [
-        -5.6,
-        20.45,
-        30.0
-       ],
-       "look": [
-        -5.6,
-        20.45,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 29.25,
-       "pos": [
-        -5.3,
-        20.45,
-        30.0
-       ],
-       "look": [
-        -5.3,
-        20.45,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 30.05,
-       "pos": [
-        5.3,
-        20.45,
-        30.0
-       ],
-       "look": [
-        5.3,
-        20.45,
-        -3.0
-       ],
-       "fov": 22.286
-      },
-      {
-       "t": 31.1,
-       "pos": [
-        5.6,
-        20.45,
-        30.0
-       ],
-       "look": [
-        5.6,
-        20.45,
-        -3.0
-       ],
-       "fov": 22.286
-      }
-     ],
-     "cerca": 3.05
-    },
-    {
-     "t": 30.9,
+     "t": 27.2,
      "jugada": "pose",
      "quien": "nina",
      "pose": "wave",
      "dur": 0.4
     },
     {
-     "t": 31.0,
-     "jugada": "burbuja",
-     "quien": "nina",
-     "cara": "happy",
-     "texto": "Hi!",
-     "dur": 1.2
+     "t": 28.5,
+     "jugada": "camara",
+     "dur": 1.8,
+     "deriva": 4,
+     "nombre": "p3-chico-tresCuartos"
     },
     {
-     "t": 27.5,
-     "jugada": "burbuja",
-     "quien": "pareja-b",
-     "cara": "surprised",
-     "texto": "So many boxes!",
-     "dur": 1.5
+     "t": 28.5,
+     "jugada": "dibujar-vivienda",
+     "viviendas": [
+      "p3-chico"
+     ],
+     "dur": 0.75
     },
     {
-     "t": 46.9,
+     "t": 30.3,
+     "jugada": "camara",
+     "dur": 3.6,
+     "deriva": 4,
+     "nombre": "p3-vecina-tresCuartos"
+    },
+    {
+     "t": 30.3,
+     "jugada": "dibujar-vivienda",
+     "viviendas": [
+      "p3-vecina"
+     ],
+     "dur": 0.75
+    },
+    {
+     "t": 31.2,
+     "jugada": "burbuja",
+     "quien": "vecina",
+     "cara": "worried",
+     "dur": 1.6
+    },
+    {
+     "t": 30.5,
+     "jugada": "pose",
+     "quien": "vecina",
+     "pose": "hands-on-head",
+     "dur": 0.5
+    },
+    {
+     "t": 33.9,
+     "jugada": "camara",
+     "dur": 1.8,
+     "deriva": 4,
+     "nombre": "p4-teletrabajo-tresCuartos"
+    },
+    {
+     "t": 33.9,
+     "jugada": "dibujar-vivienda",
+     "viviendas": [
+      "p4-teletrabajo"
+     ],
+     "dur": 0.75
+    },
+    {
+     "t": 34.7,
+     "jugada": "chip",
+     "texto": "FLOOR 4"
+    },
+    {
+     "t": 35.7,
+     "jugada": "camara",
+     "dur": 1.8,
+     "deriva": 4,
+     "nombre": "p4-bebe-tresCuartos"
+    },
+    {
+     "t": 35.7,
+     "jugada": "dibujar-vivienda",
+     "viviendas": [
+      "p4-bebe"
+     ],
+     "dur": 0.75
+    },
+    {
+     "t": 37.5,
+     "jugada": "camara",
+     "dur": 1.8,
+     "deriva": 4,
+     "nombre": "p5-viajera-tresCuartos"
+    },
+    {
+     "t": 37.5,
+     "jugada": "dibujar-vivienda",
+     "viviendas": [
+      "p5-viajera"
+     ],
+     "dur": 0.75
+    },
+    {
+     "t": 38.3,
+     "jugada": "chip",
+     "texto": "FLOOR 5"
+    },
+    {
+     "t": 39.3,
+     "jugada": "camara",
+     "dur": 1.8,
+     "deriva": 4,
+     "nombre": "p5-plantera-tresCuartos"
+    },
+    {
+     "t": 39.3,
+     "jugada": "dibujar-vivienda",
+     "viviendas": [
+      "p5-plantera"
+     ],
+     "dur": 0.75
+    },
+    {
+     "t": 41.1,
+     "jugada": "camara",
+     "dur": 1.9,
+     "deriva": 4,
+     "nombre": "atico-artista-tresCuartos"
+    },
+    {
+     "t": 41.1,
+     "jugada": "dibujar-vivienda",
+     "viviendas": [
+      "atico-artista"
+     ],
+     "dur": 0.75
+    },
+    {
+     "t": 41.9,
+     "jugada": "chip",
+     "texto": "ATTIC"
+    },
+    {
+     "t": 43.0,
+     "jugada": "camara",
+     "dur": 1.4,
+     "deriva": 4,
+     "nombre": "atico-secadero-tresCuartos"
+    },
+    {
+     "t": 43.0,
+     "jugada": "dibujar-vivienda",
+     "viviendas": [
+      "atico-secadero"
+     ],
+     "dur": 0.75
+    },
+    {
+     "t": 44.4,
+     "jugada": "camara",
+     "dur": 1.9,
+     "deriva": 4,
+     "nombre": "azotea"
+    },
+    {
+     "t": 45.2,
+     "jugada": "chip",
+     "texto": "ROOF"
+    },
+    {
+     "t": 46.3,
      "jugada": "colocar",
      "quien": "vecina",
      "pos": [
@@ -1066,7 +741,7 @@
      "hold": {}
     },
     {
-     "t": 46.9,
+     "t": 46.3,
      "jugada": "camara",
      "pos": [
       2.0,
@@ -1083,7 +758,7 @@
      "deriva": 4
     },
     {
-     "t": 47.2,
+     "t": 46.6,
      "jugada": "caminar",
      "quien": "vecina",
      "de": [
@@ -1099,12 +774,12 @@
      "dur": 3.6
     },
     {
-     "t": 47.1,
+     "t": 46.5,
      "jugada": "chip",
      "texto": "NOON"
     },
     {
-     "t": 47.9,
+     "t": 47.3,
      "jugada": "burbuja",
      "quien": "vecina",
      "cara": "worried",
@@ -1900,10 +1575,10 @@
     {
      "t": 89.5,
      "jugada": "burbuja",
-     "quien": "pareja-b",
+     "quien": "vecina",
      "cara": "happy",
-     "texto": "Welcome!",
-     "dur": 1.4
+     "texto": "Welcome, new neighbours!",
+     "dur": 1.8
     },
     {
      "t": 91.6,
