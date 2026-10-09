@@ -2,15 +2,11 @@
 
 Lee <carpeta>/golpes.json (lista corta de eventos) y escribe <carpeta>/render/mezcla.wav:
 48 kHz, estereo, 16 bit, duracion EXACTA (duracion + 6.6 si "final"), loudnorm de dos pasadas a -14 LUFS, pico real <= -1 dBTP.
-Con "musica" en clip.json (ver LEEME.md) la cama sintetizada se sustituye por una pista real (archivo de audio) con ducking bajo los efectos.
 Determinista: misma entrada, mismos bytes.  Identidad: la de Nudos 1 / v4.1 (mismos SFX de la casa, misma cama a 110 BPM en Do mayor,
 mismo final de logo, que se reutiliza tal cual desde recursos/final-6.6s.wav).  Ver LEEME.md para la tabla de eventos."""
 import json, os, re, subprocess, sys, tempfile
 import numpy as np, soundfile as sf
 from scipy import signal
-
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import pulso
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 REC = os.path.join(AQUI, 'recursos')
@@ -284,93 +280,6 @@ def cama(t_ini, t_fin, bpm, semilla=11, bucle=False):
     return (Lc + 0.35 * reverb(Lc)) * gate, (Rc + 0.35 * reverb(Rc)) * gate
 
 
-# ------------------------------------------------------------------ musica real (clip.json -> "musica"): pista de audio en lugar de la cama sintetizada
-DUCK = {'corte': (0.15, 0.55, 3.0), 'entra-hilo': (0.0, 0.5, 3.0), 'burbuja': (0.0, 0.3, 3.0), 'tarjeta': (0.05, 0.55, 3.5), 'naranja': (0.1, 1.3, 3.0),
-        'resolver': (0.3, 1.4, 3.0), 'golpe': (0.0, 0.35, 4.0), 'tic': (0.0, 0.12, 2.0)}   # tipo: (antes, despues, dB de bajada); lapiz y subida van aparte
-DUCK_LAPIZ, DUCK_SUBIDA = 2.0, 2.0
-DUCK_ATAQUE, DUCK_SUELTA, DUCK_ADELANTO = 0.06, 0.12, 0.05   # constantes de tiempo (s) y cuanto se anticipa la bajada para que ya este abajo cuando suena el efecto
-MUSICA_LUFS = -17.0       # sonoridad de la musica sola dentro de la mezcla final (ya normalizada a -14); gain_db la mueve
-FADE_IN, FADE_OUT = 0.15, 1.5
-_ULTIMO = {}              # datos de la ultima mezcla con musica (para pruebas): 'duck_db', 'fs_duck', 'info'
-
-
-def _archivo_musica(a, carpeta):
-    if os.path.isabs(a) and os.path.isfile(a): return a
-    for base in (os.path.dirname(AQUI), carpeta, AQUI, os.getcwd()):   # relativo a _base/ (donde vive sonido/), al clip, a sonido/ o a donde se ejecuta
-        p = os.path.join(base, a)
-        if os.path.isfile(p): return p
-    sys.exit(f'ERROR: musica: no existe el archivo {a!r} (probado en _base/, en la carpeta del clip y en sonido/)')
-
-
-def curva_duck(golpes, dur, fs=1000):
-    """Bajada de la musica (dB, <= 0) cada 1/fs s bajo los efectos: maximo (no suma) de las bajadas activas, suavizada con ataque/suelta."""
-    n = int(np.ceil((dur + 8.0) * fs)); tgt = np.zeros(n)
-    for e in golpes:
-        tp = e['tipo']
-        if tp == 'lapiz': a, b, d = e['t0'], e['t1'], DUCK_LAPIZ
-        elif tp == 'subida':
-            t = e['t']; L = (e['hasta'] - t) if 'hasta' in e else (dur - t)
-            a, b, d = t, t + float(np.clip(L, 0.3, 4.0)), DUCK_SUBIDA
-        else:
-            pre, post, d = DUCK[tp]; a, b = e['t'] - pre, e['t'] + post
-        a = int(max(0, (a - DUCK_ADELANTO)) * fs); b = int(max(0, b) * fs) + 1
-        tgt[a:b] = np.minimum(tgt[a:b], -d)
-    ka, kr = np.exp(-1 / (DUCK_ATAQUE * fs)), np.exp(-1 / (DUCK_SUELTA * fs)); out = np.zeros(n); cur = 0.0
-    for i in range(n):
-        c = ka if tgt[i] < cur else kr; cur = c * cur + (1 - c) * tgt[i]; out[i] = cur
-    return out, fs
-
-
-def preparar_musica(m, carpeta, j, N):
-    """Devuelve (mus0 (2,N) con fundidos y a un nivel de partida, duck lineal por muestra (N,), info)."""
-    dur = float(j['duracion']); ruta = _archivo_musica(m['archivo'], carpeta)
-    cortes = [e['t'] for e in j['golpes'] if e['tipo'] == 'corte']
-    bpm, prim = m.get('bpm'), m.get('primer_pulso')
-    if bpm is not None and prim is not None:
-        pr = subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', ruta], capture_output=True, text=True)
-        info = {'bpm': float(bpm), 'primer_pulso': float(prim), 'fase_pulso': float(prim) % (60.0 / float(bpm)), 'duracion': float(pr.stdout.strip() or 1e9), 'origen': 'dado en clip.json'}
-    else:
-        info = dict(pulso.analizar(ruta, bpm=float(bpm) if bpm is not None else None)); info['origen'] = 'estimado por pulso.py'
-        if prim is not None: info['primer_pulso'] = float(prim); info['fase_pulso'] = float(prim) % (60.0 / info['bpm']); info['origen'] += ' (primer_pulso dado)'
-    per = 60.0 / info['bpm']; desde = float(m.get('desde', 0.0)); aviso = ''
-    if m.get('alinear') and cortes:
-        d2, err = pulso.mejor_desde(info, cortes, dur, cerca=desde)
-        aviso = f'  alinear: desde {desde:.3f} -> {d2:.3f} (error medio de {len(cortes)} cortes al pulso {err:.0f} ms)'; desde = d2
-    # decodificar desde `desde` hasta el final de la historia a 48 kHz estereo
-    nst = int(round(dur * SR))
-    p = subprocess.run(['ffmpeg', '-v', 'error', '-ss', f'{desde:.4f}', '-t', f'{dur + 0.05:.4f}', '-i', ruta, '-ar', str(SR), '-ac', '2', '-f', 'f32le', '-'], capture_output=True)
-    if p.returncode != 0 or not p.stdout: sys.exit(f'ERROR: musica: ffmpeg no pudo leer {ruta}: {p.stderr.decode(errors="ignore")[:200]}')
-    x = np.frombuffer(p.stdout, dtype='<f4').astype(np.float64).reshape(-1, 2).T
-    corta = ''
-    if x.shape[1] < nst:
-        corta = f'  AVISO: la pista se acaba a los {x.shape[1] / SR:.1f} s de la historia (faltan {dur - x.shape[1] / SR:.1f} s): se rellena con silencio'
-        x = np.pad(x, ((0, 0), (0, nst - x.shape[1])))
-    x = x[:, :nst].copy()
-    # fundidos: entrada 0.15 s; salida musical de 1.5 s que termina EN un pulso (el ultimo pulso de la pista que cae en la historia)
-    k0 = np.ceil((desde - info['primer_pulso']) / per - 1e-9)
-    tb = info['primer_pulso'] + (k0 + np.arange(int(dur / per) + 3)) * per - desde   # pulsos en tiempo de video
-    tb = tb[(tb > 0) & (tb <= dur + 1e-6)]
-    te = float(tb[-1]) if len(tb) else dur
-    if te - FADE_OUT < 0.5: te = dur
-    g = np.ones(nst); a = int(FADE_IN * SR); g[:a] = np.sin(np.linspace(0, np.pi / 2, a)) ** 2
-    ie = min(int(round(te * SR)), nst); ib = max(0, ie - int(FADE_OUT * SR))
-    g[ib:ie] = 0.5 * (1 + np.cos(np.pi * np.linspace(0, 1, ie - ib, endpoint=False))); g[ie:] = 0.0
-    x *= g
-    ref = json.load(open(os.path.join(REC, 'final-ref.json')))
-    x *= NIVEL_CAMA * ref['rms_cama_historia'] / np.sqrt(np.mean(x[:, : max(ie, 1)] ** 2))   # nivel de partida (el de la cama); el nivel final lo ajusta mezclar()
-    mus0 = np.zeros((2, N)); mus0[:, :min(nst, N)] = x[:, :min(nst, N)]
-    dk, fs = curva_duck(j['golpes'], dur)
-    gd = 10 ** (np.interp(np.arange(N) / SR * fs, np.arange(len(dk)), dk) / 20)
-    info.update(desde=desde, fin_musica=te, ruta=ruta, gain_db=float(m.get('gain_db', 0.0)), duck_min_db=float(dk.min()),
-                duck_pct=float(np.mean(dk[: int(dur * fs)] < -0.5) * 100), aviso=aviso + corta)
-    _ULTIMO.update(duck_db=dk, fs_duck=fs, info=info)
-    return mus0, gd, info
-
-
-def medir_musica(mus, tmp):
-    r = os.path.join(tmp, 'mus.wav'); sf.write(r, mus.T, SR, subtype='PCM_24'); return _lufs_pico(r)[0]
-
-
 # ------------------------------------------------------------------ mezcla
 class Ctx: pass
 
@@ -381,16 +290,7 @@ def leer(carpeta):
     try: j = json.load(open(ruta, encoding='utf-8'))
     except Exception as e: sys.exit(f'ERROR: golpes.json no es JSON valido ({e})')
     if 'duracion' not in j: sys.exit('ERROR: falta "duracion" en golpes.json')
-    cj = os.path.join(carpeta, 'clip.json'); mus = None
-    if os.path.isfile(cj):
-        try: mus = json.load(open(cj, encoding='utf-8')).get('musica')
-        except Exception as e: sys.exit(f'ERROR: clip.json no es JSON valido ({e})')
-    if mus is None: mus = j.get('musica')
-    if isinstance(mus, str): mus = {'archivo': mus}
-    if mus is not None and (not isinstance(mus, dict) or not mus.get('archivo')): sys.exit('ERROR: "musica" necesita al menos {"archivo": "..."}')
-    j['musica'] = mus or None
     j.setdefault('bucle', False)
-    if j['musica'] and j['bucle']: sys.exit('ERROR: "musica" no se puede usar con "bucle": true (la pista real no empalma sola)')
     if j['bucle']: j['final'] = False
     j.setdefault('final', True); j.setdefault('bpm', 110); j.setdefault('musica_desde', 0.0); j.setdefault('golpes', [])
     dur = float(j['duracion'])
@@ -449,7 +349,7 @@ def mezclar(carpeta, grafico=None):
     j = leer(carpeta)
     dur = float(j['duracion']); final = bool(j['final']); total = dur + (FINAL_DUR if final else 0.0)
     N = int(round(total * SR)); i0 = int(round(dur * SR)); n_hist = i0 if final else N
-    bucle = bool(j['bucle']); musica = j['musica']
+    bucle = bool(j['bucle'])
     if bucle and abs(dur * float(j['bpm']) / 60 / 16 - round(dur * float(j['bpm']) / 60 / 16)) > 1e-6: print('AVISO: en bucle, duracion x bpm no es multiplo de 4 compases (16 pulsos): la armonia no empalmara')
     PRE, EXT = 1.0, 4.0   # bucle: colchon de efectos antes de 0 y cola despues del final (se doblan)
     ctx = Ctx(); ctx.bus = Bus(N + (int((PRE + EXT) * SR) if bucle else 0), PRE if bucle else 0.0); ctx.final = final; ctx.dur = dur
@@ -467,8 +367,7 @@ def mezclar(carpeta, grafico=None):
     # cama: nivel fijo del kit, con ducking de 3 dB bajo los efectos (seguidor 40 ms ataque / 200 ms suelta)
     ref = json.load(open(os.path.join(REC, 'final-ref.json')))
     t_ini = j.get('musica_desde'); mus = np.zeros((2, N))
-    if musica: pass   # musica real: se prepara mas abajo (preparar_musica), sin cama sintetizada ni su ducking
-    elif bucle:   # la cama suena desde t=0 en regimen: se renderiza con 4 compases de arranque que se descartan (4 compases = una vuelta completa de C-Am-F-G,
+    if bucle:   # la cama suena desde t=0 en regimen: se renderiza con 4 compases de arranque que se descartan (4 compases = una vuelta completa de C-Am-F-G,
         # asi lo que suena al empezar ES la cola del ultimo compas, sin doblar nada) y sin compas dulce, sin fade ni puerta final
         bpm = float(j['bpm']); pre_s = 16 * 60.0 / bpm; Lm, Rm = cama(0.0, pre_s + dur, bpm, bucle=True)
         a0 = int(round(pre_s * SR)); m = np.stack([Lm, Rm])[:, a0:a0 + N]; a = 0
@@ -478,7 +377,7 @@ def mezclar(carpeta, grafico=None):
         m = np.stack([Lm, Rm]); a = int(max(0.0, t_ini) * SR)
         m *= NIVEL_CAMA * ref['rms_cama_historia'] / np.sqrt(np.mean(m[:, a:] ** 2))
         mus[:, :m.shape[1]] = m
-    if mus.any() and not musica:   # ducking
+    if mus.any():   # ducking
         M = 24; env = np.abs(bus).max(axis=0)[: (N // M) * M].reshape(-1, M).max(axis=1)
         if bucle: env = np.concatenate([env, env])   # circular: el seguidor llega al principio con el estado del final
         fs_env = SR / M; att = np.exp(-1 / (0.04 * fs_env)); rel_ = np.exp(-1 / (0.2 * fs_env))
@@ -488,57 +387,26 @@ def mezclar(carpeta, grafico=None):
             c = att if tg < cur else rel_; cur = c * cur + (1 - c) * tg; g[i] = cur
         if bucle: g = g[len(g) // 2:]
         mus *= np.interp(np.arange(N), (np.arange(len(g)) + 0.5) * M, g)
-    fin = None
-    if final:
-        fin, fsr = sf.read(os.path.join(REC, 'final-6.6s.wav'), dtype='float64'); assert fsr == SR
+    mix = bus + mus
 
-    def construir(mus):
-        mix = bus + mus
-        if final:   # el final aprobado, tal cual (sus efectos y su musica ya vienen dentro), alineado en t = duracion
-            mix[:, i0:] = fin.T[:, : N - i0] + 0.0
-        if not bucle: endf = int(0.25 * SR); mix[:, -endf:] *= np.linspace(1, 0, endf) ** 1.5; mix[:, :48] *= np.linspace(0, 1, 48)   # bucle: sin fade in ni fade out
-        esc = 0.7 / np.abs(mix).max(); mix *= esc
-        return mix, esc
+    if final:   # el final aprobado, tal cual (sus efectos y su musica ya vienen dentro), alineado en t = duracion
+        fin, fsr = sf.read(os.path.join(REC, 'final-6.6s.wav'), dtype='float64'); assert fsr == SR
+        mix[:, i0:] = fin.T[:, : N - i0] + 0.0
+    if not bucle: endf = int(0.25 * SR); mix[:, -endf:] *= np.linspace(1, 0, endf) ** 1.5; mix[:, :48] *= np.linspace(0, 1, 48)   # bucle: sin fade in ni fade out
+    mix *= 0.7 / np.abs(mix).max()
 
     tmp = tempfile.mkdtemp(prefix='gm_mezcla_'); pre = os.path.join(tmp, 'pre.wav')
     PADS = int(0.5 * SR) if bucle else 0   # bucle: colchon circular (final antes, principio despues) para que el limitador empalme
+    sf.write(pre, (np.concatenate([mix[:, -PADS:], mix, mix[:, :PADS]], axis=1) if bucle else mix).T, SR, subtype='PCM_24')
     out = os.path.join(carpeta, 'render', 'mezcla.wav'); os.makedirs(os.path.join(carpeta, 'render'), exist_ok=True)
-    if musica:
-        # musica real: el nivel se ajusta hasta que la musica SOLA, dentro de la mezcla ya normalizada a -14 LUFS, quede en MUSICA_LUFS + gain_db
-        mus0, gd, minfo = preparar_musica(musica, carpeta, j, N)
-        objetivo = MUSICA_LUFS + minfo['gain_db']; mg = 0.0; real = None; tp_techo = -1.5
-        for it in range(6):
-            musd = mus0 * gd * 10 ** (mg / 20); mix, esc = construir(musd)
-            sf.write(pre, mix.T, SR, subtype='PCM_24')
-            G = normalizar(pre, tmp, total, out, pad=PADS, TP=tp_techo)
-            pico = medir(out)[1]
-            if pico > -1.0 and it < 5: tp_techo -= (pico + 1.2); continue   # el limitador deja pasar picos entre muestras: bajar su techo y repetir
-            real = medir_musica(musd[:, :i0 if final else N] * esc, tmp) + G
-            if abs(real - objetivo) < 0.4: break
-            mg += objetivo - real
-        minfo.update(musica_lufs=real, objetivo=objetivo, ajuste_db=mg, iteraciones=it + 1)
-    else:
-        mix, esc = construir(mus)
-        sf.write(pre, (np.concatenate([mix[:, -PADS:], mix, mix[:, :PADS]], axis=1) if bucle else mix).T, SR, subtype='PCM_24')
-        G = normalizar(pre, tmp, total, out, pad=PADS)
+    G = normalizar(pre, tmp, total, out, pad=PADS)
     d, sr = sf.read(out)
     if len(d) != N: d = np.pad(d, ((0, max(0, N - len(d))), (0, 0)))[:N]; sf.write(out, d, SR, subtype='PCM_16')
     lufs, tp = medir(out)
     print(f'{out}\n  muestras {len(d)} (esperadas {N})  duracion {len(d) / sr:.3f} s (esperada {total:.3f})  {lufs:.1f} LUFS integrado  pico real {tp:.2f} dBTP  (ganancia aplicada {G:+.2f} dB)')
-    if musica:
-        linea = (f'  musica: {os.path.basename(minfo["ruta"])}  desde {minfo["desde"]:.3f} s  BPM {minfo["bpm"]:.2f} ({minfo["origen"]})  primer pulso {minfo["primer_pulso"]:.3f} s{minfo["aviso"]}\n'
-                 f'  musica: fundido de salida de {FADE_OUT:.1f} s que termina en el pulso t = {minfo["fin_musica"]:.3f} s (el final entra en {dur:.3f} s); ducking hasta {minfo["duck_min_db"]:.1f} dB, '
-                 f'{minfo["duck_pct"]:.0f} % del tiempo con bajada; musica sola {minfo["musica_lufs"]:.1f} LUFS (objetivo {minfo["objetivo"]:.1f}, {minfo["iteraciones"]} pasadas)')
-        print(linea)
-        try:
-            with open(os.path.join(carpeta, 'render', 'render.log'), 'a', encoding='utf-8') as lf: lf.write('[mezcla]' + linea.strip().replace('\n', '\n[mezcla]') + '\n')
-        except OSError: pass
     if grafico: dibujar(d, sr, marcas, dur, final, total, grafico, lufs, tp)
     try:
-        if not os.environ.get("GM_KEEP_PRE"):
-            os.remove(pre)
-            if os.path.isfile(os.path.join(tmp, "mus.wav")): os.remove(os.path.join(tmp, "mus.wav"))
-            os.rmdir(tmp)
+        if not os.environ.get("GM_KEEP_PRE"): os.remove(pre); os.rmdir(tmp)
         else: print("pre:", pre)
     except OSError: pass
     return out

@@ -130,7 +130,7 @@ climb(R2, T3, D3, T3 + D3 - 0.2, CUTS)
 # ---------------- 41 to 46: the roof door. "Neighbours only." They open their collection: he sees they know everyone
 T4 = T3 + D3
 add(T4, 'camara', pos=[2.4, 22.4, 7.0], look=[2.4, 19.6, -1.0], fov=34, dur=5.0, deriva=3)
-add(T4 + 0.1, 'burbuja', quien='portero', cara='neutral', texto='Neighbours only.', dur=1.8)
+add(T4 + 0.1, 'burbuja', quien='portero', cara='curious', texto='Who lives here?', dur=1.8)
 add(T4 + 1.9, 'abanico', centro='portero', dur=2.0)
 add(T4 + 1.9, 'pose', quien='pareja-b', pose='point', mira=[3.4, 20.3, -1.3], dur=0.4)
 add(T4 + 2.6, 'resolver', quien='portero', dur=0.8)

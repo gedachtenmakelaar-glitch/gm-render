@@ -1,0 +1,28 @@
+{
+ "C:/ruta-local\\claude code\\Web-App_PreProject_DEi\\videos\\_base\\sonido\\musica\\_prueba-112.wav|31752044|1791546967|None": {
+  "bpm": 112.0,
+  "primer_pulso": 0.19,
+  "pulsos_por_compas": 4,
+  "duracion": 180.0,
+  "fase_pulso": 0.19,
+  "grave_por_posicion": [
+   2.22,
+   0.53,
+   1.48,
+   0.586
+  ]
+ },
+ "C:/ruta-local\\claude code\\Web-App_PreProject_DEi\\videos\\_base\\sonido\\musica\\_prueba-112.wav|31752044|1791546967|112.0": {
+  "bpm": 112.0,
+  "primer_pulso": 0.19,
+  "pulsos_por_compas": 4,
+  "duracion": 180.0,
+  "fase_pulso": 0.19,
+  "grave_por_posicion": [
+   2.22,
+   0.53,
+   1.479,
+   0.586
+  ]
+ }
+}

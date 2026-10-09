@@ -18,7 +18,7 @@ const THREE = G.THREE;
 await Promise.all(["800 48px 'GM Jakarta'", "500 20px 'GM Mono'", "700 20px 'GM Mono'"].map((f) => document.fonts.load(f)));
 const r = new THREE.WebGLRenderer({ canvas: document.getElementById('cv'), antialias: true, preserveDrawingBuffer: true });
 r.setPixelRatio(1); r.setSize(__W__, __H__, false); r.outputColorSpace = THREE.SRGBColorSpace; r.localClippingEnabled = true; r.setClearColor(0xF9F8F5, 1);
-const cam = new THREE.PerspectiveCamera(30, __W__ / __H__, 0.1, 50); cam.position.set(0, 0, 3.5); cam.lookAt(0, 0, 0);
+const cam = new THREE.PerspectiveCamera(12, __W__ / __H__, 0.1, 50); cam.position.set(0, 0, 8.4); cam.lookAt(0, 0, 0);
 const mk = (fn, o, x) => { const c = fn(o); c.group.position.x = x; return c; };
 const A = mk(tarjeta, { logo: true, navy: false, w: 0.7 }, -0.5), B = mk(tarjeta, { logo: true, w: 0.7 }, 0.5);
 const N = mk(tarjeta, { label: 'coach', num: '01', title: 'Coach', sub: 'from €1.05/min', icon: 'chat', w: 0.7 }, 0);

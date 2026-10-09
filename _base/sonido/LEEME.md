@@ -11,6 +11,18 @@ Campos de cabecera: `duracion` (historia SIN el final), `final` (true añade el 
 `"bucle": true` en `golpes.json` (`video.py` lo pasa desde `clip.json`; fuerza `final: false`). La cama suena desde t = 0 en régimen (se renderiza con 4 compases de arranque que se descartan, así lo que suena al empezar es la cola del último compás), sin compás dulce, sin fade in ni fade out. Los efectos se dejan sonar sobre un colchón de 1 s antes de 0 y 4 s después del final, y esa cola se dobla: lo que pasa del final se suma al principio, lo anterior a 0 al final; el seguidor del ducking y el limitador también son circulares. Largo exacto = `duracion`; pide que `duracion x bpm / 60` sea múltiplo de 16 pulsos (60 s a 112 BPM = 28 compases) o avisa. Una mezcla de 60 s tarda unos 4 min.
 `qc.py` con `"bucle": true` y `ending` false comprueba PSNR primer/último fotograma >= 45 dB y que el sonido empalma (RMS de los últimos y primeros 50 ms a < 3 dB, sin salto de muestra grande).
 
+## Música real en lugar de la cama (`musica` en `clip.json`)
+Sin la clave, todo es como antes (misma cama sintetizada, mismos bytes). Con ella, la cama se sustituye por una pista de audio (mp3/wav/ogg) y `golpes.json` solo aporta los efectos. No se combina con `bucle`.
+```json
+"musica": {"archivo": "sonido/musica/detour.mp3", "desde": 12.0, "gain_db": 0, "bpm": null, "primer_pulso": null, "alinear": false}
+```
+- `archivo`: ruta absoluta, o relativa a `_base/` (se prueba también en la carpeta del clip y en `sonido/`). `desde`: segundo de la pista donde empieza la historia (0 por defecto). `gain_db`: sube o baja la música (0 = música sola a -17 LUFS dentro de la mezcla final). `bpm` y `primer_pulso` (segundo de la pista del primer 1 del compás): si van a `null`, los estima `pulso.py` (con caché en `musica/_pulso-cache.json`) y se anotan en `render/render.log`. `alinear: true` mueve `desde` (el valor dado es el punto de partida) a la fase del pulso que acerca más los `corte` al pulso.
+- Se corta a `duracion` (la historia), entrada de 0,15 s y salida de 1,5 s en coseno que termina EN el último pulso antes del final (hasta un pulso, ~0,5 s, de silencio antes del logo); luego entra el final de 6,6 s como siempre.
+- Ducking: bajo cada efecto la música baja 2 dB (lápiz, subida), 3 dB (corte, burbuja, entra-hilo, naranja, resolver, tic) o 3,5 a 4 dB (tarjeta, golpe); ataque 60 ms, suelta 120 ms, anticipado 50 ms. Tabla `DUCK` en `mezcla.py`.
+- Nivel: la música sola queda en -17 LUFS (+ `gain_db`) tras normalizar la mezcla a -14 LUFS / pico real <= -1 dBTP; se ajusta en 2 a 6 pasadas (una mezcla de 60 s tarda ~30 s). La línea de resultado de siempre se imprime y se añade una de música (también al `render.log`).
+- `python sonido/pulso.py <audio> [--clip <carpeta> | --cortes 6.5,41.1 --dur 54] [--cerca 12]`: BPM, primer pulso y el mejor `desde`. El primer 1 del compás se decide por la energía grave: puede equivocarse de pulso en música sin bombo claro (pon `primer_pulso` a mano).
+- Prueba: `python sonido/musica/_generar-prueba.py` crea `_prueba-112.wav` (3 min, 112 BPM, primer pulso en 0,20 s, 31 MB, se puede borrar). `sonido/_prueba-clip/` es un clip de prueba (copia de terraza con la clave).
+
 ## Eventos
 | tipo | campos | qué suena | de dónde sale |
 |---|---|---|---|

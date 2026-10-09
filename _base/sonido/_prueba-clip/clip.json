@@ -1332,8 +1332,8 @@
    "t": 31.2,
    "jugada": "burbuja",
    "quien": "portero",
-   "cara": "curious",
-   "texto": "Who lives here?",
+   "cara": "neutral",
+   "texto": "Neighbours only.",
    "dur": 1.8
   },
   {
@@ -1814,5 +1814,9 @@
    "jugada": "subir-al-logo",
    "quien": "pareja-b"
   }
- ]
+ ],
+ "musica": {
+  "archivo": "sonido/musica/_prueba-112.wav",
+  "desde": 3.0
+ }
 }

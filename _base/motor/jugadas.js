@@ -565,13 +565,14 @@ function mk(tag, at, parent) { const e = document.createElementNS(NS, tag); for 
 function dooInit() {
   S.doo = S.pulsos.filter((p) => p.jugada === 'garabato').map((p, i) => {
     const ic = GARABATOS[p.icono]; if (!ic) throw new Error('no hay garabato ' + p.icono);
+    const link = mk('path', { fill: 'none', stroke: H2.ORANGE, 'stroke-width': 5, 'stroke-linecap': 'round', 'stroke-dasharray': '2 12', style: 'display:none' }, S.dooG);   // whose it is: a dotted orange thread from their head
     const g = mk('g', { style: 'display:none' }, S.dooG);
     const halo = mk('path', { fill: 'none', stroke: '#F9F8F5', 'stroke-width': 15, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'vector-effect': 'non-scaling-stroke' }, g);
     const acc = mk('path', { fill: H2.ORANGE, stroke: 'none' }, g);
     const line = mk('path', { fill: 'none', stroke: H2.NAVY, 'stroke-width': 7.5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'vector-effect': 'non-scaling-stroke' }, g);
     const lens = ic.strokes.map((q) => H2.length(q)), total = lens.reduce((a, b) => a + b, 0);
     if (ic.acento) acc.setAttribute('d', H2.d(ic.acento) + 'Z');
-    return { p, i, ic, g, halo, acc, line, lens, total, dd: p.dur || 1.0 };
+    return { p, i, ic, g, halo, acc, line, link, lens, total, dd: p.dur || 1.0 };
   });
   S.abanico = S.pulsos.find((p) => p.jugada === 'abanico'); S.repartir = S.pulsos.find((p) => p.jugada === 'repartir');
 }
@@ -606,8 +607,12 @@ function dooFrame(t, cam) {
   const col0 = colCentre(cam), col = col0 || [S.W * 0.5, 430], n = S.doo.filter((q) => t >= q.p.t + q.dd + 0.2).length, A = S.abanico, R = S.repartir;
   for (const it of S.doo) {
     const t0 = it.p.t, fly = t0 + it.dd + 0.2; let c, sc, k = 1, op = 1;
+    it.link.style.display = 'none';
     if (t < t0 + 0.14) { it.g.style.display = 'none'; continue; }
-    if (t < fly) { c = dooDrawAt(it, t, cam); sc = DOO_DRAW; k = dooK(it, t); }
+    if (t < fly) {
+      c = dooDrawAt(it, t, cam); sc = DOO_DRAW; k = dooK(it, t);
+      const h = onScreen(it.p.quien, cam); if (h) { const e = seg(t, t0 + 0.14, 0.3); it.link.style.display = ''; it.link.setAttribute('d', H2.d([h, [lerp(h[0], c[0], e), lerp(h[1] - 30, c[1], e)]])); }
+    }
     else {
       const from = dooDrawAt(it, fly, cam), slot = slotOf(it.i, Math.max(n, it.i + 1), col, t), u = ease3(seg(t, fly, 0.55));
       if (!col0 && u >= 1 && !(A && t >= A.t) && !(R && t >= R.t)) { it.g.style.display = 'none'; continue; }   // collected, couple off screen: hidden

@@ -25,6 +25,8 @@ import { makeRetro } from './retro.js';
 const { THREE } = G;
 const NAVY = '#1a3854';
 const W0 = 364, H0 = 608, R0 = 30, S = 3;          // the ad card in px, texture at 3x
+const HL = 304;                                      // the LOGO card is half as tall (364 x 304 face)
+const DEP_LOGO = 0.11;                              // the LOGO card: a medium edge (clearly 3D, not chunky)
 const DEP_K = 0.16, NSL = 24;                      // depth = 12.6 % of the width (v4.1: 46 px on 364), in 24 slices
 const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
 const seg = (t, s, d) => clamp((t - s) / d, 0, 1);
@@ -35,7 +37,7 @@ const sprOut = (u) => (u <= 0 ? 0 : u >= 1 ? 1 : 1 - Math.exp(-8 * u) * Math.cos
 const loadImg = (name) => new Promise((res) => { const im = new Image(); const to = setTimeout(() => res(null), 8000); im.onload = () => { clearTimeout(to); res(im); }; im.onerror = () => { clearTimeout(to); res(null); }; im.src = new URL('./recursos/' + name, import.meta.url).href; });
 const LOGO = { orange: await loadImg('gm-logo-oficial-orange.png'), navy: await loadImg('gm-logo-oficial-navy.png') };   // the OFFICIAL lockup (GM. LOGO PNG), cropped to its box + 6 px
 const LOGO_LAY = { w: 328 };   // card px: the lockup is 861 x 286, so it is 109 px high; as wide as the face allows (18 px side margins)
-const logoBox = () => { const h = LOGO_LAY.w * 286 / 861; return { y: (H0 - h) / 2, h }; };
+const logoBox = () => { const h = LOGO_LAY.w * 286 / 861; return { y: (HL - h) / 2, h }; };
 const sprIn = (u) => (u <= 0 ? 0 : u >= 1 ? 1 : 1 - Math.exp(-6 * u) * Math.cos(8 * u));   // the house spring for the logo (soft overshoot ~ 3 %)
 function rrect(c, x, y, w, h, r) { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
 
@@ -66,18 +68,19 @@ function layout(o) {
 
 // the face. Letters enter one by one: rise 18 px, from a 7 px blur, 0 -> 1 opacity, small stagger (like the brand's kinetic text).
 function drawFace(c, o, M, w) {
-  c.setTransform(S, 0, 0, S, 0, 0); c.clearRect(0, 0, W0, H0); c.filter = 'none'; c.globalAlpha = 1;
-  rrect(c, 0, 0, W0, H0, R0); c.save(); c.clip();
+  const HC = o.logo ? HL : H0;
+  c.setTransform(S, 0, 0, S, 0, 0); c.clearRect(0, 0, W0, HC); c.filter = 'none'; c.globalAlpha = 1;
+  rrect(c, 0, 0, W0, HC, R0); c.save(); c.clip();
   const g = c.createLinearGradient(0, 0, W0, 0);
   if (o.logo) { const f = o.navy !== false ? NAVY : '#F9F8F5'; g.addColorStop(0, f); g.addColorStop(1, f); } else { g.addColorStop(0, '#ffffff'); g.addColorStop(0.6, '#ffffff'); g.addColorStop(1, '#f1f2f6'); }
-  c.fillStyle = g; c.fillRect(0, 0, W0, H0);
+  c.fillStyle = g; c.fillRect(0, 0, W0, HC);
   if (o.logo) {   // the logo face: icon then wordmark, each rising 16 px from a 10 px blur with a spring scale
     const B = logoBox();
     const put = (im, cx, y, ww, hh, k) => { const u = sprIn(k); if (!im || k <= 0) return; const e = eo3(k);
       c.save(); c.globalAlpha = Math.min(1, e * 1.4); c.filter = e < 0.999 ? `blur(${((1 - e) * 10 * S).toFixed(2)}px)` : 'none';
       const sc = 0.86 + 0.14 * u; c.translate(cx, y + hh / 2 + (1 - e) * 16); c.scale(sc, sc); c.drawImage(im, -ww / 2, -hh / 2, ww, hh); c.restore(); };
     put(o.navy !== false ? LOGO.orange : LOGO.navy, W0 / 2, B.y, LOGO_LAY.w, B.h, seg(w, 0, 1));
-    c.restore(); c.strokeStyle = NAVY; c.lineWidth = 5; rrect(c, 2.5, 2.5, W0 - 5, H0 - 5, R0 - 2); c.stroke(); return;
+    c.restore(); c.strokeStyle = NAVY; c.lineWidth = 5; rrect(c, 2.5, 2.5, W0 - 5, HC - 5, R0 - 2); c.stroke(); return;
   }
   const kk = (n) => seg(w, STEPS[n][0], STEPS[n][1] - STEPS[n][0]);
   c.textBaseline = 'alphabetic';
@@ -97,7 +100,7 @@ function drawFace(c, o, M, w) {
   kin(M.title, LAY.x, LAY.titleBase, NAVY, kk('title'));
   kin(M.sub, LAY.x, LAY.subBase, '#4a5866', kk('sub'));
   c.restore();
-  c.strokeStyle = NAVY; c.lineWidth = 5; rrect(c, 2.5, 2.5, W0 - 5, H0 - 5, R0 - 2); c.stroke();
+  c.strokeStyle = NAVY; c.lineWidth = 5; rrect(c, 2.5, 2.5, W0 - 5, HC - 5, R0 - 2); c.stroke();
 }
 // the 3D icon (dithered like the world, on white): a small scene with its own retro pass, rendered into a texture
 function icon3D(kind) {
@@ -169,7 +172,8 @@ void main(){
 }`;
 
 export function tarjeta(o = {}) {
-  const w = o.w ?? 0.6, h = w * H0 / W0, r = w * R0 / W0, dep = w * DEP_K, pxm = w / W0;   // pxm: metres per card px
+  const HC = o.logo ? HL : H0;
+  const w = o.w ?? 0.6, h = w * HC / W0, r = w * R0 / W0, dep = w * (o.logo ? DEP_LOGO : DEP_K), pxm = w / W0;   // pxm: metres per card px
   const group = new THREE.Group(); group.name = 'tarjeta:' + (o.logo ? 'logo' : (o.label || ''));
   const pivot = new THREE.Group(); pivot.name = 'tarjeta-pivot'; group.add(pivot);   // sway / bob / elevation live here, never on `group`
   const x0 = -w / 2, y0 = -h / 2;
@@ -181,11 +185,13 @@ export function tarjeta(o = {}) {
   const sliceGeo = new THREE.ShapeGeometry(mkShape(0), 10), slices = [];
   const beige = new THREE.Color('#F4EFE6'), navy = new THREE.Color(NAVY);
   for (let i = 0; i < NSL; i++) {
-    const a = 0.2 + 0.6 * i / (NSL - 1), col = beige.clone().lerp(navy, a); if (i === NSL - 1) col.copy(navy);
+    const a = 0.2 + 0.6 * i / (NSL - 1); let col = beige.clone().lerp(navy, a); if (i === NSL - 1) col.copy(navy);
+    if (o.logo) { const t = i / (NSL - 1), dark = o.navy !== false;   // logo card: a navy-tinted edge that reads the same on both faces (lighter navy on the navy one so it does not vanish)
+      col = new THREE.Color(dark ? '#7f9ab4' : '#9db0c2').lerp(new THREE.Color(dark ? '#2d4f6e' : '#1a3854'), t); }
     const m = new THREE.Mesh(sliceGeo, new THREE.MeshBasicMaterial({ color: col, clippingPlanes: clips, side: THREE.DoubleSide })); m.renderOrder = 1;
     pivot.add(m); slices.push(m);
   }
-  const cv = document.createElement('canvas'); cv.width = W0 * S; cv.height = H0 * S; const fx = cv.getContext('2d');
+  const cv = document.createElement('canvas'); cv.width = W0 * S; cv.height = HC * S; const fx = cv.getContext('2d');
   const faceTex = new THREE.CanvasTexture(cv); faceTex.colorSpace = THREE.SRGBColorSpace; faceTex.anisotropy = 8;
   const M = layout(o); let wNow = -1; drawFace(fx, o, M, 0);
   const faceMat = new THREE.MeshBasicMaterial({ map: faceTex, transparent: true, clippingPlanes: clips, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 });
@@ -193,7 +199,7 @@ export function tarjeta(o = {}) {
   const ic = o.logo ? { tex: null, render() {} } : icon3D(o.icon), icS = w * LAY.iconSize / W0;
   // the icon plane: no depth write (it used to z-fight with the face when the card shrank), drawn right after the face
   const icon = new THREE.Mesh(new THREE.PlaneGeometry(icS, icS), new THREE.MeshBasicMaterial({ map: ic.tex, transparent: true, depthWrite: false, clippingPlanes: clips, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }));
-  icon.position.set(0, (0.5 - LAY.iconCy / H0) * h, 0.0004); icon.renderOrder = 3; pivot.add(icon);
+  icon.position.set(0, (0.5 - LAY.iconCy / HC) * h, 0.0004); icon.renderOrder = 3; pivot.add(icon);
   const snU = { uHalf: { value: new THREE.Vector2(w / 2, h / 2) }, uR: { value: r }, uWh: { value: 0.12 }, uNv: { value: 0.04 }, uAng: { value: 1.75 } };
   const sheenMat = new THREE.ShaderMaterial({ uniforms: snU, vertexShader: SN_VERT, fragmentShader: SN_FRAG, transparent: true, depthWrite: false, clipping: true, clippingPlanes: clips, extensions: {} });
   sheenMat.clipping = true;
@@ -213,7 +219,7 @@ export function tarjeta(o = {}) {
     shU.uOp.value = shOp * (0.46 - 0.1 * Math.min(1.3, hg));
   };
   const toG = (v) => { pivot.updateMatrix(); return v.applyMatrix4(pivot.matrix); };   // pivot space -> group space (the pen works in group space)
-  const V3 = (px, py, z = 0.002) => new THREE.Vector3((px / W0 - 0.5) * w, (0.5 - py / H0) * h, z);
+  const V3 = (px, py, z = 0.002) => new THREE.Vector3((px / W0 - 0.5) * w, (0.5 - py / HC) * h, z);
   const outline = () => {   // clockwise from the top-left of the face
     const z = 0.002, p = [[-w / 2, h / 2 - r], [-w / 2 + r * 0.3, h / 2 - r * 0.3], [-w / 2 + r, h / 2], [w / 2 - r, h / 2], [w / 2 - r * 0.3, h / 2 - r * 0.3], [w / 2, h / 2 - r],
       [w / 2, -h / 2 + r], [w / 2 - r * 0.3, -h / 2 + r * 0.3], [w / 2 - r, -h / 2], [-w / 2 + r, -h / 2], [-w / 2 + r * 0.3, -h / 2 + r * 0.3], [-w / 2, -h / 2 + r], [-w / 2, h / 2 - r]];
@@ -223,7 +229,7 @@ export function tarjeta(o = {}) {
     : [[LAY.x, LAY.ulY], [LAY.x + M.title.w * 0.5, LAY.ulY], [LAY.x + M.title.w, LAY.ulY]]).map(([a, b]) => toG(V3(a, b, 0.003)));   // [x,y,z] group space
   // (compat) a point travelling over the interior; the pen no longer writes it
   const penAt = (wq) => {
-    if (o.logo) return toG(V3(W0 / 2, H0 / 2));
+    if (o.logo) return toG(V3(W0 / 2, HC / 2));
     const st = (n) => seg(wq, STEPS[n][0], STEPS[n][1] - STEPS[n][0]);
     if (wq < STEPS.icon[0]) return toG(V3(LAY.x + M.label.w * st('label'), LAY.labelBase - 10));
     if (wq < STEPS.title[0]) { const a = -2.36 + st('icon') * Math.PI * 2; return toG(V3(182 + 112 * Math.cos(a), LAY.iconCy + 112 * Math.sin(a))); }
